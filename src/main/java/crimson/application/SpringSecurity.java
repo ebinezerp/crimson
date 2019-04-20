@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import crimson.application.model.User;
+
 @Configuration
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
@@ -38,6 +40,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean("myuser")
+	public User getUser() {
+		
+		System.out.println("Password Encoder:..."+passwordEncoder.encode("P@ssw0rd#123"));
+		
+		return new User();
 	}
 
 }

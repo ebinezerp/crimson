@@ -15,13 +15,11 @@ import crimson.application.service.EmailService;
 @Controller
 public class HomeController {
 	
-	@Autowired
-	private EmailService emailService;
+
 	
 	@GetMapping("/")
 	public String indexPage(Model model,HttpServletRequest request) {
 		model.addAttribute("user", new User());
-		emailService.send("to","http://"+request.getServerName()+":"+request.getServerPort());
 		return "index";
 	}
 	
