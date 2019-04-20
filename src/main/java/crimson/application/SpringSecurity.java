@@ -19,12 +19,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder)
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder())
 				.usersByUsernameQuery("select email,password,is_Active from User where email=?")
 				.authoritiesByUsernameQuery("select email,role from User where email=?");
 	}
@@ -40,14 +39,6 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean("myuser")
-	public User getUser() {
-		
-		System.out.println("Password Encoder:..."+passwordEncoder.encode("P@ssw0rd#123"));
-		
-		return new User();
 	}
 
 }
