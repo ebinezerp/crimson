@@ -24,8 +24,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder())
-				.usersByUsernameQuery("select email,password,is_Active from User where email=?")
-				.authoritiesByUsernameQuery("select email,role from User where email=?");
+				.usersByUsernameQuery("select email,password,is_Active from user where email=?")
+				.authoritiesByUsernameQuery("select email,role from user where email=?");
 	}
 
 	@Override
