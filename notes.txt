@@ -1,0 +1,9 @@
+1. User Registration 
+2. Email On successful Registration
+3. Secure Login(Authentication and Authorization)
+4. Forget Password -> Reset Password mail -> New Password
+5. Ower login (First login with forget password)
+5. Admin Registration with mail
+6. Admin Validations
+7. Username, Email, Mobile existence validation with error message display
+8. Display All admins, edit and disable Options

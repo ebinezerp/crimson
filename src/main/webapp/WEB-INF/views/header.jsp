@@ -4,10 +4,6 @@
 <!--header-->
 <header class="border">
 	<%@include file="menu.jsp"%>
-
 	<%@include file="signupmodal.jsp"%>
 	<%@include file="loginmodal.jsp"%>
-
-
-
 </header>

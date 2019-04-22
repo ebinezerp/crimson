@@ -56,7 +56,7 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="container-fluid">
-		<!-- 	<div class="alert alert-warning alert-dismissible fade show"
+			<!-- 	<div class="alert alert-warning alert-dismissible fade show"
 				role="alert">
 				<strong></strong> You should check in on some of
 				those fields below.
@@ -351,8 +351,9 @@
 			</div>
 
 		</div>
+	</div>
 
-		<!--footer-->
+	<!--footer-->
 		<%@include file="footer.jsp"%>
 		
 		<script type="text/javascript">

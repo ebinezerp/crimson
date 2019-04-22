@@ -19,7 +19,6 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
-	
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -30,10 +29,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/user/**").hasRole("USER").antMatchers("/admin/**")
-				.hasRole("ADMIN").antMatchers("/**").permitAll().and().formLogin().loginPage("/?login")
-				.usernameParameter("email").passwordParameter("password").loginProcessingUrl("/processlogin")
-				.defaultSuccessUrl("/").failureUrl("/?login=error").and().logout().logoutUrl("/logout");
+		http.csrf().disable().authorizeRequests()
+		.antMatchers("/user/**").hasRole("USER")
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/owner/**").hasRole("OWNER")
+				.antMatchers("/**").permitAll().and().formLogin()
+				.loginPage("/?login").usernameParameter("email").passwordParameter("password")
+				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/").failureUrl("/?login=error").and().logout()
+				.logoutUrl("/logout").logoutSuccessUrl("/?login");
 	}
 
 	@Bean

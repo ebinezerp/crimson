@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("regemail")
 public class RegisterEmailService implements EmailService {
 
 	@Autowired
@@ -21,7 +21,7 @@ public class RegisterEmailService implements EmailService {
 	
 	
 	@Override
-	public void send(String to,String contextPath) {
+	public void send(String to,String content,String contextPath) {
 		
 		to="ebinezeraws@gmail.com";
 		System.out.println("contextPath:...."+contextPath);

@@ -48,6 +48,9 @@
 										Already have an account? <a data-toggle="modal" id="log-m"
 											data-target="#myModal" href="#">Sign In</a>
 									</p>
+									<p>
+										<a href="${contextPath}/forgetpassword">Forget Password?</a>
+									</p>
 								</div>
 								<div class="swiss-right">
 									<p>
