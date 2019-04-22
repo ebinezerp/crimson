@@ -17,44 +17,10 @@
 		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
 		<%@include file="header.jsp"%>
+		
+		<%@include file="searchmenu.jsp" %>
 
-		<!--search-->
-		<div class="container logo-bar">
-			<div class="col-md-8 logo-name text-center">
-				<a href="index.html"><img src="${img}/index/logo.png" alt=""
-					class="img-responsive" /></a>
-			</div>
-			<!--menu-->
-			<div class="container menu">
-				<nav class="navbar navbar-default">
-
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed"
-							data-toggle="collapse"
-							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-					</div>
-
-					<div class="collapse navbar-collapse"
-						id="bs-example-navbar-collapse-1">
-
-						<ul class="nav navbar-nav navbar-left">
-							<li class="active"><a href="home.html">HOME</a></li>
-
-							<li><a href="contact.html">CONTACT</a></li>
-
-						</ul>
-
-					</div>
-
-				</nav>
-			</div>
-
-			<div class="clearfix"></div>
-		</div>
+		
 		<div class="container-fluid">
 			<!-- 	<div class="alert alert-warning alert-dismissible fade show"
 				role="alert">
@@ -354,21 +320,19 @@
 	</div>
 
 	<!--footer-->
-		<%@include file="footer.jsp"%>
-		
-		<script type="text/javascript">
-		
-		if('${status}'==='input_errors'){
+	<%@include file="footer.jsp"%>
+
+	<script type="text/javascript">
+		if ('${status}' === 'input_errors') {
 			document.getElementById('signup').click();
 		}
-		
-		var query=window.location.search;
-		if(query.includes('?login')){
+
+		var query = window.location.search;
+		if (query.includes('?login')) {
 			document.getElementById('login').click();
 		}
-		
-		</script>
-		
+	</script>
+
 </body>
 
 </html>

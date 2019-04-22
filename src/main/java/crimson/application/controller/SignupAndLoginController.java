@@ -49,7 +49,7 @@ public class SignupAndLoginController {
 			return "index";
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		Map<String, String> error_messages = validation.existenceValidation(user);
+		Map<String, String> error_messages = validation.userExistenceValidation(user);
 
 		if (error_messages.size() > 0) {
 			model.addAttribute("status", "input_errors");

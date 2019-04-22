@@ -58,7 +58,7 @@ public class OwnerController {
 		if(errors.hasErrors()) {
 			return "ownerpage";
 		}else {
-			Map<String, String> error_Messages=validation.existenceValidation(user);
+			Map<String, String> error_Messages=validation.userExistenceValidation(user);
 			if(error_Messages.size()>0) {
 				model.addAttribute("error_messages",error_Messages);
 				return "ownerpage";
@@ -110,7 +110,7 @@ public class OwnerController {
 			return "editadmin";
 		}
 		
-		Map<String,String> error_messages=validation.updationValidation(user);
+		Map<String,String> error_messages=validation.userUpdationValidation(user);
 		
 		
 		if(error_messages.size()>0) {

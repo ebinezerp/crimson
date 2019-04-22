@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import crimson.application.dao.ProductRepository;
 import crimson.application.dao.UserRepository;
+import crimson.application.model.Product;
 import crimson.application.model.User;
 
 @Service
@@ -14,8 +16,11 @@ public class Validation {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
-	public Map<String, String> existenceValidation(User user) {
+	public Map<String, String> userExistenceValidation(User user) {
 		
 		HashMap<String, String> errorMessages = new HashMap<String, String>();
 		
@@ -35,7 +40,7 @@ public class Validation {
 	}
 	
 	
-	public Map<String,String> updationValidation(User user){
+	public Map<String,String> userUpdationValidation(User user){
 		Map<String,String> error_messages=new HashMap<String,String>();
 		
 		if(userRepository.findUserByUsernameAndUserIdNot(user.getUsername(), user.getUserId())!=null) {
@@ -50,6 +55,17 @@ public class Validation {
 			error_messages.put("mobile_error", "Mobile is already existed. Try another one.");
 		}
 		
+		
+		return error_messages;
+	}
+	
+	
+	public Map<String, String> productExistenceValidation(Product product){
+		Map<String, String> error_messages=new HashMap<String, String>();
+		
+		if(productRepository.findProductByProductName(product.getProductName())!=null) {
+			error_messages.put("productName_error", "Product Name is already existed");
+		}
 		
 		return error_messages;
 	}
