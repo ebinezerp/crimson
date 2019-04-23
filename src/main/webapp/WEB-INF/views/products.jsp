@@ -54,7 +54,7 @@
 						<div class="product">
 
 							<div class="product-img">
-								<a href="product-detail.html" class="product-href"></a> <img
+								<a href="${contextPath}/prod_details/${prod.id}" class="product-href"></a> <img
 									src="${prodimgs}/${prod.id}.jpg" alt=""
 									class="img-responsive img-overlay" /> <img
 									src="${prodimgs}/${prod.id}.jpg" alt=""
@@ -66,7 +66,7 @@
 							</div>
 							<div class="product-body">
 								<p>
-									<a href="product-detail.html">${prod.productName}</a>
+									<a href="${contextPath}/prod_details/${prod.id}">${prod.productName}</a>
 								</p>
 								<h4>Rs.${prod.price}</h4>
 								<div class="product-hover">
@@ -76,7 +76,7 @@
 													to cart</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
 										</security:authorize>
 										<security:authorize access="hasRole('ROLE_ADMIN')">
-											<a href="${contextPath}/admin/editProduct/${prod.id}"><h6>Edit
+											<a href="${contextPath}/admin/editproduct/${prod.id}"><h6>Edit
 													Product</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
 										</security:authorize>
 									</div>

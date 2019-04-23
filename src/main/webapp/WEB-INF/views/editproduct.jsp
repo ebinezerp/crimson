@@ -35,50 +35,50 @@
 				<div class="col-md-6 contact-left">
 
 					<div class="contact-info">
-						<h3>Add Product</h3>
+						<h3>Edt Product Details</h3>
 					</div>
 					<springform:form name="productform"
-						action="${contextPath}/admin/addproduct" method="post"
+						action="${contextPath}/admin/updateproduct" method="post"
 						modelAttribute="product" enctype="multipart/form-data">
-						<springform:input path="id" type="hidden"/>
+						<springform:input path="id" type="hidden" />
 						<div class="row">
 							<div class="col-sm-6">
 								<label>Product Name *</label>
 								<springform:input path="productName" />
-								<springform:errors path="productName"></springform:errors>
 							</div>
 							<div class="col-sm-6">
 								<label>Product Price *</label>
 								<springform:input path="price" />
-								<springform:errors path="price"></springform:errors>
 							</div>
 							<div class="col-sm-6">
 								<label>Stock *</label>
 								<springform:input path="stock" />
-								<springform:errors path="stock"></springform:errors>
 							</div>
 
 							<div class="col-sm-6">
-								<label>Upload Image *</label>
+								<label>Change Image *</label>
 								<springform:input path="productImage" type="file" />
-								<springform:errors path="productImage"></springform:errors>
 							</div>
 							<div class="col-sm-12">
 								<label>Product Description *</label>
 								<springform:textarea path="productDescription" />
-								<springform:errors path="productDescription"></springform:errors>
 							</div>
-							<springform:input path="status" type="hidden" value="true"/>
+							<springform:input path="status" type="hidden" value="true" />
 							<div class="clearfix"></div>
 							<div class="col-sm-12 text-right">
 								<a href="#" onclick="addproduct()" class="shp-btn">Add
-									Product</a>
+									Product</a> 
+									<a href="${contextPath}/admin/disable/${product.id}" class="shp-btn btn-danger">Disable</a>
 							</div>
 						</div>
 					</springform:form>
 				</div>
 
-				<div class="col-md-6 contact-right"></div>
+				<div class="col-md-6 contact-right">
+
+					<img alt="Product Image" src="${prodimgs}/${product.id}.jpg">
+
+				</div>
 
 				<div class="clearfix"></div>
 

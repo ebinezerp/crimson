@@ -13,13 +13,14 @@ import javax.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@NotBlank(message = "Product name should not be blank")
@@ -35,7 +36,7 @@ public class Product {
 	
 	@NotNull(message = "Product price shold not be null")
 	@Digits(integer = 7,fraction = 2)
-	private Float price;
+	private Double price;
 	
 	
 	@NotNull(message = "Stock count shold not be null")
@@ -47,6 +48,7 @@ public class Product {
 	private Boolean status;
 	
 	@Transient
+	@ToString.Exclude
 	private MultipartFile productImage;
 	
 	

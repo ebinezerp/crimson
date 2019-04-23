@@ -4,12 +4,13 @@
 
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form"
 	prefix="springform"%>
-	
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 
 
@@ -36,6 +37,11 @@
 <!--slider-->
 <link rel="stylesheet" href="${css}/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="${css}/testimonial.css">
+<!--range-slider-->
+<link href="${css}/range-slider.css" rel="stylesheet" type="text/css">
+<!--slider-->
+<link href="${css}/theme.css" rel="stylesheet">
+<link rel="stylesheet"  href="${css}/lightslider.css"/>
 
 
 
