@@ -5,9 +5,10 @@
 	<div class="container padd-30">
 		<div class="col-md-12 footer-top-sec">
 			<div class="col-md-4 col-sm-5 payment">
-				<img src="${img}/footer/paypal.png" alt="" class="img-responsive" /> <img
-					src="${img}/footer/visa.png" alt="" class="img-responsive" /> <img
-					src="${img}/footer/mastercard.png" alt="" class="img-responsive" />
+				<img src="${img}/footer/paypal.png" alt="" class="img-responsive" />
+				<img src="${img}/footer/visa.png" alt="" class="img-responsive" />
+				<img src="${img}/footer/mastercard.png" alt=""
+					class="img-responsive" />
 			</div>
 			<div class="col-md-4 col-sm-2 footer-logo">
 				<img src="${img}/index/logo.png" alt="" class="img-responsive" />
@@ -86,3 +87,8 @@
 
 <!--custom-->
 <script src="${js}/custom.js"></script>
+<!--Range-validator-->
+<script src="${js}/jquery-ui.min.js"></script>
+<script src="${js}/product-custom.js"></script>
+<!--Light-slider-->
+<script src="${js}/lightslider.js"></script>

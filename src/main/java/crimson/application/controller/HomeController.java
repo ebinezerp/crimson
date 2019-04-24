@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import crimson.application.dao.CartRepository;
 import crimson.application.dao.ProductRepository;
 import crimson.application.dao.UserRepository;
+import crimson.application.model.Cart;
 import crimson.application.model.Product;
 import crimson.application.model.User;
 
@@ -42,7 +43,13 @@ public class HomeController {
 			} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
 				return "redirect:/products";
 			}
-			session.setAttribute("cart_count", cartRepository.findCartByUser(user).getQuantity());
+			Cart cart=cartRepository.findCartByUser(user);
+			if(cart==null) {
+				session.setAttribute("cart_count",0);
+			}else {
+				session.setAttribute("cart_count", cart.getQuantity());
+			}
+			
 		}
 		
 		return "index";

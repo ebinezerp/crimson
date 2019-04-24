@@ -7,3 +7,7 @@
 6. Admin Validations
 7. Username, Email, Mobile existence validation with error message display
 8. Display All admins, edit and disable Options
+9. Admin Login , add product , edit product
+10. User Login , View Products , add to cart, and view cart details
+
+

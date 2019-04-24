@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import crimson.application.dao.CartItemRepository;
 import crimson.application.dao.CartRepository;
@@ -60,17 +63,61 @@ public class CartController {
 		session.setAttribute("cart_count", cart.getQuantity());
 		return "redirect:/products";
 	}
-	
-	
-	
+
 	@GetMapping("/cart")
-	public String cartDetails(Model model,Principal principal) {
-		User user=userRepository.findUserByEmail(principal.getName());
-		model.addAttribute("cart",cartRepository.findCartByUser(user));
+	public String cartDetails(Model model, Principal principal, HttpSession session) {
+		User user = userRepository.findUserByEmail(principal.getName());
+		model.addAttribute("cart", cartRepository.findCartByUser(user));
+		Cart cart = user.getCart();
+		model.addAttribute("cartItems", cartItemRepository.findCartItemByCart(cart));
+		session.setAttribute("cart_count", cart.getQuantity());
 		return "cart";
 	}
-	
-	
+
+	@GetMapping("/clearcart")
+	public String clearcart(Principal principal) {
+		User user = userRepository.findUserByEmail(principal.getName());
+		Cart cart = user.getCart();
+		cartItemRepository.deleteAllByCart(cart);
+		cart.setQuantity(0);
+		cart.setTotalAmount(0.0);
+		cart.setCartItems(null);
+		cartRepository.save(cart);
+		return "redirect:/user/cart";
+	}
+
+	@GetMapping("/addcartitem/{id}")
+	@ResponseBody
+	public Boolean addUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
+		CartItem cartItem = cartItemRepository.getOne(id);
+		Cart cart = cartItem.getCart();
+		cartItem.setQuantity(cartItem.getQuantity() + 1);
+		cartItem.setTotalPrice(cartItem.getTotalPrice() + cartItem.getUnitPrice());
+		cartItemRepository.save(cartItem);
+		cart.setQuantity(cart.getQuantity() + 1);
+		cart.setTotalAmount(cart.getTotalAmount() + cartItem.getUnitPrice());
+		cartRepository.save(cart);
+		return true;
+	}
+
+	@GetMapping("/subcartitem/{id}")
+	@ResponseBody
+	public Boolean subUpdateCart(@PathVariable("id") Long id, Model model) {
+		CartItem cartItem = cartItemRepository.getOne(id);
+		Cart cart = cartItem.getCart();
+		cart.setTotalAmount(cart.getTotalAmount() - cartItem.getUnitPrice());
+		cart.setQuantity(cart.getQuantity() - 1);
+		cartRepository.save(cart);
+		if (cartItem.getQuantity() == 1) {
+			cartItemRepository.delete(cartItem);
+		} else {
+			cartItem.setQuantity(cartItem.getQuantity() - 1);
+			cartItem.setTotalPrice(cartItem.getTotalPrice() - cartItem.getUnitPrice());
+			cartItemRepository.save(cartItem);
+		}
+
+		return true;
+	}
 
 	private Cart createCart(User user, Product product, Integer quantity) {
 		Cart cart = new Cart();

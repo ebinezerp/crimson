@@ -35,7 +35,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/owner/**").hasRole("OWNER")
 				.antMatchers("/**").permitAll().and().formLogin()
 				.loginPage("/?login").usernameParameter("email").passwordParameter("password")
-				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/").failureUrl("/?login=error").and().logout()
+				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/",true).failureUrl("/?login=error").and().logout()
 				.logoutUrl("/logout").logoutSuccessUrl("/?login");
 	}
 

@@ -2,6 +2,7 @@ package crimson.application.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,8 +32,7 @@ public class Cart {
 
 	private Integer quantity;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@ToString.Exclude
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="cart")
 	private List<CartItem> cartItems;
 
 }
