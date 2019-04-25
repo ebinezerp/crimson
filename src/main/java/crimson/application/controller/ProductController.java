@@ -132,7 +132,7 @@ public class ProductController {
 		 * String contextPath = request.getServerName();
 		 * System.out.println("This my context Path:.."+contextPath);
 		 */
-		File productImagesFolder = new File(request.getContextPath()+"/resources/images/products/");
+		File productImagesFolder = new File(request.getServletContext().getRealPath("/resources")+"/images/products/");
 		System.out.println("This is File Manager:.."+productImagesFolder.getPath());
 		
 		
