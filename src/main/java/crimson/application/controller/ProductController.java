@@ -127,7 +127,7 @@ public class ProductController {
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
 
-		String contextPath = request.getServletContext().getRealPath("/");
+		String contextPath = request.getServerName();
 		System.out.println("This my context Path:.."+contextPath);
 		File productImagesFolder = new File(contextPath + "/resources/images/products/");
 		System.out.println("This is File Manager:.."+productImagesFolder.getPath());
