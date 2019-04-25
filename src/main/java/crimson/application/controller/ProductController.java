@@ -57,6 +57,7 @@ public class ProductController {
 			try {
 				saveImage(product, request);
 			} catch (IOException e) {
+				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
 				return "productform";
 			}
@@ -144,9 +145,11 @@ public class ProductController {
 		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");
 
+		 System.out.println("outputstream is created");
 		outputStream.write(array);
 		outputStream.flush();
 		outputStream.close();
+		System.out.println("finished");
 
 	}
 
