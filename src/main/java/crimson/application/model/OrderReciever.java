@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import lombok.ToString;
 
 
 
@@ -55,9 +56,11 @@ public class OrderReciever {
 	private String mobile;
 	
 	@OneToOne(mappedBy="orderReciever")
+	@ToString.Exclude
 	private Address address;
 	
 	@OneToOne
+	@ToString.Exclude
 	private Order order;
 	
 }

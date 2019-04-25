@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -24,9 +25,11 @@ public class OrderItem {
 	private Double totalPrice;
 	
 	@OneToOne
+	@ToString.Exclude
 	private Product product;
 	
 	@ManyToOne
+	@ToString.Exclude
 	private Order order;
 
 }

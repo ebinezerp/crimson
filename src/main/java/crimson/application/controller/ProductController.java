@@ -134,7 +134,7 @@ public class ProductController {
 			productImagesFolder.mkdirs();
 		}
 
-		FileOutputStream outputStream = new FileOutputStream(
+		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");
 
 		outputStream.write(array);

@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +23,7 @@ import crimson.application.model.Cart;
 import crimson.application.model.CartItem;
 import crimson.application.model.Product;
 import crimson.application.model.User;
+import crimson.application.service.CartUtilService;
 
 @Controller
 @RequestMapping("/user")
@@ -41,6 +40,9 @@ public class CartController {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
+	
+	@Autowired
+	private CartUtilService cartUtilService;
 
 	@GetMapping("/addtocart/{id}")
 	public String addtocart(@PathVariable("id") Long id,
@@ -78,11 +80,7 @@ public class CartController {
 	public String clearcart(Principal principal) {
 		User user = userRepository.findUserByEmail(principal.getName());
 		Cart cart = user.getCart();
-		cartItemRepository.deleteAllByCart(cart);
-		cart.setQuantity(0);
-		cart.setTotalAmount(0.0);
-		cart.setCartItems(null);
-		cartRepository.save(cart);
+		cartUtilService.resetCart(cart);
 		return "redirect:/user/cart";
 	}
 

@@ -37,14 +37,15 @@
 		</div>
 
 		<!--top-->
-		<div class="container product-table padd-80">
+		<springform:form action="${contextPath}/user/checkout" method="POST"
+			name="checkoutform" modelAttribute="orderReciever">
+			<div class="container product-table padd-80">
 
 
 
-			<div class="col-md-6">
+				<div class="col-md-6">
 
-				<springform:form action="${contextPath}/user/checkout" method="POST"
-					name="checkoutform" modelAttribute="orderReciever">
+
 					<div class="row checkout">
 						<div class="col-md-12">
 							<h2>Billing Details</h2>
@@ -52,22 +53,27 @@
 						<div class="col-md-6">
 							<h3>First Name *</h3>
 							<springform:input type="text" path="firstname" />
+							<springform:errors path="firstname"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Last Name *</h3>
 							<springform:input type="text" path="lastname" />
+							<springform:errors path="lastname"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<h3>Company Name</h3>
 							<springform:input type="text" path="companyName" />
+							<springform:errors path="companyName"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Email Address *</h3>
 							<springform:input type="email" path="email" />
+							<springform:errors path="email"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Phone *</h3>
 							<springform:input type="tel" path="mobile" />
+							<springform:errors path="mobile"/>
 						</div>
 						<div class="col-md-12">
 							<h3>Country *</h3>
@@ -82,6 +88,7 @@
 							<h3>Address *</h3>
 							<springform:input path="address.street" type="text"
 								placeholder="Street Address" />
+								<springform:errors path="address.street"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<springform:input type="text" path="address.apartment"
@@ -91,40 +98,42 @@
 							<h3>Town / City *</h3>
 							<springform:input type="text" path="address.city"
 								placeholder="Street Address" />
+								<springform:errors path="address.city"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Postcode *</h3>
 							<springform:input type="text" path="address.code" />
+							<springform:errors path="address.code"></springform:errors>
 						</div>
 
 
 					</div>
-				</springform:form>
 
-			</div>
 
-			<div class="col-md-6">
-
-				<div class="col-md-12 checkout">
-					<h2>Your order</h2>
 				</div>
 
-				<div class="col-md-12 element-table">
-					<div class="row">
-						<table>
+				<div class="col-md-6">
 
-							<tr>
-								<th>Product</th>
-								<th class="text-right">Total</th>
-							</tr>
+					<div class="col-md-12 checkout">
+						<h2>Your order</h2>
+					</div>
 
-							<c:forEach items="${cart.cartItems}" var="cartItem">
+					<div class="col-md-12 element-table">
+						<div class="row">
+							<table>
+
 								<tr>
-									<td>${cartItem.product.productName}</td>
-									<td class="text-right">Rs. ${cartItem.totalPrice}</td>
+									<th>Product</th>
+									<th class="text-right">Total</th>
 								</tr>
-							</c:forEach>
-							<!-- 
+
+								<c:forEach items="${cart.cartItems}" var="cartItem">
+									<tr>
+										<td>${cartItem.product.productName}</td>
+										<td class="text-right">Rs. ${cartItem.totalPrice}</td>
+									</tr>
+								</c:forEach>
+								<!-- 
 							<tr>
 								<td>Cinnamon</td>
 								<td class="text-right">Rs.200.00</td>
@@ -145,63 +154,64 @@
 								<td class="text-right">Rs.500.00</td>
 							</tr>
 -->
-							<tr>
-								<td class="text-uppercase"><b>Subtotal</b></td>
-								<td class="text-right">Rs. ${cart.totalAmount}</td>
-							</tr>
+								<tr>
+									<td class="text-uppercase"><b>Subtotal</b></td>
+									<td class="text-right">Rs. ${cart.totalAmount}</td>
+								</tr>
 
 
-							<tr>
-								<td class="text-uppercase"><b>Total</b></td>
-								<td class="total text-right">Rs.${cart.totalAmount}</td>
-							</tr>
+								<tr>
+									<td class="text-uppercase"><b>Total</b></td>
+									<td class="total text-right">Rs.${cart.totalAmount}</td>
+								</tr>
 
-						</table>
-					</div>
-				</div>
-
-				<div class="col-md-12 pay-faq">
-
-					<h2>Payment mathod</h2>
-
-					<div class="accordion accordion-open check-faq mt-20" id="section4">
-						<label>Direct bank transfer</label><span></span>
-					</div>
-					<div class="accordian-body">
-						<div class="faq">
-							<span class="payment-box"></span>
-							<p>Please send a check to Store Name, Store Street, Store
-								Town, Store State / County, Store Postcode.</p>
+							</table>
 						</div>
 					</div>
 
-					<div class="accordion accordion-open check-faq" id="section5">
-						<label>Cash on Delivery</label><span></span>
-					</div>
-					<div class="accordian-body">
-						<div class="faq">
-							<span class="payment-box"></span>
-							<p>Please send a check to Store Name, Store Street, Store
-								Town, Store State / County, Store Postcode.</p>
+					<div class="col-md-12 pay-faq">
+
+						<h2>Payment mathod</h2>
+
+						<div class="accordion accordion-open check-faq mt-20"
+							id="section4">
+							<label>Direct bank transfer</label><span></span>
 						</div>
+						<div class="accordian-body">
+							<div class="faq">
+								<span class="payment-box"></span>
+								<p>Please send a check to Store Name, Store Street, Store
+									Town, Store State / County, Store Postcode.</p>
+							</div>
+						</div>
+
+						<div class="accordion accordion-open check-faq" id="section5">
+							<label>Cash on Delivery</label><span></span>
+						</div>
+						<div class="accordian-body">
+							<div class="faq">
+								<span class="payment-box"></span>
+								<p>Please send a check to Store Name, Store Street, Store
+									Town, Store State / County, Store Postcode.</p>
+							</div>
+						</div>
+
+
+
+						<div class="clearfix"></div>
+						<div class="col-md-12 text-center">
+							<a href="#" class="coupon btn-bg" onclick="placeOrder()">Place order</a>
+						</div>
+						<div class="clearfix"></div>
+
 					</div>
-
-
-
-					<div class="clearfix"></div>
-					<div class="col-md-12 text-center">
-						<a href="#" class="coupon btn-bg">Place order</a>
-					</div>
-					<div class="clearfix"></div>
 
 				</div>
+
+				<div class="clearfix"></div>
 
 			</div>
-
-			<div class="clearfix"></div>
-
-		</div>
-
+		</springform:form>
 
 		<!--footer-->
 		<%@include file="footer.jsp"%>
@@ -215,6 +225,14 @@
 					defaultOpen : 'some_id'
 				}); //some_id section1 in demo
 			});
+		</script>
+		
+		<script type="text/javascript">
+		
+		function placeOrder(){
+			document.forms['checkoutform'].submit();
+		}
+		
 		</script>
 </body>
 

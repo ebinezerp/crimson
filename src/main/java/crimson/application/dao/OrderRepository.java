@@ -2,6 +2,8 @@ package crimson.application.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends JpaRepository<OrderRepository, Long> {
+import crimson.application.model.Order;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -28,12 +29,15 @@ public class Order {
 	private Double totalAmount;
 	
 	@ManyToOne
+	@ToString.Exclude
 	private User user;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="order")
+	@ToString.Exclude
 	private List<OrderItem> orderItems;
 	
 	@OneToOne(mappedBy="order")
+	@ToString.Exclude
 	private OrderReciever orderReciever;
 
 }

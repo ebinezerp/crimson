@@ -40,41 +40,41 @@ public class Validation {
 	}
 
 	public Map<String, String> userUpdationValidation(User user) {
-		Map<String, String> error_messages = new HashMap<String, String>();
+		Map<String, String> errorMessages = new HashMap<String, String>();
 
 		if (userRepository.findUserByUsernameAndUserIdNot(user.getUsername(), user.getUserId()) != null) {
-			error_messages.put("username_error", "Username is already existed. Try another one.");
+			errorMessages.put("username_error", "Username is already existed. Try another one.");
 		}
 
 		if (userRepository.findUserByEmailAndUserIdNot(user.getEmail(), user.getUserId()) != null) {
-			error_messages.put("email_error", "Email is already existed. Try another one.");
+			errorMessages.put("email_error", "Email is already existed. Try another one.");
 		}
 
 		if (userRepository.findUserByMobileAndUserIdNot(user.getMobile(), user.getUserId()) != null) {
-			error_messages.put("mobile_error", "Mobile is already existed. Try another one.");
+			errorMessages.put("mobile_error", "Mobile is already existed. Try another one.");
 		}
 
-		return error_messages;
+		return errorMessages;
 	}
 
 	public Map<String, String> productExistenceValidation(Product product) {
-		Map<String, String> error_messages = new HashMap<String, String>();
+		Map<String, String> errorMessages = new HashMap<String, String>();
 
 		if (productRepository.findProductByProductName(product.getProductName()) != null) {
-			error_messages.put("productName_error", "Product Name is already existed");
+			errorMessages.put("productName_error", "Product Name is already existed");
 		}
 
-		return error_messages;
+		return errorMessages;
 	}
 
 	public Map<String, String> productUpdateValidation(Product product) {
-		Map<String, String> error_messages = new HashMap<String, String>();
+		Map<String, String> errorMessages = new HashMap<String, String>();
 
 		if (productRepository.findProductByProductNameAndIdNot(product.getProductName(), product.getId()) != null) {
-			error_messages.put("productName_error", "Product Name is already existed");
+			errorMessages.put("productName_error", "Product Name is already existed");
 		}
 
-		return error_messages;
+		return errorMessages;
 	}
 
 }
