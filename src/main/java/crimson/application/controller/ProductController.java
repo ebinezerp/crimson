@@ -98,6 +98,7 @@ public class ProductController {
 			try {
 				saveImage(product, request);
 			} catch (IOException e) {
+				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
 				return "productform";
 			}
@@ -126,15 +127,16 @@ public class ProductController {
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
 
-		String contextPath = request.getServletContext().getContextPath();
-
+		String contextPath = request.getServletContext().getRealPath("/");
 		System.out.println("This my context Path:.."+contextPath);
 		File productImagesFolder = new File(contextPath + "/resources/images/products/");
 		System.out.println("This is File Manager:.."+productImagesFolder.getPath());
 		
 		
 		if (!productImagesFolder.exists()) {
+		
 			productImagesFolder.mkdirs();
+			System.out.println("folder created");
 		}
 
 		final FileOutputStream outputStream = new FileOutputStream(
