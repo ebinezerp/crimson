@@ -73,5 +73,12 @@ public class HomeController {
 			return "productdetails";
 		}
 	}
+	
+	
+	@GetMapping("/contact")
+	public String contact(Model model) {
+		model.addAttribute("user", new User());
+		return "contact";
+	}
 
 }
