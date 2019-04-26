@@ -29,6 +29,7 @@
 
 							<security:authorize access="hasRole('ROLE_ADMIN')">
 								<li><a href="${contextPath}/admin/productform">ADD PRODUCT</a></li>
+								<li><a href="${contextPath}/admin/orders">ORDERS</a></li>
 							</security:authorize>
 							<security:authorize access="hasRole('ROLE_USER')">
 								<li><a href="${contextPath}/user/cart">CART&nbsp&nbsp<span style="background-color:#ef402b;color:white;padding:4px;">${cart_count}</span></a></li>

@@ -83,12 +83,12 @@
 <script src="${js}/theme.js"></script>
 <!--testimonial-slider-->
 <script src="${js}/testimonial.js"></script>
-<script src="${js}/about-custom.js"></script>
+<%-- <script src="${js}/about-custom.js"></script> --%>
 
 <!--custom-->
 <script src="${js}/custom.js"></script>
 <!--Range-validator-->
 <script src="${js}/jquery-ui.min.js"></script>
-<script src="${js}/product-custom.js"></script>
+<%-- <script src="${js}/product-custom.js"></script> --%>
 <!--Light-slider-->
-<script src="${js}/lightslider.js"></script>
+<%-- <script src="${js}/lightslider.js"></script> --%>

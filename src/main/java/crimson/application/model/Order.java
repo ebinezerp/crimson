@@ -17,26 +17,30 @@ import lombok.ToString;
 
 @Entity
 @Data
-@Table(name="order_table")
+@Table(name = "order_table")
 public class Order {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long orderId;
-	
+
 	private Integer quantity;
-	
+
 	private Double totalAmount;
-	
+
+	private Boolean dispatchStatus;
+
+	private Boolean deliveryStatus;
+
 	@ManyToOne
 	@ToString.Exclude
 	private User user;
-	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="order")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
 	@ToString.Exclude
 	private List<OrderItem> orderItems;
-	
-	@OneToOne(mappedBy="order")
+
+	@OneToOne(mappedBy = "order")
 	@ToString.Exclude
 	private OrderReciever orderReciever;
 

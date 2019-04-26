@@ -96,6 +96,8 @@ public class CheckoutController {
 		order.setQuantity(cart.getQuantity());
 		order.setTotalAmount(cart.getTotalAmount());
 		order.setUser(cart.getUser());
+		order.setDeliveryStatus(false);
+		order.setDispatchStatus(false);
 		orderRepository.save(order);
 		orderReciever.setOrder(order);
 		for (CartItem cartItem : cart.getCartItems()) {
