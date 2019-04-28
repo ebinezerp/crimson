@@ -1,4 +1,4 @@
-package crimson.application.service;
+package crimson.application.util;
 
 import java.util.HashMap;
 import java.util.Map;

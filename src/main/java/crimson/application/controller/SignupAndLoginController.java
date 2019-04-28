@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.dao.UserRepository;
 import crimson.application.model.User;
-import crimson.application.service.EmailService;
-import crimson.application.service.RandomPasswordGenerator;
-import crimson.application.service.Validation;
+import crimson.application.util.Email;
+import crimson.application.util.RandomPasswordGenerator;
+import crimson.application.util.Validation;
 
 @Controller
 public class SignupAndLoginController {
@@ -33,7 +33,7 @@ public class SignupAndLoginController {
 
 	@Autowired
 	@Qualifier("forgetemail")
-	private EmailService emailService;
+	private Email emailService;
 
 	@Autowired
 	private RandomPasswordGenerator randomPasswordGenerator;

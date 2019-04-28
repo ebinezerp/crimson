@@ -1,4 +1,4 @@
-package crimson.application.service;
+package crimson.application.util;
 
 import javax.mail.internet.MimeMessage;
 
@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 @Service("forgetemail")
-public class ForgetEmailService implements EmailService {
+public class ForgetEmail implements Email {
 
 	@Autowired
 	private JavaMailSender javaMailSender;

@@ -23,7 +23,7 @@ import crimson.application.model.Cart;
 import crimson.application.model.CartItem;
 import crimson.application.model.Product;
 import crimson.application.model.User;
-import crimson.application.service.CartUtilService;
+import crimson.application.util.CartUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -42,7 +42,7 @@ public class CartController {
 	private CartItemRepository cartItemRepository;
 	
 	@Autowired
-	private CartUtilService cartUtilService;
+	private CartUtil cartUtilService;
 
 	@GetMapping("/addtocart/{id}")
 	public String addtocart(@PathVariable("id") Long id,

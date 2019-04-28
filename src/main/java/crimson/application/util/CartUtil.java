@@ -1,4 +1,4 @@
-package crimson.application.service;
+package crimson.application.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import crimson.application.dao.CartRepository;
 import crimson.application.model.Cart;
 
 @Service
-public class CartUtilService {
+public class CartUtil {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;

@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import crimson.application.dao.UserRepository;
 import crimson.application.model.User;
-import crimson.application.service.EmailService;
-import crimson.application.service.RandomPasswordGenerator;
-import crimson.application.service.Validation;
+import crimson.application.util.Email;
+import crimson.application.util.RandomPasswordGenerator;
+import crimson.application.util.Validation;
 
 @Controller
 @RequestMapping("/owner")
@@ -42,8 +42,8 @@ public class OwnerController {
 	private Validation validation;
 	
 	@Autowired
-	@Qualifier("adminRegEmailService")
-	private EmailService emailService;
+	@Qualifier("adminRegEmail")
+	private Email emailService;
 
 	@GetMapping
 	public String ownerpage(Model model) {

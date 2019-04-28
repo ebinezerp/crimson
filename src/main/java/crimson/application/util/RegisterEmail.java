@@ -1,4 +1,4 @@
-package crimson.application.service;
+package crimson.application.util;
 
 import javax.mail.internet.MimeMessage;
 
@@ -10,7 +10,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 @Service("regemail")
-public class RegisterEmailService implements EmailService {
+public class RegisterEmail implements Email {
 
 	@Autowired
 	private JavaMailSender javaMailSender;

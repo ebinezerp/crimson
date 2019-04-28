@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import crimson.application.dao.ProductRepository;
 import crimson.application.model.Product;
-import crimson.application.service.Validation;
+import crimson.application.util.Validation;
 
 @Controller
 @RequestMapping("/admin")

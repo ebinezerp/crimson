@@ -28,7 +28,7 @@ import crimson.application.model.CartItem;
 import crimson.application.model.Order;
 import crimson.application.model.OrderItem;
 import crimson.application.model.OrderReciever;
-import crimson.application.service.CartUtilService;
+import crimson.application.util.CartUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -56,7 +56,7 @@ public class CheckoutController {
 	private AddressRepository addressRepository;
 
 	@Autowired
-	private CartUtilService cartUtilService;
+	private CartUtil cartUtilService;
 
 	@GetMapping("/checkout")
 	public String checkoutPage(Model model, Principal principal) {
