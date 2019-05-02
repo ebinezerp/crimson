@@ -30,7 +30,7 @@
 
 
 
-		<security:authorize access="hasRole('ROLE_USER')">
+		<security:authorize access="isAnonymous() || hasRole('ROLE_USERS')">
 
 			<!--discount-->
 			<div class="container discount-banner padd-40">

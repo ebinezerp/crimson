@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -29,6 +31,7 @@ public class CartItem {
 
 	@ManyToOne
 	@ToString.Exclude
+	@JsonIgnore
 	private Cart cart;
 
 }

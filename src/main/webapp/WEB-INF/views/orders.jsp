@@ -39,20 +39,34 @@
 						<c:forEach items="${orders}" var="order">
 							<tr>
 								<td><a style="text-decoration: underline;"
-									href="${contextPath}/admin/order/${order.orderId}">${order.orderId}</a></td>
+									href="${contextPath}/order/${order.orderId}">${order.orderId}</a></td>
 								<td>${order.totalAmount}</td>
 								<td><c:if test="${order.dispatchStatus==true}">
 										<button class="btn btn-success">Dispatched</button>
-									</c:if> <c:if test="${order.dispatchStatus==false}">
-										<a href="${contextPath}/admin/dispatch/${order.orderId}"
-											class="btn btn-warning">Dispatch</a>
-									</c:if></td>
+									</c:if> <security:authorize access="hasRole('ROLE_USER')">
+										<c:if test="${order.dispatchStatus==false}">
+											<button class="btn btn-warning">Order Confirmed</button>
+										</c:if>
+									</security:authorize> <security:authorize access="hasRole('ROLE_ADMIN')">
+										<c:if test="${order.dispatchStatus==false}">
+											<a href="${contextPath}/admin/dispatch/${order.orderId}"
+												class="btn btn-warning">Dispatch</a>
+										</c:if>
+									</security:authorize></td>
 								<td><c:if test="${order.deliveryStatus==true}">
 										<button class="btn btn-success">Delivered</button>
-									</c:if> <c:if test="${order.deliveryStatus==false}">
-										<a href="${contextPath}/admin/deliver/${order.orderId}"
-											class="btn btn-warning">Deliver</a>
-									</c:if></td>
+									</c:if> <security:authorize access="hasRole('ROLE_USER')">
+										<c:if
+											test="${order.deliveryStatus==false}">
+											<button class="btn btn-warning">Sent for Delivery</button>
+										</c:if>
+
+									</security:authorize> <security:authorize access="hasRole('ROLE_ADMIN')">
+										<c:if test="${order.deliveryStatus==false}">
+											<a href="${contextPath}/admin/deliver/${order.orderId}"
+												class="btn btn-warning">Deliver</a>
+										</c:if>
+									</security:authorize></td>
 							</tr>
 						</c:forEach>
 					</tbody>

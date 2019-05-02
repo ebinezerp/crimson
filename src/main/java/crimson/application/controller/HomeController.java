@@ -38,6 +38,7 @@ public class HomeController {
 
 		if (principal != null) {
 			User user = userRepository.findUserByEmail(principal.getName());
+			session.setAttribute("reg_user",user);
 			if (user.getRole().equalsIgnoreCase("ROLE_OWNER")) {
 				return "redirect:/owner";
 			} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
@@ -52,7 +53,7 @@ public class HomeController {
 			
 		}
 		
-		return "index";
+		return "redirect:/products";
 	}
 
 	@GetMapping("/products")
@@ -72,6 +73,13 @@ public class HomeController {
 			model.addAttribute("product", product);
 			return "productdetails";
 		}
+	}
+	
+	
+	@GetMapping("/aboutus")
+	public String aboutUs(Model model) {
+		model.addAttribute("user", new User());
+		return "index";
 	}
 	
 	

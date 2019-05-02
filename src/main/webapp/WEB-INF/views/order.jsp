@@ -20,7 +20,7 @@
 			<div class="col-md-7 col-md-offset-2">
 				<div class="bill_body">
 					<div class="order_reciever_address">
-						<p>${order.orderReciever.firstname}
+						<p>${order.orderReciever.firstname}&nbsp
 							${order.orderReciever.lastname}</p>
 						<p>${order.orderReciever.companyName}</p>
 						<p>${order.orderReciever.email}</p>
@@ -56,19 +56,39 @@
 						<h3>Total Amount:</h3>${order.totalAmount}</p>
 					</div>
 					<div>
-				
+
 						<c:if test="${order.dispatchStatus==true}">
-								<button class="btn btn-success">Dispatched</button>
-							</c:if> <c:if test="${order.dispatchStatus==false}">
+							<button class="btn btn-success">Dispatched</button>
+						</c:if>
+
+						<security:authorize access="hasRole('ROLE_USER')">
+							<c:if test="${order.dispatchStatus==false}">
+								<button class="btn btn-warning">Order Confirmed</button>
+							</c:if>
+						</security:authorize>
+
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+							<c:if test="${order.dispatchStatus==false}">
 								<a href="${contextPath}/admin/dispatch/${order.orderId}"
 									class="btn btn-warning">Dispatch</a>
 							</c:if>
+						</security:authorize>
 						<c:if test="${order.deliveryStatus==true}">
-								<button class="btn btn-success">Delivered</button>
-							</c:if> <c:if test="${order.deliveryStatus==false}">
+							<button class="btn btn-success">Delivered</button>
+						</c:if>
+
+						<security:authorize access="hasRole('ROLE_USER')">
+							<c:if test="${order.deliveryStatus==false}">
+								<button class="btn btn-warning">Sent for Delivery</button>
+							</c:if>
+
+						</security:authorize>
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+							<c:if test="${order.deliveryStatus==false}">
 								<a href="${contextPath}/admin/deliver/${order.orderId}"
 									class="btn btn-warning">Deliver</a>
 							</c:if>
+						</security:authorize>
 					</div>
 				</div>
 			</div>

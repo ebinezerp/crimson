@@ -24,17 +24,20 @@
 				<div class="col-sm-7 modal-text">
 
 					<div class="form-sec">
-						<form action="${contextPath}/processlogin" method="POST" name="loginform">
+						<form action="${contextPath}/processlogin" method="POST"
+							name="loginform">
 							<div class="tab-content">
 
 								<div class="input-row">
 									<h5>email</h5>
-									<input class="input-1" type="email" name="email"
-										placeholder="Enter your Email ID" /> <span class="underline"></span>
+									<input class="input-1" type="email" onkeyup="lisiten(event)"
+										name="email" placeholder="Enter your Email ID" id="loginemail" />
+									<span class="underline"></span>
 								</div>
 								<div class="input-row">
 									<h5>password</h5>
-									<input class="input-1" type="password" name="password"
+									<input class="input-1" type="password" id="loginpassword"
+										onkeyup="lisiten(event)" name="password"
 										placeholder="Enter your password" /> <span class="underline"></span>
 								</div>
 								<div class="clearfix"></div>
@@ -70,9 +73,23 @@
 	</div>
 </div>
 <script type="text/javascript">
-    function loginsubmit(){
-    	var loginForm=document.forms['loginform'];
-    	loginForm.submit();
-    	
-    }
+	function lisiten(event) {
+		if (event.key == 'Enter') {
+			var loginemail = document.getElementById('loginemail');
+			var loginpassword = document.getElementById('loginpassword');
+			if (loginemail.value.trim() == "") {
+				loginemail.classList.add('error-class');
+			} else if (loginpassword.value.trim() == "") {
+				loginpassword.classList.add('error-class');
+			} else {
+				loginsubmit();
+			}
+		}
+	}
+
+	function loginsubmit() {
+		var loginForm = document.forms['loginform'];
+		loginForm.submit();
+
+	}
 </script>

@@ -40,7 +40,7 @@ public class CartController {
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
-	
+
 	@Autowired
 	private CartUtil cartUtilService;
 
@@ -48,6 +48,8 @@ public class CartController {
 	public String addtocart(@PathVariable("id") Long id,
 			@RequestParam(name = "prod_quantity", required = false) Integer quantity, Model model, Principal principal,
 			HttpSession session) {
+
+		Integer qant = quantity;
 
 		if (quantity == null) {
 			quantity = 1;
@@ -63,7 +65,12 @@ public class CartController {
 		}
 		cartRepository.save(cart);
 		session.setAttribute("cart_count", cart.getQuantity());
-		return "redirect:/products";
+
+		if (qant == null) {
+			return "redirect:/products";
+		} else {
+			return "redirect:/prod_details/" + id;
+		}
 	}
 
 	@GetMapping("/cart")
@@ -88,33 +95,43 @@ public class CartController {
 	@ResponseBody
 	public Boolean addUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
 		CartItem cartItem = cartItemRepository.getOne(id);
-		Cart cart = cartItem.getCart();
-		cartItem.setQuantity(cartItem.getQuantity() + 1);
-		cartItem.setTotalPrice(cartItem.getTotalPrice() + cartItem.getUnitPrice());
-		cartItemRepository.save(cartItem);
-		cart.setQuantity(cart.getQuantity() + 1);
-		cart.setTotalAmount(cart.getTotalAmount() + cartItem.getUnitPrice());
-		cartRepository.save(cart);
-		return true;
+		return increaseCartItemQuantity(cartItem, 1);
 	}
 
 	@GetMapping("/subcartitem/{id}")
 	@ResponseBody
-	public Boolean subUpdateCart(@PathVariable("id") Long id, Model model) {
+	public Boolean subUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
 		CartItem cartItem = cartItemRepository.getOne(id);
-		Cart cart = cartItem.getCart();
-		cart.setTotalAmount(cart.getTotalAmount() - cartItem.getUnitPrice());
-		cart.setQuantity(cart.getQuantity() - 1);
-		cartRepository.save(cart);
-		if (cartItem.getQuantity() == 1) {
-			cartItemRepository.delete(cartItem);
-		} else {
-			cartItem.setQuantity(cartItem.getQuantity() - 1);
-			cartItem.setTotalPrice(cartItem.getTotalPrice() - cartItem.getUnitPrice());
-			cartItemRepository.save(cartItem);
-		}
+		session.setAttribute("cart_count", (Integer.parseInt(session.getAttribute("cart_count").toString()) - 1));
+		return decreaseCartItemQuantity(cartItem, 1);
+	}
 
-		return true;
+	@GetMapping("/checkcartitem/{id}")
+	@ResponseBody
+	public CartItem cartItemExists(@PathVariable("id") Long productId, Principal principal) {
+		User user = userRepository.findUserByEmail(principal.getName());
+		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
+				productRepository.getOne(productId));
+		return cartItem;
+	}
+
+	@GetMapping("/udpate_cartitem/{productId}/{quantity}")
+	@ResponseBody
+	public Integer updateCartItem(@PathVariable("productId") Long productId, @PathVariable("quantity") Integer quantity,
+			Principal principal, HttpSession session) {
+		User user = userRepository.findUserByEmail(principal.getName());
+		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
+				productRepository.getOne(productId));
+		int session_cart_quanity = Integer.parseInt(session.getAttribute("cart_count").toString());
+		if (cartItem.getQuantity() < quantity) {
+			session.setAttribute("cart_count", (session_cart_quanity + (quantity - cartItem.getQuantity())));
+			increaseCartItemQuantity(cartItem, quantity - cartItem.getQuantity());
+		} else {
+			session.setAttribute("cart_count", (session_cart_quanity - (cartItem.getQuantity() - quantity)));
+			decreaseCartItemQuantity(cartItem, cartItem.getQuantity() - quantity);
+		}
+		
+		return Integer.valueOf(session.getAttribute("cart_count").toString());
 	}
 
 	private Cart createCart(User user, Product product, Integer quantity) {
@@ -157,6 +174,34 @@ public class CartController {
 	private void modifyCartItem(CartItem cartItem, Product product, Integer quantity) {
 		cartItem.setQuantity(cartItem.getQuantity() + quantity);
 		cartItem.setTotalPrice(cartItem.getTotalPrice() + (product.getPrice() * quantity));
+	}
+
+	private Boolean increaseCartItemQuantity(CartItem cartItem, Integer quantity) {
+
+		Cart cart = cartItem.getCart();
+		cartItem.setQuantity(cartItem.getQuantity() + quantity);
+		cartItem.setTotalPrice(cartItem.getTotalPrice() + (cartItem.getUnitPrice() * quantity));
+		cartItemRepository.save(cartItem);
+		cart.setQuantity(cart.getQuantity() + quantity);
+		cart.setTotalAmount(cart.getTotalAmount() + (cartItem.getUnitPrice() * quantity));
+		cartRepository.save(cart);
+		return true;
+	}
+
+	private Boolean decreaseCartItemQuantity(CartItem cartItem, Integer quantity) {
+
+		Cart cart = cartItem.getCart();
+		cart.setTotalAmount(cart.getTotalAmount() - (cartItem.getUnitPrice() * quantity));
+		cart.setQuantity(cart.getQuantity() - quantity);
+		cartRepository.save(cart);
+		if (cartItem.getQuantity() == 1) {
+			cartItemRepository.delete(cartItem);
+		} else {
+			cartItem.setQuantity(cartItem.getQuantity() - quantity);
+			cartItem.setTotalPrice(cartItem.getTotalPrice() - (cartItem.getUnitPrice() * quantity));
+			cartItemRepository.save(cartItem);
+		}
+		return true;
 	}
 
 }

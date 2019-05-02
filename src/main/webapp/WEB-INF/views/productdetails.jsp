@@ -40,6 +40,9 @@
 		<!--main-->
 		<div class="container product-information padd-80">
 
+			<span class='alert alert-success' style="display: none"
+				id="update-alert">Cart is updated successfully.</span>
+
 			<div class="col-md-5 col-lg-6 detail-left text-center">
 
 
@@ -78,24 +81,29 @@
 							<p>${product.productDescription}</p>
 						</ul></li>
 				</ul>
-				<form action="${contextPath}/user/addtocart/${product.id}" name="cartform" method="get">
+				<form action="${contextPath}/user/addtocart/${product.id}"
+					name="cartform" method="get">
 					<div class="detail-btm">
-
 						<div class="detail-row quantity-box">
 							<p class="text-uppercase">Quantity</p>
 							<div class="clearfix"></div>
-							<div class="input--filled">
-								<button type="button" class="sub">
+							<div class="input--filled" id="input--filled">
+								<button type="button" class="sub" id="sub">
 									<i class="fa fa-minus" aria-hidden="true"></i>
 								</button>
-								<input type="text" id="prod_quantity" name="prod_quantity" value="1" class="field">
-								<button type="button" class="add">
+								<input type="text" id="prod_quantity" name="prod_quantity"
+									class="field">
+								<button type="button" class="add" id="add">
 									<i class="fa fa-plus" aria-hidden="true"></i>
 								</button>
 								<div class="clearfix"></div>
 							</div>
-							<a class="coupon" href="#" onclick="cartsubmit()">Add to cart</a> <a class="coupon"
-								href="${contextPath}/products">Continue Shopping</a>
+							<a class="coupon" href="#" id="addtocartbtn"
+								onclick="cartsubmit()">Add to cart</a> <a class="coupon"
+								style="display: none" id="updatecartbtn">Update Cart</a> <a
+								class="coupon" href="${contextPath}/products">Continue
+								Shopping</a>
+
 
 							<div class="clearfix"></div>
 						</div>
@@ -400,38 +408,44 @@
 
 
 		</div>
+	</div>
+
+
+	<%@include file="footer.jsp"%>
+	<!--Categories-menu-->
+	<script>
+		$('.product-information .sub-menu ul').hide();
+		$(".product-information .sub-menu a").click(function() {
+			$(this).parent(".sub-menu").children("ul").slideToggle("300");
+			$(this).find("i.fa").toggleClass("fa-angle-up fa-angle-down");
+		});
+
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 
 
 
-		<%@include file="footer.jsp"%>
-		<!--Categories-menu-->
-		<script>
-			$('.product-information .sub-menu ul').hide();
-			$(".product-information .sub-menu a").click(function() {
-				$(this).parent(".sub-menu").children("ul").slideToggle("300");
-				$(this).find("i.fa").toggleClass("fa-angle-up fa-angle-down");
-			});
+	<!--Light-slider-->
+	<script src="${js}/lightslider.js"></script>
+	<!--index-->
+	<script src="${js}/index.js"></script>
+	<!--custom-->
+	<script src="${js}/custom.js"></script>
 
-			$(function() {
-				$('[data-toggle="tooltip"]').tooltip()
-			})
-		</script>
+	<script type="text/javascript">
+		document.getElementById('prod_quantity').value = 1;
+
+		function cartsubmit() {
+			document.forms['cartform'].submit();
+		}
+	</script>
+	<security:authorize access="hasRole('ROLE_USER')">
+		<script src="${js}/cartitem-availability.js"></script>
+	</security:authorize>
 
 
-
-		<!--Light-slider-->
-		<script src="${js}/lightslider.js"></script>
-		<!--index-->
-		<script src="${js}/index.js"></script>
-		<!--custom-->
-		<script src="${js}/custom.js"></script>
-		
-		<script type="text/javascript">
-		 function cartsubmit(){
-			 document.forms['cartform'].submit();
-		 }
-		</script>
-		
 </body>
 
 

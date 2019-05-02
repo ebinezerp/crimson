@@ -12,26 +12,28 @@
 		<%@include file="menu.jsp"%>
 		<%@include file="searchmenu.jsp"%>
 		<hr>
-		<div class="col-md-7 col-md-offset-2">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Email</th>
-						<th>Message Subject</th>
-						<th>Message</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${contacts}" var="contactMessage">
+		<div class="container">
+			<div class="col-md-7 col-md-offset-2">
+				<table class="table">
+					<thead>
 						<tr>
-							<td>${contactMessage.email}</td>
-							<td><a
-								href="${contextPath}/admin/${contactMessage.messageId}">${contactMessage.subject}</a></td>
-							<td>${contactMessage.message}</td>
+							<th>Email</th>
+							<th>Message Subject</th>
+							<th>Message</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach items="${contacts}" var="contactMessage">
+							<tr>
+								<td>${contactMessage.email}</td>
+								<td><a
+									href="${contextPath}/admin/${contactMessage.messageId}">${contactMessage.subject}</a></td>
+								<td>${contactMessage.message}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<hr>
 		<%@include file="footer.jsp"%>

@@ -1,0 +1,31 @@
+landing page - > products 
+
+
+menu -> home -> about us
+
+product images 
+
+navigation with enter- for login
+
+cart products exists message
+
+products details page -> should be display 
+
+added quantity should be displayed. on details
+
+
+and product details .. quantity should be displayed on selected items.
+
+banner in products page shows products
+
+
+In checkout it showing products banner ... .and it should replace with checkout
+
+Orders page -> in user profile and pagination for order and display in reverse order of date.
+
+Order status change in should be shown at user end and email should be sent to user on dispatch and delivery.
+
+
+payment method spelling
+
+

@@ -33,23 +33,25 @@ $(document).ready(function() {
             });
 		});
 
-//quantity
-var unit = 0;
-var total;
+/*//quantity
+var unit = document.getElementById('prod_quantity').value;
+var total;*/
 // if user changes value in field
-$('.field').change(function() {
+/*$('.field').change(function() {
   unit = this.value;
-});
+});*/
 $('.add').click(function() {
-  unit++;
-  var $input = $(this).prevUntil('.sub');
+$('#prod_quantity').val(parseInt($('#prod_quantity').val())+1)
+ /* var $input = $(this).prevUntil('.sub');
   $input.val(unit);
-  unit = unit;
+  unit = unit;*/
 });
 $('.sub').click(function() {
+	var unit=$('#prod_quantity').val();
   if (unit > 0) {
     unit--;
-    var $input = $(this).nextUntil('.add');
-    $input.val(unit);
+    /*var $input = $(this).nextUntil('.add');
+    $input.val(unit);*/
+    $('#prod_quantity').val(unit);
   }
 });

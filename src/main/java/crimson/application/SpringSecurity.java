@@ -33,6 +33,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				.antMatchers("/owner/**").hasRole("OWNER")
+				.antMatchers("/profile**").hasAnyRole("ADMIN","USER")
+				.antMatchers("/orders/**").hasAnyRole("ADMIN","USER")
 				.antMatchers("/**").permitAll().and().formLogin()
 				.loginPage("/?login").usernameParameter("email").passwordParameter("password")
 				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/",true).failureUrl("/?login=error").and().logout()
