@@ -1,6 +1,7 @@
 package crimson.application.controller;
 
 import java.security.Principal;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -98,6 +99,7 @@ public class CheckoutController {
 		order.setUser(cart.getUser());
 		order.setDeliveryStatus(false);
 		order.setDispatchStatus(false);
+		order.setOrderedDate(new Date());
 		orderRepository.save(order);
 		orderReciever.setOrder(order);
 		for (CartItem cartItem : cart.getCartItems()) {

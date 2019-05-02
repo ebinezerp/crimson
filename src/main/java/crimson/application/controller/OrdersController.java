@@ -31,9 +31,9 @@ public class OrdersController {
 		List<Order> orders = null;
 
 		if (id != null) {
-			orders = orderRepository.findAllByUser(userRepository.getOne(id));
+			orders = orderRepository.findAllByUserOrderByOrderedDateDesc(userRepository.getOne(id));
 		} else {
-			orders = orderRepository.findAll();
+			orders = orderRepository.findAllByOrderByOrderedDateDesc();
 		}
 
 		model.addAttribute("orders", orders);

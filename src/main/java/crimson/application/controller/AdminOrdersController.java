@@ -1,13 +1,13 @@
 package crimson.application.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.dao.OrderRepository;
 import crimson.application.model.Order;
@@ -23,6 +23,7 @@ public class AdminOrdersController {
 	public String orderDispatch(@PathVariable("id") Long id, Model model) {
 		Order order = orderRepository.getOne(id);
 		order.setDispatchStatus(true);
+		order.setDispatchedDate(new Date());
 		orderRepository.save(order);
 		return "redirect:/orders";
 	}
@@ -34,6 +35,7 @@ public class AdminOrdersController {
 			return "redirect:/orders?deliveryStatus=false&dispatchStatus=false";
 		}
 		order.setDeliveryStatus(true);
+		order.setDeliveryDate(new Date());
 		orderRepository.save(order);
 		return "redirect:/orders?deliveryStatus=true";
 	}

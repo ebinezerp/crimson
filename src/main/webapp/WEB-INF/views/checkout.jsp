@@ -73,7 +73,7 @@
 						<div class="col-md-6">
 							<h3>Phone *</h3>
 							<springform:input type="tel" path="mobile" />
-							<springform:errors path="mobile"/>
+							<springform:errors path="mobile" />
 						</div>
 						<div class="col-md-12">
 							<h3>Country *</h3>
@@ -88,7 +88,7 @@
 							<h3>Address *</h3>
 							<springform:input path="address.street" type="text"
 								placeholder="Street Address" />
-								<springform:errors path="address.street"></springform:errors>
+							<springform:errors path="address.street"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<springform:input type="text" path="address.apartment"
@@ -98,7 +98,7 @@
 							<h3>Town / City *</h3>
 							<springform:input type="text" path="address.city"
 								placeholder="Street Address" />
-								<springform:errors path="address.city"></springform:errors>
+							<springform:errors path="address.city"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Postcode *</h3>
@@ -171,7 +171,7 @@
 
 					<div class="col-md-12 pay-faq">
 
-						<h2>Payment mathod</h2>
+						<h2>Payment method</h2>
 
 						<div class="accordion accordion-open check-faq mt-20"
 							id="section4">
@@ -181,7 +181,7 @@
 							<div class="faq">
 								<span class="payment-box"></span>
 								<p>Please send a check to Store Name, Store Street, Store
-									Town, Store State / County, Store Postcode.</p>
+									Town, Store State / County, Store Postal code.</p>
 							</div>
 						</div>
 
@@ -192,7 +192,7 @@
 							<div class="faq">
 								<span class="payment-box"></span>
 								<p>Please send a check to Store Name, Store Street, Store
-									Town, Store State / County, Store Postcode.</p>
+									Town, Store State / County, Store Postal code.</p>
 							</div>
 						</div>
 
@@ -200,7 +200,8 @@
 
 						<div class="clearfix"></div>
 						<div class="col-md-12 text-center">
-							<a href="#" class="coupon btn-bg" onclick="placeOrder()">Place order</a>
+							<a href="#" class="coupon btn-bg" onclick="placeOrder()">Place
+								order</a>
 						</div>
 						<div class="clearfix"></div>
 
@@ -215,25 +216,23 @@
 
 		<!--footer-->
 		<%@include file="footer.jsp"%>
+	</div>
 
+	<!--checkout-->
+	<script src="${js}/jquery.accordion.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.accordion').accordion({
+				defaultOpen : 'some_id'
+			}); //some_id section1 in demo
+		});
+	</script>
 
-		<!--checkout-->
-		<script src="${js}/jquery.accordion.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('.accordion').accordion({
-					defaultOpen : 'some_id'
-				}); //some_id section1 in demo
-			});
-		</script>
-		
-		<script type="text/javascript">
-		
-		function placeOrder(){
+	<script type="text/javascript">
+		function placeOrder() {
 			document.forms['checkoutform'].submit();
 		}
-		
-		</script>
+	</script>
 </body>
 
 

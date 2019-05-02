@@ -1,5 +1,6 @@
 package crimson.application.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,6 +32,13 @@ public class Order {
 	private Boolean dispatchStatus;
 
 	private Boolean deliveryStatus;
+	
+	
+	private Date orderedDate;
+	
+	private Date dispatchedDate;
+	
+	private Date deliveryDate;
 
 	@ManyToOne
 	@ToString.Exclude
