@@ -138,6 +138,24 @@
 				<spring.profiles.active>prod</spring.profiles.active>
 			</properties>
 		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.profiles.active>test</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>awstest</id>
+			<properties>
+				<spring.profiles.active>awstest</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>awsprod</id>
+			<properties>
+				<spring.profiles.active>awsprod</spring.profiles.active>
+			</properties>
+		</profile>
 	</profiles>
 
 	<build>
