@@ -37,6 +37,10 @@ public class SignupAndLoginController {
 
 	@Autowired
 	private RandomPasswordGenerator randomPasswordGenerator;
+	
+	@Autowired
+	@Qualifier("regemail")
+	private Email regEmailService;
 
 	@Autowired
 	private Validation validation;
@@ -58,7 +62,7 @@ public class SignupAndLoginController {
 		}
 
 		userRepository.save(user);
-		// emailService.send("to","http://"+request.getServerName()+":"+request.getServerPort());
+		 regEmailService.send("to","","http://"+request.getServerName()+":"+request.getServerPort());
 		return "redirect:/?login";
 	}
 
