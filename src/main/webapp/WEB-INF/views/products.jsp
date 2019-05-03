@@ -25,8 +25,8 @@
 		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
 		<%@include file="header.jsp"%>
-		
-		<%@include file="searchmenu.jsp" %>
+
+		<%@include file="searchmenu.jsp"%>
 
 
 
@@ -49,16 +49,16 @@
 				    NO PRODUCTS AVAILABLE
 				</c:if>
 				<div class="clearfix"></div>
-				<c:forEach items="${products}" var="prod">
-					<div class="col-md-3 col-sm-3">
+				<c:forEach items="${products}" var="prod" varStatus="vs">
+				
+					<div class="col-md-3 col-sm-3 mt-40">
 						<div class="product">
 
 							<div class="product-img">
-								<a href="${contextPath}/prod_details/${prod.id}" class="product-href"></a> <img
-									src="${prodimgs}/${prod.id}.jpg" alt=""
-									class="img-responsive img-overlay" /> <img
-									src="${prodimgs}/${prod.id}.jpg" alt=""
-									class="img-responsive" />
+								<a href="${contextPath}/prod_details/${prod.id}"
+									class="product-href"></a> <img src="${prodimgs}/${prod.id}.jpg"
+									alt="" class="img-responsive img-overlay" /> <img
+									src="${prodimgs}/${prod.id}.jpg" alt="" class="img-responsive" />
 
 								<div class="sale-heart-hover">
 									<a href="#"><i class="flaticon-heart"></i></a>
@@ -86,6 +86,7 @@
 
 						</div>
 					</div>
+					
 				</c:forEach>
 
 			</div>

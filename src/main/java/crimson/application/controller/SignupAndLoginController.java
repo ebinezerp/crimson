@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import crimson.application.dao.UserRepository;
 import crimson.application.model.User;
+import crimson.application.repository.UserRepository;
 import crimson.application.util.Email;
 import crimson.application.util.RandomPasswordGenerator;
 import crimson.application.util.Validation;

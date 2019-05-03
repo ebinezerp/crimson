@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import crimson.application.dao.MessageHandlerRepository;
 import crimson.application.model.ContactMessage;
 import crimson.application.model.MessageHandler;
 import crimson.application.model.User;
+import crimson.application.repository.MessageHandlerRepository;
 ;
 @Service
 public class MessageHandlerService {

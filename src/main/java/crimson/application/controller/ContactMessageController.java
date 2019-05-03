@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import crimson.application.dao.ContactMessageRepository;
-import crimson.application.dao.MessageHandlerRepository;
 import crimson.application.model.ContactMessage;
 import crimson.application.model.User;
+import crimson.application.repository.ContactMessageRepository;
+import crimson.application.repository.MessageHandlerRepository;
 
 @Controller
 public class ContactMessageController {

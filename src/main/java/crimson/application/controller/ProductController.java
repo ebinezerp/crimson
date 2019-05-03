@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import crimson.application.dao.ProductRepository;
 import crimson.application.model.Product;
+import crimson.application.repository.ProductRepository;
 import crimson.application.util.Validation;
 
 @Controller
@@ -101,6 +101,7 @@ public class ProductController {
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
+				productRepository.deleteById(product.getId());
 				return "productform";
 			}
 		}

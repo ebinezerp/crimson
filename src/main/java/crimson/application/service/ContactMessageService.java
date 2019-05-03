@@ -3,8 +3,8 @@ package crimson.application.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import crimson.application.dao.ContactMessageRepository;
 import crimson.application.model.ContactMessage;
+import crimson.application.repository.ContactMessageRepository;
 
 @Service
 public class ContactMessageService {

@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import crimson.application.dao.AddressRepository;
-import crimson.application.dao.CartItemRepository;
-import crimson.application.dao.CartRepository;
-import crimson.application.dao.OrderItemRepository;
-import crimson.application.dao.OrderRecieverRepository;
-import crimson.application.dao.OrderRepository;
-import crimson.application.dao.UserRepository;
 import crimson.application.model.Address;
 import crimson.application.model.Cart;
 import crimson.application.model.CartItem;
 import crimson.application.model.Order;
 import crimson.application.model.OrderItem;
 import crimson.application.model.OrderReciever;
+import crimson.application.repository.AddressRepository;
+import crimson.application.repository.CartItemRepository;
+import crimson.application.repository.CartRepository;
+import crimson.application.repository.OrderItemRepository;
+import crimson.application.repository.OrderRecieverRepository;
+import crimson.application.repository.OrderRepository;
+import crimson.application.repository.UserRepository;
 import crimson.application.util.CartUtil;
 
 @Controller

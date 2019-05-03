@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import crimson.application.dao.ProductRepository;
-import crimson.application.dao.UserRepository;
 import crimson.application.model.Product;
 import crimson.application.model.User;
+import crimson.application.repository.ProductRepository;
+import crimson.application.repository.UserRepository;
 
 @Service
 public class Validation {

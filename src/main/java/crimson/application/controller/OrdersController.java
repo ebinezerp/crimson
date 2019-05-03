@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import crimson.application.dao.OrderRepository;
-import crimson.application.dao.UserRepository;
 import crimson.application.model.Order;
+import crimson.application.repository.OrderRepository;
+import crimson.application.repository.UserRepository;
 
 @Controller
 public class OrdersController {

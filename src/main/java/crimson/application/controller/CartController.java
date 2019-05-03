@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import crimson.application.dao.CartItemRepository;
-import crimson.application.dao.CartRepository;
-import crimson.application.dao.ProductRepository;
-import crimson.application.dao.UserRepository;
 import crimson.application.model.Cart;
 import crimson.application.model.CartItem;
 import crimson.application.model.Product;
 import crimson.application.model.User;
+import crimson.application.repository.CartItemRepository;
+import crimson.application.repository.CartRepository;
+import crimson.application.repository.ProductRepository;
+import crimson.application.repository.UserRepository;
 import crimson.application.util.CartUtil;
 
 @Controller

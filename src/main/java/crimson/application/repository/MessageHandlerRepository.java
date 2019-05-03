@@ -1,4 +1,4 @@
-package crimson.application.dao;
+package crimson.application.repository;
 
 import java.util.List;
 

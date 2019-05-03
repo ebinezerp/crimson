@@ -1,4 +1,4 @@
-package crimson.application.dao;
+package crimson.application.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
