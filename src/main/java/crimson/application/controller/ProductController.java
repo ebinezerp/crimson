@@ -141,6 +141,8 @@ public class ProductController {
 			productImagesFolder.mkdirs();
 			System.out.println("folder created");
 		}
+		
+		System.out.println(productImagesFolder.exists());
 
 		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");
