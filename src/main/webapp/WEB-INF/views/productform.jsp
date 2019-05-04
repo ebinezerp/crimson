@@ -31,7 +31,9 @@
 
 			<!--main-->
 			<div class="container contact-main padd-80">
-
+			<c:if test="${status==true}">
+				<span class="alert alert-success">Product Added Successfully.</span>
+			</c:if>
 				<div class="col-md-6 contact-left">
 
 					<div class="contact-info">
@@ -45,28 +47,29 @@
 							<div class="col-sm-6">
 								<label>Product Name *</label>
 								<springform:input path="productName" />
-								<springform:errors path="productName"></springform:errors>
+								<springform:errors class="error_msg" path="productName"></springform:errors>
 							</div>
 							<div class="col-sm-6">
 								<label>Product Price *</label>
 								<springform:input path="price" />
-								<springform:errors path="price"></springform:errors>
+								<springform:errors class="error_msg" path="price"></springform:errors>
 							</div>
 							<div class="col-sm-6">
-								<label>Stock *</label>
+								<label>Stock(Tons) *</label>
 								<springform:input path="stock" />
-								<springform:errors path="stock"></springform:errors>
+								<springform:errors class="error_msg" path="stock"></springform:errors>
 							</div>
 
 							<div class="col-sm-6">
 								<label>Upload Image *</label>
 								<springform:input path="productImage" type="file" />
-								<springform:errors path="productImage"></springform:errors>
+								<springform:errors class="error_msg" path="productImage"></springform:errors>
+								<span class="error_msg">${image_error}</span>
 							</div>
 							<div class="col-sm-12">
 								<label>Product Description *</label>
 								<springform:textarea path="productDescription" />
-								<springform:errors path="productDescription"></springform:errors>
+								<springform:errors class="error_msg" path="productDescription"></springform:errors>
 							</div>
 							<springform:input path="status" type="hidden" value="true"/>
 							<div class="clearfix"></div>

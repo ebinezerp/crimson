@@ -1,0 +1,20 @@
+Password change error message
+
+Password Changed 
+
+Login
+
+Admin Registration success message
+
+
+Product Added success message
+
+Price and stock in Product form -> text data entered
+
+Product Image No image
+
+Product Error messages style
+
+
+Add to cart without signin -> should show login page
+

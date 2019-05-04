@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.Product;
 import crimson.application.repository.ProductRepository;
@@ -34,7 +35,10 @@ public class ProductController {
 	private Validation validation;
 
 	@GetMapping("/productform")
-	public String productForm(Model model) {
+	public String productForm(@RequestParam("status")Boolean status,Model model) {
+		if(status!=null) {
+			model.addAttribute("status", status);
+		}
 		model.addAttribute("product", new Product());
 		return "productform";
 	}
@@ -51,14 +55,16 @@ public class ProductController {
 			return "productform";
 		}
 
-		productRepository.save(product);
+		
 
 		if (!product.getProductImage().isEmpty()) {
+			productRepository.save(product);
 			try {
 				saveImage(product, request);
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
+				productRepository.deleteById(product.getId());
 				return "productform";
 			}
 		} else {
@@ -66,7 +72,7 @@ public class ProductController {
 			return "productform";
 		}
 
-		return "redirect:/admin/productform";
+		return "redirect:/admin/productform?status=true";
 	}
 
 	@GetMapping("/editproduct/{id}")

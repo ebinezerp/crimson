@@ -15,8 +15,8 @@ public class AdminRegisterEmail implements Email {
 	JavaMailSender javaMailSender;
 
 	@Override
-	public void send(String to, String content, String contextPath) {
-
+	public boolean send(String to, String content, String contextPath) {
+		try {
 		javaMailSender.send(new MimeMessagePreparator() {
 
 			@Override
@@ -29,6 +29,12 @@ public class AdminRegisterEmail implements Email {
 						true);
 			}
 		});
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 }

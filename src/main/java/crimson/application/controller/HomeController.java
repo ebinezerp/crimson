@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.Cart;
 import crimson.application.model.Product;
@@ -35,7 +36,8 @@ public class HomeController {
 	private CartRepository cartRepository;
 
 	@GetMapping("/")
-	public String indexPage(Model model, HttpServletRequest request, Principal principal, HttpSession session) {
+	public String indexPage(Model model, @RequestParam(name = "login", required = false) String login,
+			HttpServletRequest request, Principal principal, HttpSession session) {
 
 		model.addAttribute("user", new User());
 
@@ -54,6 +56,10 @@ public class HomeController {
 				session.setAttribute("cart_count", cart.getQuantity());
 			}
 
+		}
+		
+		if(login!=null) {
+			return "redirect:/products?login";
 		}
 
 		return "redirect:/products";

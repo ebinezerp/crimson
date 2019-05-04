@@ -17,7 +17,9 @@ public class RegisterEmail implements Email {
 	
 	
 	@Override
-	public void send(String toEmail,String content,String contextPath) {
+	public boolean send(String toEmail,String content,String contextPath) {
+		
+		try {
 		javaMailSender.send(new MimeMessagePreparator() {
 
 			@Override
@@ -48,6 +50,12 @@ public class RegisterEmail implements Email {
 			
 			
 		});
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 		
 	}
 	
