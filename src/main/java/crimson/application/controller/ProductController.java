@@ -130,7 +130,7 @@ public class ProductController {
 		inputStream.read(array);
 
 		
-		File productImagesFolder = new File(request.getServletContext().getContextPath()+"/product/images/");
+		File productImagesFolder = new File(request.getServletContext().getContextPath()+"/resources/images/");
 		
 		
 		if (!productImagesFolder.exists()) {
