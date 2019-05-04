@@ -129,11 +129,8 @@ public class ProductController {
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
 
-		/*
-		 * String contextPath = request.getServerName();
-		 * System.out.println("This my context Path:.."+contextPath);
-		 */
-		File productImagesFolder = new File("/product/images/");
+		
+		File productImagesFolder = new File(request.getServletContext().getContextPath()+"/product/images/");
 		
 		
 		if (!productImagesFolder.exists()) {
