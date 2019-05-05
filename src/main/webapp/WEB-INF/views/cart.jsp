@@ -23,7 +23,7 @@
 
 				<h2>Cart</h2>
 				<div class="link-sec">
-					<a href="#">Home</a> <i class="fa fa-angle-right"></i> <a href="#">Cart</a>
+					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i> <a href="${contextPath}/products">Products</a>
 				</div>
 
 			</div>

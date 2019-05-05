@@ -115,6 +115,7 @@ public class SignupAndLoginController {
 		if (passwordEncoder.matches(password, user.getPassword())) {
 			return "redirect:/newpassword?email=" + email;
 		}
+		model.addAttribute("password_match", false);
 		return "resetpassword";
 	}
 

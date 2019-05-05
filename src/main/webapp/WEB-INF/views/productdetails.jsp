@@ -27,9 +27,10 @@
 		<div class="container-fluid header-main">
 			<div class="container text-center">
 
-				<h2>Cart</h2>
+				<h2>Product</h2>
 				<div class="link-sec">
-					<a href="#">Home</a> <i class="fa fa-angle-right"></i> <a href="#">Cart</a>
+					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i>
+					<a href="${contextPath}/user/cart">Cart</a>
 				</div>
 
 			</div>

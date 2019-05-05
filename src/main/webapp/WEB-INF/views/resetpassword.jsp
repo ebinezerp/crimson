@@ -64,10 +64,14 @@
 					<h3>
 						<strong>Reset your Password</strong>
 					</h3>
+					<p>Enter reset password here.</p>
+					<c:if test="${password_match==false}">
+						<span class="error_msg">Reset Password is wrong</span>
+					</c:if>
 				</center>
 				<form class="form" action="${contextPath}/resetpassword"
 					method="post">
-					<input type="hidden" name="email" value="${email}"/>
+					<input type="hidden" name="email" value="${email}" />
 					<div class="form-group">
 						<p>Enter reset password here</p>
 						<input type="password" name="password" class="form-control">
