@@ -57,8 +57,11 @@ public class HomeController {
 			}
 
 		}
-		
-		if(login!=null) {
+
+		if (login != null) {
+			if (login.equalsIgnoreCase("error")) {
+				return "redirect:/products?login=error";
+			}
 			return "redirect:/products?login";
 		}
 
@@ -66,9 +69,14 @@ public class HomeController {
 	}
 
 	@GetMapping("/products")
-	public String getProducts(Model model) {
+	public String getProducts(@RequestParam(name = "status", required = false) Boolean status, Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("products", productRepository.findAllByStatusIsTrue());
+		
+		if(status!=null) {
+			model.addAttribute("status",status);
+		}
+		
 		return "products";
 	}
 

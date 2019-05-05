@@ -67,7 +67,7 @@ public class CartController {
 		session.setAttribute("cart_count", cart.getQuantity());
 
 		if (qant == null) {
-			return "redirect:/products";
+			return "redirect:/products?status=true";
 		} else {
 			return "redirect:/prod_details/" + id;
 		}

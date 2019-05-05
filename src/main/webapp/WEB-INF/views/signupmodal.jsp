@@ -35,13 +35,16 @@
 									<springform:input class="input-1" path="username"
 										placeholder="Enter username" />
 									<span class="error_msg"> <springform:errors path="username" />
+									<span class="error_msg">${error_messages.username_error}</span>
 									</span><span class="underline"></span>
+									
 								</div>
 								<div class="input-row">
 									<h5>email</h5>
 									<springform:input class="input-1" type="email" path="email"
 										placeholder="Enter your Email ID" />
 										<span class="error_msg"><springform:errors path="email"/></span>
+										<span class="error_msg">${error_messages.email_error}</span>
 									<span class="underline"></span>
 								</div>
 								<div class="input-row">
@@ -49,6 +52,7 @@
 									<springform:input class="input-1" type="tel" path="mobile"
 										placeholder="Enter your Mobile Number" />
 										<span class="error_msg"><springform:errors path="mobile"/></span>
+										<span class="error_msg">${error_messages.mobile_error}</span>
 									<span class="underline"></span>
 								</div>
 								<div class="input-row">
@@ -56,12 +60,14 @@
 									<springform:password class="input-1" path="password"
 										placeholder="Enter your password" />
 										<span class="error_msg"><springform:errors path="password"/></span>
+										<span class="error_msg">${error_messages.password_error}</span>
 									<span class="underline"></span>
 								</div>
 								<div class="input-row">
 									<h5>Re-enter your password</h5>
 									<springform:password class="input-1" path="confirmPassword"
 										placeholder="Re-Enter your Password" />
+										<span class="error_msg">${error_messages.cpassword_error}</span>
 									<span class="underline"></span>
 								</div>
 								<springform:input path="role" type="hidden" value="ROLE_USER"/>

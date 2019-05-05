@@ -64,6 +64,7 @@ public class SignupAndLoginController {
 		if(regEmailService.send(user.getEmail(),"","http://"+request.getServerName()+":"+request.getServerPort())) {
 			userRepository.save(user);
 		}else {
+			System.out.println("Register Error");
 			model.addAttribute("status", "input_errors");
 			model.addAttribute("email_error", "Email is not valid. Enter correct email.");
 			return "index";

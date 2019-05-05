@@ -322,16 +322,7 @@
 	<!--footer-->
 	<%@include file="footer.jsp"%>
 
-	<script type="text/javascript">
-		if ('${status}' === 'input_errors') {
-			document.getElementById('signup').click();
-		}
-
-		var query = window.location.search;
-		if (query.includes('?login')) {
-			document.getElementById('login').click();
-		}
-	</script>
+	
 
 </body>
 

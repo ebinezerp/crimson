@@ -48,9 +48,15 @@
 				<c:if test="${fn:length(products) le 0}">
 				    NO PRODUCTS AVAILABLE
 				</c:if>
+				<c:if test="${status==true}">
+				<span class="alert alert-success">Added to Cart</span>
+				</c:if>
+				<c:if test="${status==false}">
+				<span class="alert alert-danger">Sorry error occurred . Product is not added to cart. Try again</span>
+				</c:if>
 				<div class="clearfix"></div>
 				<c:forEach items="${products}" var="prod" varStatus="vs">
-				
+
 					<div class="col-md-3 col-sm-3 mt-40">
 						<div class="product">
 
@@ -86,7 +92,7 @@
 
 						</div>
 					</div>
-					
+
 				</c:forEach>
 
 			</div>
@@ -98,6 +104,17 @@
 		</div>
 
 		<%@include file="footer.jsp"%>
+
+		<script type="text/javascript">
+			if ('${status}' === 'input_errors') {
+				document.getElementById('signup').click();
+			}
+
+			var query = window.location.search;
+			if (query.includes('?login')) {
+				document.getElementById('login').click();
+			}
+		</script>
 	</div>
 </body>
 

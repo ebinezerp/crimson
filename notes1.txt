@@ -18,3 +18,13 @@ Product Error messages style
 
 Add to cart without signin -> should show login page
 
+Registraion Email 
+
+Registration Error_message
+
+Registration and login model in product
+
+Login error
+
+add to cart message in products page
+

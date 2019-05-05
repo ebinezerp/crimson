@@ -22,7 +22,9 @@
 					</div>
 				</div>
 				<div class="col-sm-7 modal-text">
-
+				<c:if test="${param.login=='error'}">
+				<span class="error_msg">Invalid Credentials</span>
+				</c:if>
 					<div class="form-sec">
 						<form action="${contextPath}/processlogin" method="POST"
 							name="loginform">
