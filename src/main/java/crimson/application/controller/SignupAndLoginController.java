@@ -60,9 +60,11 @@ public class SignupAndLoginController {
 			model.addAttribute("error_messages", error_messages);
 			return "index";
 		}
+		
+		userRepository.save(user);
 
 		if(regEmailService.send(user.getEmail(),"","http://"+request.getServerName()+":"+request.getServerPort())) {
-			userRepository.save(user);
+			
 		}else {
 			System.out.println("Register Error");
 			model.addAttribute("status", "input_errors");
