@@ -5,6 +5,7 @@ $(document).ready(function() {
 	$.get('/user/checkcartitem/' + id, function(data, error) {
 		if (data != "") {
 			$('#addtocartbtn').hide();
+			$('#prodexits').show();
 			$('#prod_quantity').val(data.quantity);
 		} else {
 			$('#prod_quantity').val(1);
@@ -26,8 +27,13 @@ $(document).ready(function() {
 		var quantity = $('#prod_quantity').val();
 		var url = '/user/udpate_cartitem/' + id;
 		$.get(url + '/' + quantity, function(data, error) {
-			$('#update-alert').show();
-			$('#updatecartbtn').hide();
+			if (quantity > 0) {
+				$('#update-alert').show();
+				$('#updatecartbtn').hide();
+			}else{
+				$('#addtocartbtn').show();
+				$('#prodexits').hide();
+			}
 			$('#cart_count').html(data);
 
 		})

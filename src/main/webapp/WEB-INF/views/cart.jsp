@@ -134,15 +134,15 @@
 			
 			$(document).ready(function(){
 				$('.add').click(function(){
-					var value= $(this).parent().find('input').attr('id');
-					$.get('/user/addcartitem/'+value,function(){
+					var cartItemId= $(this).parent().find('input').attr('id');
+					$.get('/user/addcartitem/'+cartItemId,function(){
 						location.reload(true);
 					});
 				})
 				
 				$('.sub').click(function(){
-					var value= $(this).parent().find('input').attr('id');
-					$.get('/user/subcartitem/'+value,function(){
+					var cartItemId= $(this).parent().find('input').attr('id');
+					$.get('/user/subcartitem/'+cartItemId,function(){
 						location.reload(true);
 					});
 					

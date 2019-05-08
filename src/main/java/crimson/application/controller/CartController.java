@@ -94,7 +94,9 @@ public class CartController {
 	@GetMapping("/addcartitem/{id}")
 	@ResponseBody
 	public Boolean addUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
+
 		CartItem cartItem = cartItemRepository.getOne(id);
+		session.setAttribute("cart_count", (Integer.parseInt(session.getAttribute("cart_count").toString()) + 1));
 		return increaseCartItemQuantity(cartItem, 1);
 	}
 
@@ -119,18 +121,21 @@ public class CartController {
 	@ResponseBody
 	public Integer updateCartItem(@PathVariable("productId") Long productId, @PathVariable("quantity") Integer quantity,
 			Principal principal, HttpSession session) {
+		
+
 		User user = userRepository.findUserByEmail(principal.getName());
 		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
 				productRepository.getOne(productId));
-		int session_cart_quanity = Integer.parseInt(session.getAttribute("cart_count").toString());
-		if (cartItem.getQuantity() < quantity) {
-			session.setAttribute("cart_count", (session_cart_quanity + (quantity - cartItem.getQuantity())));
-			increaseCartItemQuantity(cartItem, quantity - cartItem.getQuantity());
-		} else {
-			session.setAttribute("cart_count", (session_cart_quanity - (cartItem.getQuantity() - quantity)));
-			decreaseCartItemQuantity(cartItem, cartItem.getQuantity() - quantity);
-		}
 		
+		int cart_quantity= Integer.valueOf(session.getAttribute("cart_count").toString());
+		if(quantity>cartItem.getQuantity()) {
+			session.setAttribute("cart_count", cart_quantity+(quantity-cartItem.getQuantity()));
+			increaseCartItemQuantity(cartItem, quantity-cartItem.getQuantity());
+		}else {
+			session.setAttribute("cart_count", cart_quantity-(cartItem.getQuantity()-quantity));
+			decreaseCartItemQuantity(cartItem, cartItem.getQuantity()-quantity);
+		}
+
 		return Integer.valueOf(session.getAttribute("cart_count").toString());
 	}
 

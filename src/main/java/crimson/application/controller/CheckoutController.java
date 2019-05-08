@@ -3,10 +3,13 @@ package crimson.application.controller;
 import java.security.Principal;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -30,6 +33,7 @@ import crimson.application.repository.OrderRecieverRepository;
 import crimson.application.repository.OrderRepository;
 import crimson.application.repository.UserRepository;
 import crimson.application.util.CartUtil;
+import crimson.application.util.OrderPlacedEmail;
 
 @Controller
 @RequestMapping("/user")
@@ -58,6 +62,15 @@ public class CheckoutController {
 
 	@Autowired
 	private CartUtil cartUtilService;
+	
+	
+	@Autowired
+	@Qualifier("orderPlacedEmail")
+	private OrderPlacedEmail orderPlacedEmail;
+	
+	
+	
+	
 
 	@GetMapping("/checkout")
 	public String checkoutPage(Model model, Principal principal) {
@@ -68,18 +81,21 @@ public class CheckoutController {
 
 	@PostMapping("/checkout")
 	public String orderCheckout(@Valid @ModelAttribute("orderReciever") OrderReciever orderReciever, Errors errors,
-			Model model, Principal principal, HttpSession session) {
+			Model model, Principal principal,HttpServletRequest request, HttpSession session) {
 
+		Cart cart = userRepository.findUserByEmail(principal.getName()).getCart();
 		if (errors.hasErrors()) {
+			model.addAttribute("cart",cart);
 			return "checkout";
 		}
-		Cart cart = userRepository.findUserByEmail(principal.getName()).getCart();
+		
 		Order order = saveOrder(cart, orderReciever);
 		Address address = orderReciever.getAddress();
 		address.setOrderReciever(orderReciever);
 		orderReciever.setAddress(null);
 		orderRecieverRepository.save(orderReciever);
 		addressRepository.save(address);
+		orderPlacedEmail.send(cart.getUser().getEmail(), order.getOrderId().toString(), "http://"+request.getServerName()+":"+request.getServerPort());
 		cartUtilService.resetCart(cart);
 		session.setAttribute("cart_count", 0);
 		return "redirect:/user/bill/" + order.getOrderId();

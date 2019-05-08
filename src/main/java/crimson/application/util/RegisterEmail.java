@@ -9,15 +9,23 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import crimson.application.model.User;
+import crimson.application.repository.UserRepository;
+
 @Service("regemail")
 public class RegisterEmail implements Email {
 
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	
 	@Override
 	public boolean send(String toEmail,String content,String contextPath) {
+		
+		User user=userRepository.findUserByEmail(toEmail);
 		
 		try {
 		javaMailSender.send(new MimeMessagePreparator() {
@@ -30,7 +38,7 @@ public class RegisterEmail implements Email {
 						+ "<div id=”mail”>\r\n" + 
 						"<h1>Welcome to Crimson Trading<h1>\r\n" + 
 						"\r\n" + 
-						"<h5>Hi xxxxxx,</h5>\r\n" + 
+						"<h5>Hi, "+user.getUsername()+",</h5>\r\n" + 
 						"\r\n" + 
 						"<h3>Welcome to Crimson Trading!!!</h3>\r\n" + 
 						" <p>Crimson products are shipped to worldwide markets including India, Singapore, Europe, USA, Middle East and Africa.</p>\r\n" + 

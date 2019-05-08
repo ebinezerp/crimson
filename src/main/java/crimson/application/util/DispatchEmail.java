@@ -16,8 +16,8 @@ import crimson.application.repository.OrderRepository;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-@Service("orderDeliveryEmail")
-public class OrderDeliveryEmail implements Email {
+@Service
+public class DispatchEmail implements Email {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -50,8 +50,8 @@ public class OrderDeliveryEmail implements Email {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 				helper.setTo(address);
-				helper.setSubject("Order Delivered: " + orderId);
-				Template template=freemarkerConfig.getTemplate("delivery-mail.ftl");
+				helper.setSubject("Order Dispatched: " + orderId);
+				Template template=freemarkerConfig.getTemplate("dispatch-mail.ftl");
 				String body=FreeMarkerTemplateUtils.processTemplateIntoString(template, order);
 				helper.setText(body, true);
 			}
@@ -59,6 +59,5 @@ public class OrderDeliveryEmail implements Email {
 
 		return true;
 	}
-
 
 }

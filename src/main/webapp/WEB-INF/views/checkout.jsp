@@ -28,9 +28,9 @@
 		<div class="container-fluid header-main">
 			<div class="container text-center">
 
-				<h2>Poducts</h2>
+				<h2>Checkout</h2>
 				<div class="link-sec">
-					<a href="#">Home</a> <i class="fa fa-angle-right"></i> <a href="#">Poducts</a>
+					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i> <a href="${contextPath}/user/cart">Cart</a>
 				</div>
 
 			</div>
@@ -53,27 +53,27 @@
 						<div class="col-md-6">
 							<h3>First Name *</h3>
 							<springform:input type="text" path="firstname" />
-							<springform:errors path="firstname"></springform:errors>
+							<springform:errors class="error_msg" path="firstname"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Last Name *</h3>
 							<springform:input type="text" path="lastname" />
-							<springform:errors path="lastname"></springform:errors>
+							<springform:errors class="error_msg" path="lastname"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<h3>Company Name</h3>
 							<springform:input type="text" path="companyName" />
-							<springform:errors path="companyName"></springform:errors>
+							<springform:errors class="error_msg" path="companyName"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Email Address *</h3>
 							<springform:input type="email" path="email" />
-							<springform:errors path="email"></springform:errors>
+							<springform:errors class="error_msg" path="email"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Phone *</h3>
 							<springform:input type="tel" path="mobile" />
-							<springform:errors path="mobile" />
+							<springform:errors class="error_msg" path="mobile" />
 						</div>
 						<div class="col-md-12">
 							<h3>Country *</h3>
@@ -83,22 +83,24 @@
 								<springform:option value="China">China</springform:option>
 								<springform:option value="Sri lanka">Sri Lanka</springform:option>
 							</springform:select>
+							<springform:errors class="error_msg" path="address.country"/>
 						</div>
 						<div class="col-md-12">
 							<h3>Address *</h3>
 							<springform:input path="address.street" type="text"
 								placeholder="Street Address" />
-							<springform:errors path="address.street"></springform:errors>
+							<springform:errors class="error_msg" path="address.street"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<springform:input type="text" path="address.apartment"
 								placeholder="Apartment, suite, unit etc. (optional)" />
+							<springform:errors class="error_msg" path="address.apartment" ></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<h3>Town / City *</h3>
 							<springform:input type="text" path="address.city"
 								placeholder="Street Address" />
-							<springform:errors path="address.city"></springform:errors>
+							<springform:errors class="error_msg" path="address.city"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Postcode *</h3>

@@ -3,6 +3,7 @@ package crimson.application.util;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,12 +17,12 @@ import crimson.application.repository.OrderRepository;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-@Service("orderDeliveryEmail")
-public class OrderDeliveryEmail implements Email {
-	
+@Service("orderPlacedEmail")
+public class OrderPlacedEmail implements Email {
+
 	@Autowired
 	private JavaMailSender javaMailSender;
-	
+
 	@Autowired
 	private OrderRepository orderRepository;
 	
@@ -34,9 +35,12 @@ public class OrderDeliveryEmail implements Email {
 	
 	@Value("${admin.email}")
 	private String adminEmail;
+	
 
 	@Override
 	public boolean send(String to, String orderId, String contextPath) {
+
+		
 		Order order = orderRepository.getOne(Long.valueOf(orderId));
 		order.setOrderItems(orderItemRepository.findAllByOrder(order));
 		
@@ -50,8 +54,8 @@ public class OrderDeliveryEmail implements Email {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 				helper.setTo(address);
-				helper.setSubject("Order Delivered: " + orderId);
-				Template template=freemarkerConfig.getTemplate("delivery-mail.ftl");
+				helper.setSubject("Order Placed: " + orderId);
+				Template template=freemarkerConfig.getTemplate("orderplaced.ftl");
 				String body=FreeMarkerTemplateUtils.processTemplateIntoString(template, order);
 				helper.setText(body, true);
 			}
@@ -59,6 +63,5 @@ public class OrderDeliveryEmail implements Email {
 
 		return true;
 	}
-
 
 }

@@ -84,6 +84,8 @@
 				</ul>
 				<form action="${contextPath}/user/addtocart/${product.id}"
 					name="cartform" method="get">
+					<span id="prodexits" class="error_msg" style="display: none">Product
+						is in Cart</span>
 					<div class="detail-btm">
 						<div class="detail-row quantity-box">
 							<p class="text-uppercase">Quantity</p>
@@ -99,17 +101,17 @@
 								</button>
 								<div class="clearfix"></div>
 							</div>
+
+							<div class="clearfix"></div>
+						</div>
+						<div class="detail-row">
 							<a class="coupon" href="#" id="addtocartbtn"
 								onclick="cartsubmit()">Add to cart</a> <a class="coupon"
 								style="display: none" id="updatecartbtn">Update Cart</a> <a
 								class="coupon" href="${contextPath}/products">Continue
 								Shopping</a>
-
-
-							<div class="clearfix"></div>
 						</div>
-
-
+						<div class="clearfix"></div>
 						<div class="detail-row">
 							<p>
 								<span>Share:</span>
@@ -128,6 +130,7 @@
 									class="fa fa-pinterest-p"></i></a>
 								<div class="clearfix"></div>
 							</div>
+
 						</div>
 					</div>
 				</form>
@@ -275,124 +278,46 @@
 
 					<div class="clearfix"></div>
 
-					<div class="col-md-3 col-sm-3">
-						<div class="product">
+					<c:forEach items="${top10Products}" var="prod" varStatus="vs">
 
-							<div class="product-img">
-								<a href="#" class="product-href"></a> <img
-									src="img/product/cinnamon.png" alt=""
-									class="img-responsive img-overlay" /> <img
-									src="img/product/cinnamon.png" alt="" class="img-responsive" />
+						<div class="col-md-3 col-sm-3 mt-40">
+							<div class="product">
 
-								<div class="sale-heart-hover">
-									<a href="#"><i class="flaticon-heart"></i></a>
-								</div>
-							</div>
-							<div class="product-body">
-								<p>
-									<a href="#">Cinnamon</a>
-								</p>
-								<h4>Rs.1500.00</h4>
-								<div class="product-hover">
-									<div class="add-cart-hover">
-										<a href="#"><h6>Add to cart</h6> <i
-											class="flaticon-3-signs" aria-hidden="true"></i></a>
+								<div class="product-img">
+									<a href="${contextPath}/prod_details/${prod.id}"
+										class="product-href"></a> <img
+										src="${prodimgs}/${prod.id}.jpg" alt=""
+										class="img-responsive img-overlay" /> <img
+										src="${prodimgs}/${prod.id}.jpg" alt="" class="img-responsive" />
+
+									<div class="sale-heart-hover">
+										<a href="#"><i class="flaticon-heart"></i></a>
 									</div>
-
 								</div>
-							</div>
+								<div class="product-body">
+									<p>
+										<a href="${contextPath}/prod_details/${prod.id}">${prod.productName}</a>
+									</p>
+									<h4>Rs.${prod.price}</h4>
+									<div class="product-hover">
+										<div class="add-cart-hover">
+											<security:authorize access="!hasRole('ROLE_ADMIN')">
+												<a href="${contextPath}/user/addtocart/${prod.id}"><h6>Add
+														to cart</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
+											</security:authorize>
+											<security:authorize access="hasRole('ROLE_ADMIN')">
+												<a href="${contextPath}/admin/editproduct/${prod.id}"><h6>Edit
+														Product</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
+											</security:authorize>
+										</div>
 
-						</div>
-					</div>
-
-					<div class="col-md-3 col-sm-3 phone">
-						<div class="product">
-
-							<div class="product-img">
-								<a href="#" class="product-href"></a> <img
-									src="img/product/cloves.png" alt=""
-									class="img-responsive img-overlay" /> <img
-									src="img/product/cloves.png" alt="" class="img-responsive" />
-
-							</div>
-							<div class="product-body">
-								<p>
-									<a href="#">Cloves</a>
-								</p>
-								<h4>Rs.1500.00</h4>
-								<div class="product-hover">
-									<div class="add-cart-hover">
-										<a href="#"><h6>Add to cart</h6> <i
-											class="flaticon-3-signs" aria-hidden="true"></i></a>
 									</div>
-
 								</div>
-							</div>
 
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-3 col-sm-3 phone">
-						<div class="product">
-
-							<div class="product-img">
-								<a href="#" class="product-href"></a> <img
-									src="img/product/nutmeg.png" alt=""
-									class="img-responsive img-overlay" /> <img
-									src="img/product/nutmeg.png" alt="" class="img-responsive" />
-
-							</div>
-							<div class="product-body">
-								<p>
-									<a href="#">Nutmeg</a>
-								</p>
-								<h4>Rs.1500.00</h4>
-								<div class="product-hover">
-									<div class="add-cart-hover">
-										<a href="#"><h6>Add to cart</h6> <i
-											class="flaticon-3-signs" aria-hidden="true"></i></a>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="col-md-3 col-sm-3">
-						<div class="product">
-
-							<div class="product-img">
-								<a href="#" class="product-href"></a> <img
-									src="img/product/mace.png" alt=""
-									class="img-responsive img-overlay" /> <img
-									src="img/product/mace.png" alt="" class="img-responsive" />
-
-							</div>
-							<div class="product-body">
-								<p>
-									<a href="#">Mace</a>
-								</p>
-								<h4>Rs.1500.00</h4>
-								<div class="product-hover">
-									<div class="add-cart-hover">
-										<a href="#"><h6>Add to cart</h6> <i
-											class="flaticon-3-signs" aria-hidden="true"></i></a>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-
-
-
-
-
-
-
+					</c:forEach>
 
 
 					<div class="clearfix"></div>
@@ -442,6 +367,19 @@
 			document.forms['cartform'].submit();
 		}
 	</script>
+
+	<script>
+	/* 	$(document).ready(function(){
+			$('.sub').click(function(){
+				if(parseInt($(this).next().val())<=0){
+					$('#prod_quantity').val(1);
+				}
+			})
+		}) */
+	</script>
+
+
+
 	<security:authorize access="hasRole('ROLE_USER')">
 		<script src="${js}/cartitem-availability.js"></script>
 	</security:authorize>

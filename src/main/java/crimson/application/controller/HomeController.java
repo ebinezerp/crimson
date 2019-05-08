@@ -69,9 +69,18 @@ public class HomeController {
 	}
 
 	@GetMapping("/products")
-	public String getProducts(@RequestParam(name = "status", required = false) Boolean status, Model model) {
+	public String getProducts(@RequestParam(name = "status", required = false) Boolean status, Model model,
+			Principal principal,HttpSession session) {
 		model.addAttribute("user", new User());
 		model.addAttribute("products", productRepository.findAllByStatusIsTrue());
+		
+		if(principal!=null) {
+			Cart cart=userRepository.findUserByEmail(principal.getName()).getCart();
+			session.setAttribute("cart_count", cart.getQuantity());
+			model.addAttribute("cart",cart);
+			
+		}
+		
 		
 		if(status!=null) {
 			model.addAttribute("status",status);
@@ -88,6 +97,7 @@ public class HomeController {
 			return "redirect:/products?status=false";
 		} else {
 			model.addAttribute("product", product);
+			model.addAttribute("top10Products", productRepository.findTop10ByStatusIsTrueOrderById());
 			return "productdetails";
 		}
 	}
