@@ -49,16 +49,16 @@ public class SignupAndLoginController {
 	public String userRegister(@ModelAttribute @Valid User user, Errors errors, Model model,
 			HttpServletRequest request) {
 		if (errors.hasErrors()) {
-			model.addAttribute("status", "input_errors");
-			return "index";
+			model.addAttribute("signup_status", "input_errors");
+			return "products";
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Map<String, String> error_messages = validation.userExistenceValidation(user);
 
 		if (error_messages.size() > 0) {
-			model.addAttribute("status", "input_errors");
+			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("error_messages", error_messages);
-			return "index";
+			return "products";
 		}
 		
 		userRepository.save(user);
@@ -67,9 +67,9 @@ public class SignupAndLoginController {
 			
 		}else {
 			System.out.println("Register Error");
-			model.addAttribute("status", "input_errors");
+			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("email_error", "Email is not valid. Enter correct email.");
-			return "index";
+			return "products";
 		}
 		
 		

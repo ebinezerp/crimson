@@ -155,7 +155,7 @@
 		<%@include file="footer.jsp"%>
 
 		<script type="text/javascript">
-			if ('${status}' === 'input_errors') {
+			if ('${signup_status}' === 'input_errors') {
 				document.getElementById('signup').click();
 			}
 
