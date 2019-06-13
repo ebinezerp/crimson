@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import crimson.application.model.ContactMessage;
 import crimson.application.model.User;
 import crimson.application.repository.ContactMessageRepository;
-import crimson.application.repository.MessageHandlerRepository;
 
 @Controller
 public class ContactMessageController {
@@ -25,8 +24,7 @@ public class ContactMessageController {
 	@Autowired
 	private ContactMessageRepository contactMessageRepository;
 
-	@Autowired
-	private MessageHandlerRepository messageHandlerRepository;
+	
 
 	@GetMapping("/contact")
 	public String contact(Model model,

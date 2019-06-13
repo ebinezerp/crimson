@@ -35,7 +35,10 @@
 				<div class="col-md-6 contact-left">
 
 					<div class="contact-info">
-						<h3>Edt Product Details</h3>
+						<h3>Edit Product Details</h3>
+						<c:if test="${update_status == false}">
+							<span class='error_msg'>Update is failed. Try again later.</span>
+						</c:if>
 					</div>
 					<springform:form name="productform"
 						action="${contextPath}/admin/updateproduct" method="post"

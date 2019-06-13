@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,13 +24,12 @@ import crimson.application.model.CartItem;
 import crimson.application.model.Order;
 import crimson.application.model.OrderItem;
 import crimson.application.model.OrderReciever;
+import crimson.application.model.User;
 import crimson.application.repository.AddressRepository;
-import crimson.application.repository.CartItemRepository;
 import crimson.application.repository.CartRepository;
 import crimson.application.repository.OrderItemRepository;
 import crimson.application.repository.OrderRecieverRepository;
 import crimson.application.repository.OrderRepository;
-import crimson.application.repository.UserRepository;
 import crimson.application.util.CartUtil;
 import crimson.application.util.OrderPlacedEmail;
 
@@ -41,12 +39,6 @@ public class CheckoutController {
 
 	@Autowired
 	private CartRepository cartRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private CartItemRepository cartItemRepository;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -73,9 +65,9 @@ public class CheckoutController {
 	
 
 	@GetMapping("/checkout")
-	public String checkoutPage(Model model, Principal principal) {
+	public String checkoutPage(Model model, HttpSession session) {
 		model.addAttribute("orderReciever", new OrderReciever());
-		model.addAttribute("cart", cartRepository.findCartByUser(userRepository.findUserByEmail(principal.getName())));
+		model.addAttribute("cart", cartRepository.findCartByUser((User)(session.getAttribute("reg_user"))));
 		return "checkout";
 	}
 
@@ -83,7 +75,7 @@ public class CheckoutController {
 	public String orderCheckout(@Valid @ModelAttribute("orderReciever") OrderReciever orderReciever, Errors errors,
 			Model model, Principal principal,HttpServletRequest request, HttpSession session) {
 
-		Cart cart = userRepository.findUserByEmail(principal.getName()).getCart();
+		Cart cart = ((User)(session.getAttribute("reg_user"))).getCart();
 		if (errors.hasErrors()) {
 			model.addAttribute("cart",cart);
 			return "checkout";

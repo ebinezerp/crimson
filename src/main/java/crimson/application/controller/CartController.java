@@ -22,15 +22,13 @@ import crimson.application.model.User;
 import crimson.application.repository.CartItemRepository;
 import crimson.application.repository.CartRepository;
 import crimson.application.repository.ProductRepository;
-import crimson.application.repository.UserRepository;
 import crimson.application.util.CartUtil;
 
 @Controller
 @RequestMapping("/user")
 public class CartController {
 
-	@Autowired
-	private UserRepository userRepository;
+	
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -55,7 +53,7 @@ public class CartController {
 			quantity = 1;
 		}
 
-		User user = userRepository.findUserByEmail(principal.getName());
+		User user =(User)session.getAttribute("reg_user");
 		Product product = productRepository.getOne(id);
 		Cart cart = cartRepository.findCartByUser(user);
 		if (cart == null) {
@@ -75,17 +73,17 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String cartDetails(Model model, Principal principal, HttpSession session) {
-		User user = userRepository.findUserByEmail(principal.getName());
-		model.addAttribute("cart", cartRepository.findCartByUser(user));
-		Cart cart = user.getCart();
+		User user = (User)session.getAttribute("reg_user");
+		Cart cart=cartRepository.findCartByUser(user);
+		model.addAttribute("cart",cart);
 		model.addAttribute("cartItems", cartItemRepository.findCartItemByCart(cart));
 		session.setAttribute("cart_count", cart.getQuantity());
 		return "cart";
 	}
 
 	@GetMapping("/clearcart")
-	public String clearcart(Principal principal) {
-		User user = userRepository.findUserByEmail(principal.getName());
+	public String clearcart(HttpSession session) {
+		User user =(User)session.getAttribute("reg_user");
 		Cart cart = user.getCart();
 		cartUtilService.resetCart(cart);
 		return "redirect:/user/cart";
@@ -110,8 +108,8 @@ public class CartController {
 
 	@GetMapping("/checkcartitem/{id}")
 	@ResponseBody
-	public CartItem cartItemExists(@PathVariable("id") Long productId, Principal principal) {
-		User user = userRepository.findUserByEmail(principal.getName());
+	public CartItem cartItemExists(@PathVariable("id") Long productId, HttpSession session) {
+		User user = (User)session.getAttribute("reg_user");
 		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
 				productRepository.getOne(productId));
 		return cartItem;
@@ -123,7 +121,7 @@ public class CartController {
 			Principal principal, HttpSession session) {
 		
 
-		User user = userRepository.findUserByEmail(principal.getName());
+		User user = (User)session.getAttribute("reg_user");
 		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
 				productRepository.getOne(productId));
 		

@@ -18,43 +18,7 @@
 
 		<%@include file="header.jsp"%>
 
-		<!--search-->
-		<div class="container logo-bar">
-			<div class="col-md-8 logo-name text-center">
-				<a href="index.html"><img src="${img}/index/logo.png" alt=""
-					class="img-responsive" /></a>
-			</div>
-			<!--menu-->
-			<div class="container menu">
-				<nav class="navbar navbar-default">
-
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed"
-							data-toggle="collapse"
-							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-					</div>
-
-					<div class="collapse navbar-collapse"
-						id="bs-example-navbar-collapse-1">
-
-						<ul class="nav navbar-nav navbar-left">
-							<li class="active"><a href="home.html">HOME</a></li>
-
-							<li><a href="contact.html">CONTACT</a></li>
-
-						</ul>
-
-					</div>
-
-				</nav>
-			</div>
-
-			<div class="clearfix"></div>
-		</div>
+		<%@include file="searchmenu.jsp"%>
 		<div class="container-fluid"></div>
 
 		<div class="container-fluid">
@@ -64,10 +28,15 @@
 					<h3>
 						<strong>Reset your Password</strong>
 					</h3>
+
+					<c:if test="${email_exists==false}">
+						<span class="error_msg">Email is not Existed. <a
+							href='${contextPath}/register'>Register Here </a></span>
+					</c:if>
+					
 				</center>
-				<form class="form" action="${contextPath}/newpassword"
-					method="post">
-					<input type="hidden" name="email" value="${email}"/>
+				<form class="form" action="${contextPath}/newpassword" method="post">
+					<input type="hidden" name="email" value="${email}" />
 					<div class="form-group">
 						<p>Enter New password</p>
 						<input type="password" name="password" class="form-control">

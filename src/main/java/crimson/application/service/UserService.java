@@ -2,8 +2,12 @@ package crimson.application.service;
 
 import java.util.List;
 
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import crimson.application.model.User;
 import crimson.application.repository.UserRepository;
@@ -17,7 +21,8 @@ public class UserService {
 	public User saveOrUpdate(User user) {
 		try {
 			return userRepository.save(user);
-		} catch (Exception e) {
+		} catch (RollbackException e) {
+			System.err.println("handled");
 			e.printStackTrace();
 			return null;
 		}
@@ -114,6 +119,5 @@ public class UserService {
 			return null;
 		}
 	}
-	
 
 }

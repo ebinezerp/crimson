@@ -1,6 +1,7 @@
 package crimson.application.controller;
 
 import java.security.Principal;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import crimson.application.model.User;
 import crimson.application.repository.CartRepository;
 import crimson.application.repository.ProductRepository;
 import crimson.application.repository.UserRepository;
+import crimson.application.util.Validation;
 
 @Controller
 public class HomeController {
@@ -35,6 +37,9 @@ public class HomeController {
 	@Autowired
 	private CartRepository cartRepository;
 
+	@Autowired
+	private Validation validation;
+
 	@GetMapping("/")
 	public String indexPage(Model model, @RequestParam(name = "login", required = false) String login,
 			HttpServletRequest request, Principal principal, HttpSession session) {
@@ -42,20 +47,26 @@ public class HomeController {
 		model.addAttribute("user", new User());
 
 		if (principal != null) {
-			User user = userRepository.findUserByEmail(principal.getName());
-			session.setAttribute("reg_user", user);
-			if (user.getRole().equalsIgnoreCase("ROLE_OWNER")) {
-				return "redirect:/owner";
-			} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
-				return "redirect:/products";
+			User user = null;
+			if (session.getAttribute("reg_user") == null) {
+				user = userRepository.findUserByEmail(principal.getName());
 			}
-			Cart cart = cartRepository.findCartByUser(user);
-			if (cart == null) {
-				session.setAttribute("cart_count", 0);
+			if (user != null) {
+				session.setAttribute("reg_user", user);
+				if (user.getRole().equalsIgnoreCase("ROLE_OWNER")) {
+					return "redirect:/owner";
+				} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
+					return "redirect:/products";
+				}
+				Cart cart = cartRepository.findCartByUser(user);
+				if (cart == null) {
+					session.setAttribute("cart_count", 0);
+				} else {
+					session.setAttribute("cart_count", cart.getQuantity());
+				}
 			} else {
-				session.setAttribute("cart_count", cart.getQuantity());
+				return "redirect:/logout";
 			}
-
 		}
 
 		if (login != null) {
@@ -69,13 +80,17 @@ public class HomeController {
 	}
 
 	@GetMapping("/products")
-	public String getProducts(@RequestParam(name = "status", required = false) Boolean status, Model model,
-			Principal principal, HttpSession session) {
+	public String getProducts(@RequestParam(name = "status", required = false) Boolean status,
+			@RequestParam(name = "disable", required = false) Boolean disableStatus, Model model, Principal principal,
+			HttpSession session) {
+
 		model.addAttribute("user", new User());
 		model.addAttribute("products", productRepository.findAllByStatusIsTrue());
 
-		if (principal != null) {
-			Cart cart = userRepository.findUserByEmail(principal.getName()).getCart();
+		model.addAttribute("disable", disableStatus);
+
+		if (session.getAttribute("reg_user") != null) {
+			Cart cart = ((User) session.getAttribute("reg_user")).getCart();
 			if (cart != null) {
 				session.setAttribute("cart_count", cart.getQuantity());
 				model.addAttribute("cart", cart);
@@ -117,12 +132,20 @@ public class HomeController {
 
 	@PostMapping("/profile")
 	public String profileUpdate(@Valid @ModelAttribute("user") User user, Errors errors, Model model,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request, Principal principal) {
 		if (errors.hasErrors()) {
 			return "profile";
 		}
 
+		Map<String, String> errorMessages = validation.userUpdationValidation(user);
+		if (errorMessages.size() > 0) {
+			model.addAttribute("user", session.getAttribute("reg_user"));
+			model.addAttribute("errorMessages", errorMessages);
+			return "profile";
+		}
+		System.out.println(user.getPassword());
 		userRepository.save(user);
+		// updateAuthentication.doLogin(user, request);
 		session.setAttribute("reg_user", user);
 		return "redirect:/profile";
 	}

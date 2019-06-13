@@ -3,9 +3,11 @@ package crimson.application.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import crimson.application.model.User;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	public User findUserByEmail(String email);
 	public List<User> findUserByRole(String role);

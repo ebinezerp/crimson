@@ -31,9 +31,16 @@
 
 			<!--main-->
 			<div class="container contact-main padd-80">
-			<c:if test="${status==true}">
-				<span class="alert alert-success">Product Added Successfully.</span>
-			</c:if>
+				<c:if test="${status==true}">
+					<span class="alert alert-success">Product Added
+						Successfully.</span>
+				</c:if>
+
+
+				<c:if test="${product_save_status==false}">
+					<span class="alert alert-danger">Error Occurred. Try Again
+						later</span>
+				</c:if>
 				<div class="col-md-6 contact-left">
 
 					<div class="contact-info">
@@ -42,7 +49,7 @@
 					<springform:form name="productform"
 						action="${contextPath}/admin/addproduct" method="post"
 						modelAttribute="product" enctype="multipart/form-data">
-						<springform:input path="id" type="hidden"/>
+						<springform:input path="id" type="hidden" />
 						<div class="row">
 							<div class="col-sm-6">
 								<label>Product Name *</label>
@@ -71,7 +78,7 @@
 								<springform:textarea path="productDescription" />
 								<springform:errors class="error_msg" path="productDescription"></springform:errors>
 							</div>
-							<springform:input path="status" type="hidden" value="true"/>
+							<springform:input path="status" type="hidden" value="true" />
 							<div class="clearfix"></div>
 							<div class="col-sm-12 text-right">
 								<a href="#" onclick="addproduct()" class="shp-btn">Add

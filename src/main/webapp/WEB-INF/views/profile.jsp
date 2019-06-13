@@ -27,18 +27,21 @@
 						<springform:input class="form-control" path="username"
 							disabled="true" />
 						<springform:errors path="username"></springform:errors>
+						<span class="error_msg">${errorMessages.username_error}</span>
 					</div>
 					<div class="form-group">
 						<label for="email">Email</label>
 						<springform:input class="form-control" path="email"
 							disabled="true" />
 						<springform:errors path="email"></springform:errors>
+						<span class="error_msg">${errorMessages.email_error}</span>
 					</div>
 					<div class="form-group">
 						<label for="mobile">Mobile</label>
 						<springform:input class="form-control" path="mobile"
 							disabled="true" />
 						<springform:errors path="mobile"></springform:errors>
+						<span class="error_msg">${errorMessages.mobile_error}</span>
 					</div>
 					<div class="button">
 						<a href="#" class="btn btn-primary" id="editbtn">Edit Details</a>

@@ -9,6 +9,12 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
+
+				<c:if test="${signup_error==true}">
+					<span class='error_msg'>Error Occured During Registration.
+						Try again later</span>
+				</c:if>
+
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>

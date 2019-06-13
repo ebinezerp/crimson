@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.Product;
-import crimson.application.repository.ProductRepository;
+import crimson.application.service.ProductService;
 import crimson.application.util.Validation;
 
 @Controller
@@ -29,14 +29,14 @@ import crimson.application.util.Validation;
 public class ProductController {
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@Autowired
 	private Validation validation;
 
 	@GetMapping("/productform")
-	public String productForm(@RequestParam("status")Boolean status,Model model) {
-		if(status!=null) {
+	public String productForm(@RequestParam("status") Boolean status, Model model) {
+		if (status != null) {
 			model.addAttribute("status", status);
 		}
 		model.addAttribute("product", new Product());
@@ -55,16 +55,17 @@ public class ProductController {
 			return "productform";
 		}
 
-		
-
 		if (!product.getProductImage().isEmpty()) {
-			productRepository.save(product);
+			if (productService.saveOrUpdate(product) == null) {
+				model.addAttribute("product_save_status", false);
+				return "productform";
+			}
 			try {
 				saveImage(product, request);
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
-				productRepository.deleteById(product.getId());
+				productService.delete(product.getId());
 				return "productform";
 			}
 		} else {
@@ -77,7 +78,7 @@ public class ProductController {
 
 	@GetMapping("/editproduct/{id}")
 	public String edidProductFormPage(@PathVariable("id") Long id, Model model) {
-		Product product = productRepository.getOne(id);
+		Product product = productService.getProduct(id);
 		if (product == null) {
 			model.addAttribute("editproduct_error", "Product is not available");
 			return "redirect:/products";
@@ -99,7 +100,10 @@ public class ProductController {
 			return "editproduct";
 		}
 
-		productRepository.save(product);
+		if (productService.saveOrUpdate(product) == null) {
+			model.addAttribute("update_status", false);
+			return "editproduct";
+		}
 
 		if (!product.getProductImage().isEmpty()) {
 			try {
@@ -107,7 +111,7 @@ public class ProductController {
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("image_error", "image is not saved try again");
-				productRepository.deleteById(product.getId());
+				productService.delete(product.getId());
 				return "productform";
 			}
 		}
@@ -118,15 +122,18 @@ public class ProductController {
 
 	@GetMapping("/disable/{id}")
 	public String disableProduct(@PathVariable("id") Long id, Model model) {
-		Product product = productRepository.getOne(id);
+		Product product = productService.getProduct(id);
 
 		if (product == null) {
-			model.addAttribute("product_error", "Product is not existed");
+			return "redirect:/products?disable=false";
 		}
 
 		product.setStatus(false);
-		productRepository.save(product);
-		return "redirect:/products";
+
+		if (productService.saveOrUpdate(product) == null) {
+			return "redirect:/products?disable=false";
+		}
+		return "redirect:/products?disable=true";
 
 	}
 
@@ -135,22 +142,21 @@ public class ProductController {
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
 
-		
-		File productImagesFolder = new File(request.getServletContext().getContextPath()+"/home/jelastic/resources/images/");
-		
-		
+		File productImagesFolder = new File(
+				request.getServletContext().getContextPath() + "/home/jelastic/resources/images/");
+
 		if (!productImagesFolder.exists()) {
-		
+
 			productImagesFolder.mkdirs();
 			System.out.println("folder created");
 		}
-		
+
 		System.out.println(productImagesFolder.exists());
 
 		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");
 
-		 System.out.println("outputstream is created");
+		System.out.println("outputstream is created");
 		outputStream.write(array);
 		outputStream.flush();
 		outputStream.close();

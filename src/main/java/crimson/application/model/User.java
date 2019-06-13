@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Component
-@AllArgsConstructor
 public class User {
 
 	@Id

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.User;
 import crimson.application.repository.UserRepository;
+import crimson.application.service.UserService;
 import crimson.application.util.Email;
 import crimson.application.util.RandomPasswordGenerator;
 import crimson.application.util.Validation;
@@ -26,7 +27,7 @@ import crimson.application.util.Validation;
 public class SignupAndLoginController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -37,7 +38,7 @@ public class SignupAndLoginController {
 
 	@Autowired
 	private RandomPasswordGenerator randomPasswordGenerator;
-	
+
 	@Autowired
 	@Qualifier("regemail")
 	private Email regEmailService;
@@ -60,16 +61,21 @@ public class SignupAndLoginController {
 			model.addAttribute("error_messages", error_messages);
 			return "products";
 		}
-		
-		userRepository.save(user);
 
-		if(!regEmailService.send(user.getEmail(),"","http://"+request.getServerName()+":"+request.getServerPort())) {
+		if (userService.saveOrUpdate(user) == null) {
+			model.addAttribute("signup_status", "input_errors");
+			model.addAttribute("signup_error", true);
+			return "products";
+		}
+
+		if (!regEmailService.send(user.getEmail(), "",
+				"http://" + request.getServerName() + ":" + request.getServerPort())) {
 			System.out.println("Register Error");
 			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("email_error", "Email is not valid. Enter correct email.");
 			return "products";
-		}	
-		
+		}
+
 		return "redirect:/?login";
 	}
 
@@ -82,12 +88,15 @@ public class SignupAndLoginController {
 	@PostMapping("/verifyemail")
 	public String verifyemail(@RequestParam("email") String email, HttpServletRequest request, Model model) {
 
-		User user = userRepository.findUserByEmail(email);
+		User user = userService.getUserByEmail(email);
 
 		if (user != null) {
 			String password = randomPasswordGenerator.generatePassword();
 			user.setPassword(passwordEncoder.encode(password));
-			userRepository.save(user);
+			if (userService.saveOrUpdate(user) == null) {
+				model.addAttribute("update_error", true);
+				return "forgetpassword";
+			}
 			emailService.send(user.getEmail(), password,
 					"http://" + request.getServerName() + ":" + request.getServerPort());
 			return "redirect:/resetpassword?email=" + user.getEmail();
@@ -108,7 +117,11 @@ public class SignupAndLoginController {
 	public String resetNewPassword(@RequestParam("email") String email, @RequestParam("password") String password,
 			Model model) {
 
-		User user = userRepository.findUserByEmail(email);
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			model.addAttribute("email_exists", false);
+			return "resetpassword";
+		}
 		model.addAttribute("email", email);
 		model.addAttribute("user", new User());
 		if (passwordEncoder.matches(password, user.getPassword())) {
@@ -130,9 +143,16 @@ public class SignupAndLoginController {
 			@RequestParam("confirmPassword") String confirmPassword, Model model) {
 
 		if (password.equals(confirmPassword)) {
-			User user = userRepository.findUserByEmail(email);
+			User user = userService.getUserByEmail(email);
+			if (user == null) {
+				model.addAttribute("email_exists", false);
+				return "newpassword";
+			}
 			user.setPassword(passwordEncoder.encode(password));
-			userRepository.save(user);
+			if(userService.saveOrUpdate(user) == null) {
+				model.addAttribute("pass_update_error", false);
+				return "newpassword";
+			}
 			return "redirect:/?login";
 		}
 		model.addAttribute("user", new User());
