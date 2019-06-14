@@ -42,11 +42,19 @@ public class OrderService {
 			return null;
 		}
 	}
-	
-	
-	public List<Order> getOrders(User user){
+
+	public List<Order> getOrders(User user) {
 		try {
 			return orderRepository.findAllByUserOrderByOrderedDateDesc(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Order get(Long orderId) {
+		try {
+			return orderRepository.findById(orderId).get();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

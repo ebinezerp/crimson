@@ -50,7 +50,7 @@ public class UserService {
 
 	public User getUserById(Long id) {
 		try {
-			return userRepository.getOne(id);
+			return userRepository.findById(id).get();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

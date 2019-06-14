@@ -35,7 +35,7 @@ public class ProductController {
 	private Validation validation;
 
 	@GetMapping("/productform")
-	public String productForm(@RequestParam("status") Boolean status, Model model) {
+	public String productForm(@RequestParam( value ="status", required = false) Boolean status, Model model) {
 		if (status != null) {
 			model.addAttribute("status", status);
 		}
@@ -79,6 +79,10 @@ public class ProductController {
 	@GetMapping("/editproduct/{id}")
 	public String edidProductFormPage(@PathVariable("id") Long id, Model model) {
 		Product product = productService.getProduct(id);
+		
+		System.out.println("ProductValue: "+ product);
+		
+		
 		if (product == null) {
 			model.addAttribute("editproduct_error", "Product is not available");
 			return "redirect:/products";

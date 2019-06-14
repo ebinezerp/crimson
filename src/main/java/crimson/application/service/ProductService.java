@@ -35,8 +35,9 @@ public class ProductService {
 
 	public Product getProduct(Long productId) {
 		try {
-			return productRepository.getOne(productId);
+			return productRepository.findById(productId).get();
 		} catch (Exception e) {
+			System.out.println("Entered into execption");
 			e.printStackTrace();
 			return null;
 		}
