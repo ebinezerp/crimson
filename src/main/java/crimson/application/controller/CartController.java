@@ -21,23 +21,23 @@ import crimson.application.model.Product;
 import crimson.application.model.User;
 import crimson.application.repository.CartItemRepository;
 import crimson.application.repository.CartRepository;
-import crimson.application.repository.ProductRepository;
+import crimson.application.service.CartItemService;
+import crimson.application.service.CartService;
+import crimson.application.service.ProductService;
 import crimson.application.util.CartUtil;
 
 @Controller
 @RequestMapping("/user")
 public class CartController {
 
-	
+	@Autowired
+	private ProductService productService;
 
 	@Autowired
-	private ProductRepository productRepository;
+	private CartService cartService;
 
 	@Autowired
-	private CartRepository cartRepository;
-
-	@Autowired
-	private CartItemRepository cartItemRepository;
+	private CartItemService cartItemService;
 
 	@Autowired
 	private CartUtil cartUtilService;
@@ -53,15 +53,22 @@ public class CartController {
 			quantity = 1;
 		}
 
-		User user =(User)session.getAttribute("reg_user");
-		Product product = productRepository.getOne(id);
-		Cart cart = cartRepository.findCartByUser(user);
+		User user = (User) session.getAttribute("reg_user");
+		Product product = productService.getProduct(id);
+		if (product == null) {
+			return "redirect:/products?status=true";
+		}
+		Cart cart = cartService.getCart(user);
+
 		if (cart == null) {
 			cart = createCart(user, product, quantity);
 		} else {
 			modifyCart(cart, product, quantity);
 		}
-		cartRepository.save(cart);
+
+		if (cartService.saveOrUpdate(cart) == null) {
+			return "redirect:/products?status=true";
+		}
 		session.setAttribute("cart_count", cart.getQuantity());
 
 		if (qant == null) {
@@ -73,17 +80,22 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String cartDetails(Model model, Principal principal, HttpSession session) {
-		User user = (User)session.getAttribute("reg_user");
-		Cart cart=cartRepository.findCartByUser(user);
-		model.addAttribute("cart",cart);
-		model.addAttribute("cartItems", cartItemRepository.findCartItemByCart(cart));
+		User user = (User) session.getAttribute("reg_user");
+		Cart cart = cartService.getCart(user);
+
+		if (cart == null) {
+			return "redirect:/products";
+		}
+
+		model.addAttribute("cart", cart);
+		model.addAttribute("cartItems", cartItemService.getCartItems(cart));
 		session.setAttribute("cart_count", cart.getQuantity());
 		return "cart";
 	}
 
 	@GetMapping("/clearcart")
 	public String clearcart(HttpSession session) {
-		User user =(User)session.getAttribute("reg_user");
+		User user = (User) session.getAttribute("reg_user");
 		Cart cart = user.getCart();
 		cartUtilService.resetCart(cart);
 		return "redirect:/user/cart";
@@ -93,7 +105,7 @@ public class CartController {
 	@ResponseBody
 	public Boolean addUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
 
-		CartItem cartItem = cartItemRepository.getOne(id);
+		CartItem cartItem = cartItemService.get(id);
 		session.setAttribute("cart_count", (Integer.parseInt(session.getAttribute("cart_count").toString()) + 1));
 		return increaseCartItemQuantity(cartItem, 1);
 	}
@@ -101,7 +113,7 @@ public class CartController {
 	@GetMapping("/subcartitem/{id}")
 	@ResponseBody
 	public Boolean subUpdateCart(@PathVariable("id") Long id, Model model, HttpSession session) {
-		CartItem cartItem = cartItemRepository.getOne(id);
+		CartItem cartItem = cartItemService.get(id);
 		session.setAttribute("cart_count", (Integer.parseInt(session.getAttribute("cart_count").toString()) - 1));
 		return decreaseCartItemQuantity(cartItem, 1);
 	}
@@ -109,9 +121,8 @@ public class CartController {
 	@GetMapping("/checkcartitem/{id}")
 	@ResponseBody
 	public CartItem cartItemExists(@PathVariable("id") Long productId, HttpSession session) {
-		User user = (User)session.getAttribute("reg_user");
-		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
-				productRepository.getOne(productId));
+		User user = (User) session.getAttribute("reg_user");
+		CartItem cartItem = cartItemService.getCartItem(user.getCart(), productService.getProduct(productId));
 		return cartItem;
 	}
 
@@ -119,19 +130,17 @@ public class CartController {
 	@ResponseBody
 	public Integer updateCartItem(@PathVariable("productId") Long productId, @PathVariable("quantity") Integer quantity,
 			Principal principal, HttpSession session) {
-		
 
-		User user = (User)session.getAttribute("reg_user");
-		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(user.getCart(),
-				productRepository.getOne(productId));
-		
-		int cart_quantity= Integer.valueOf(session.getAttribute("cart_count").toString());
-		if(quantity>cartItem.getQuantity()) {
-			session.setAttribute("cart_count", cart_quantity+(quantity-cartItem.getQuantity()));
-			increaseCartItemQuantity(cartItem, quantity-cartItem.getQuantity());
-		}else {
-			session.setAttribute("cart_count", cart_quantity-(cartItem.getQuantity()-quantity));
-			decreaseCartItemQuantity(cartItem, cartItem.getQuantity()-quantity);
+		User user = (User) session.getAttribute("reg_user");
+		CartItem cartItem = cartItemService.getCartItem(user.getCart(), productService.getProduct(productId));
+
+		int cart_quantity = Integer.valueOf(session.getAttribute("cart_count").toString());
+		if (quantity > cartItem.getQuantity()) {
+			session.setAttribute("cart_count", cart_quantity + (quantity - cartItem.getQuantity()));
+			increaseCartItemQuantity(cartItem, quantity - cartItem.getQuantity());
+		} else {
+			session.setAttribute("cart_count", cart_quantity - (cartItem.getQuantity() - quantity));
+			decreaseCartItemQuantity(cartItem, cartItem.getQuantity() - quantity);
 		}
 
 		return Integer.valueOf(session.getAttribute("cart_count").toString());
@@ -140,7 +149,10 @@ public class CartController {
 	private Cart createCart(User user, Product product, Integer quantity) {
 		Cart cart = new Cart();
 		CartItem cartItem = createCartItem(product, quantity);
-		cartItemRepository.save(cartItem);
+		if (cartItemService.saveOrUpdate(cartItem) == null) {
+			return null;
+		}
+
 		cartItem.setCart(cart);
 		List<CartItem> cartItems = new ArrayList<CartItem>();
 		cartItems.add(cartItem);
@@ -161,14 +173,14 @@ public class CartController {
 	}
 
 	private void modifyCart(Cart cart, Product product, Integer quantity) {
-		CartItem cartItem = cartItemRepository.findCartItemByCartAndProduct(cart, product);
+		CartItem cartItem = cartItemService.getCartItem(cart, product);
 		if (cartItem == null) {
 			cartItem = createCartItem(product, quantity);
 			cartItem.setCart(cart);
 		} else {
 			modifyCartItem(cartItem, product, quantity);
 		}
-		cartItemRepository.save(cartItem);
+		cartItemService.saveOrUpdate(cartItem);
 		// cart.getCartItems().add(cartItem);
 		cart.setQuantity(cart.getQuantity() + quantity);
 		cart.setTotalAmount(cart.getTotalAmount() + (product.getPrice() * quantity));
@@ -184,10 +196,14 @@ public class CartController {
 		Cart cart = cartItem.getCart();
 		cartItem.setQuantity(cartItem.getQuantity() + quantity);
 		cartItem.setTotalPrice(cartItem.getTotalPrice() + (cartItem.getUnitPrice() * quantity));
-		cartItemRepository.save(cartItem);
+		if (cartItemService.saveOrUpdate(cartItem) == null) {
+			return false;
+		}
 		cart.setQuantity(cart.getQuantity() + quantity);
 		cart.setTotalAmount(cart.getTotalAmount() + (cartItem.getUnitPrice() * quantity));
-		cartRepository.save(cart);
+		if (cartService.saveOrUpdate(cart) == null) {
+			return false;
+		}
 		return true;
 	}
 
@@ -196,13 +212,17 @@ public class CartController {
 		Cart cart = cartItem.getCart();
 		cart.setTotalAmount(cart.getTotalAmount() - (cartItem.getUnitPrice() * quantity));
 		cart.setQuantity(cart.getQuantity() - quantity);
-		cartRepository.save(cart);
+		if (cartService.saveOrUpdate(cart) == null) {
+			return false;
+		}
 		if (cartItem.getQuantity() == 1) {
-			cartItemRepository.delete(cartItem);
+			cartItemService.delete(cartItem);
 		} else {
 			cartItem.setQuantity(cartItem.getQuantity() - quantity);
 			cartItem.setTotalPrice(cartItem.getTotalPrice() - (cartItem.getUnitPrice() * quantity));
-			cartItemRepository.save(cartItem);
+			if (cartItemService.saveOrUpdate(cartItem) == null) {
+				return false;
+			}
 		}
 		return true;
 	}

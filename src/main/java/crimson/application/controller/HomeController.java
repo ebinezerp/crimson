@@ -23,19 +23,22 @@ import crimson.application.model.User;
 import crimson.application.repository.CartRepository;
 import crimson.application.repository.ProductRepository;
 import crimson.application.repository.UserRepository;
+import crimson.application.service.CartService;
+import crimson.application.service.ProductService;
+import crimson.application.service.UserService;
 import crimson.application.util.Validation;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@Autowired
-	private CartRepository cartRepository;
+	private CartService cartService;
 
 	@Autowired
 	private Validation validation;
@@ -49,7 +52,7 @@ public class HomeController {
 		if (principal != null) {
 			User user = null;
 			if (session.getAttribute("reg_user") == null) {
-				user = userRepository.findUserByEmail(principal.getName());
+				user = userService.getUser(principal.getName());
 			}
 			if (user != null) {
 				session.setAttribute("reg_user", user);
@@ -58,7 +61,7 @@ public class HomeController {
 				} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
 					return "redirect:/products";
 				}
-				Cart cart = cartRepository.findCartByUser(user);
+				Cart cart = cartService.getCart(user);
 				if (cart == null) {
 					session.setAttribute("cart_count", 0);
 				} else {
@@ -85,7 +88,7 @@ public class HomeController {
 			HttpSession session) {
 
 		model.addAttribute("user", new User());
-		model.addAttribute("products", productRepository.findAllByStatusIsTrue());
+		model.addAttribute("products", productService.getActiveProducts());
 
 		model.addAttribute("disable", disableStatus);
 
@@ -108,12 +111,12 @@ public class HomeController {
 	@GetMapping("/prod_details/{id}")
 	public String productDetails(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("user", new User());
-		Product product = productRepository.getOne(id);
+		Product product = productService.getProduct(id);
 		if (product == null) {
 			return "redirect:/products?status=false";
 		} else {
 			model.addAttribute("product", product);
-			model.addAttribute("top10Products", productRepository.findTop10ByStatusIsTrueOrderById());
+			model.addAttribute("top10Products", productService.top10Products());
 			return "productdetails";
 		}
 	}
@@ -144,7 +147,7 @@ public class HomeController {
 			return "profile";
 		}
 		System.out.println(user.getPassword());
-		userRepository.save(user);
+		userService.saveOrUpdate(user);
 		// updateAuthentication.doLogin(user, request);
 		session.setAttribute("reg_user", user);
 		return "redirect:/profile";

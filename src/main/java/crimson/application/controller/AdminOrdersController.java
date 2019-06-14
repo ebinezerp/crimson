@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import crimson.application.model.Order;
-import crimson.application.repository.OrderRepository;
+import crimson.application.service.OrderService;
 import crimson.application.util.Email;
 
 @Controller
@@ -21,7 +21,7 @@ import crimson.application.util.Email;
 public class AdminOrdersController {
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderService orderService;
 	
 	@Autowired
 	@Qualifier("orderDispatchEmail")
@@ -33,23 +33,23 @@ public class AdminOrdersController {
 
 	@GetMapping("/dispatch/{id}")
 	public String orderDispatch(@PathVariable("id") Long id, Model model,HttpServletRequest request) {
-		Order order = orderRepository.getOne(id);
+		Order order = orderService.get(id);
 		order.setDispatchStatus(true);
 		order.setDispatchedDate(new Date());
-		orderRepository.save(order);
+		orderService.saveOrUpdate(order);
 		orderDispatchEmailService.send(order.getUser().getEmail(), order.getOrderId().toString(), "http://"+request.getServerName()+":"+request.getServerPort());
 		return "redirect:/orders";
 	}
 
 	@GetMapping("/deliver/{id}")
 	public String orderDelivery(@PathVariable("id") Long id, Model model,HttpServletRequest request) {
-		Order order = orderRepository.getOne(id);
+		Order order = orderService.get(id);
 		if (order.getDispatchStatus() == false) {
 			return "redirect:/orders?deliveryStatus=false&dispatchStatus=false";
 		}
 		order.setDeliveryStatus(true);
 		order.setDeliveryDate(new Date());
-		orderRepository.save(order);
+		orderService.saveOrUpdate(order);
 		orderDeliveryEmailService.send(order.getUser().getEmail(), order.getOrderId().toString(), "http://"+request.getServerName()+":"+request.getServerPort());
 		return "redirect:/orders?deliveryStatus=true";
 	}

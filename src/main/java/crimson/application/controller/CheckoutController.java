@@ -26,10 +26,12 @@ import crimson.application.model.OrderItem;
 import crimson.application.model.OrderReciever;
 import crimson.application.model.User;
 import crimson.application.repository.AddressRepository;
-import crimson.application.repository.CartRepository;
-import crimson.application.repository.OrderItemRepository;
 import crimson.application.repository.OrderRecieverRepository;
-import crimson.application.repository.OrderRepository;
+import crimson.application.service.AddressService;
+import crimson.application.service.CartService;
+import crimson.application.service.OrderItemService;
+import crimson.application.service.OrderRecieverService;
+import crimson.application.service.OrderService;
 import crimson.application.util.CartUtil;
 import crimson.application.util.OrderPlacedEmail;
 
@@ -38,56 +40,72 @@ import crimson.application.util.OrderPlacedEmail;
 public class CheckoutController {
 
 	@Autowired
-	private CartRepository cartRepository;
+	private CartService cartService;
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderService orderService;
 
 	@Autowired
-	private OrderItemRepository orderItemRepository;
+	private OrderItemService orderItemService;
 
 	@Autowired
-	private OrderRecieverRepository orderRecieverRepository;
+	private OrderRecieverService orderRecieverService;
 
 	@Autowired
-	private AddressRepository addressRepository;
+	private AddressService addressService;
 
 	@Autowired
 	private CartUtil cartUtilService;
-	
-	
+
 	@Autowired
 	@Qualifier("orderPlacedEmail")
 	private OrderPlacedEmail orderPlacedEmail;
-	
-	
-	
-	
 
 	@GetMapping("/checkout")
 	public String checkoutPage(Model model, HttpSession session) {
 		model.addAttribute("orderReciever", new OrderReciever());
-		model.addAttribute("cart", cartRepository.findCartByUser((User)(session.getAttribute("reg_user"))));
+		model.addAttribute("cart", cartService.getCart((User) (session.getAttribute("reg_user"))));
 		return "checkout";
 	}
 
 	@PostMapping("/checkout")
 	public String orderCheckout(@Valid @ModelAttribute("orderReciever") OrderReciever orderReciever, Errors errors,
-			Model model, Principal principal,HttpServletRequest request, HttpSession session) {
+			Model model, Principal principal, HttpServletRequest request, HttpSession session) {
 
-		Cart cart = ((User)(session.getAttribute("reg_user"))).getCart();
+		Cart cart = ((User) (session.getAttribute("reg_user"))).getCart();
 		if (errors.hasErrors()) {
-			model.addAttribute("cart",cart);
+			model.addAttribute("cart", cart);
 			return "checkout";
 		}
-		
+
 		Order order = saveOrder(cart, orderReciever);
+
+		if (order == null) {
+			model.addAttribute("cart", cart);
+			model.addAttribute("order_status", false);
+			return "checkout";
+		}
+
 		Address address = orderReciever.getAddress();
 		address.setOrderReciever(orderReciever);
 		orderReciever.setAddress(null);
-		orderRecieverRepository.save(orderReciever);
-		addressRepository.save(address);
-		orderPlacedEmail.send(cart.getUser().getEmail(), order.getOrderId().toString(), "http://"+request.getServerName()+":"+request.getServerPort());
+		if (orderRecieverService.saveOrUpdate(orderReciever) == null) {
+			orderService.delete(order);
+			model.addAttribute("cart", cart);
+			model.addAttribute("order_status", false);
+			return "checkout";
+		}
+
+		if (addressService.saveOrUpdate(address) == null) {
+			orderRecieverService.delete(orderReciever);
+			orderService.delete(order);
+			model.addAttribute("cart", cart);
+			model.addAttribute("order_status", false);
+			return "checkout";
+		}
+
+		orderPlacedEmail.send(cart.getUser().getEmail(), order.getOrderId().toString(),
+				"http://" + request.getServerName() + ":" + request.getServerPort());
 		cartUtilService.resetCart(cart);
 		session.setAttribute("cart_count", 0);
 		return "redirect:/user/bill/" + order.getOrderId();
@@ -95,7 +113,7 @@ public class CheckoutController {
 
 	@GetMapping("/bill/{id}")
 	private String billPage(@PathVariable("id") Long id, Model model) {
-		Order order = orderRepository.getOne(id);
+		Order order = orderService.get(id);
 		model.addAttribute("order", order);
 		return "billpage";
 	}
@@ -108,7 +126,10 @@ public class CheckoutController {
 		order.setDeliveryStatus(false);
 		order.setDispatchStatus(false);
 		order.setOrderedDate(new Date());
-		orderRepository.save(order);
+
+		if (orderService.saveOrUpdate(order) == null) {
+			return null;
+		}
 		orderReciever.setOrder(order);
 		for (CartItem cartItem : cart.getCartItems()) {
 			saveOrderItem(cartItem, order);
@@ -124,6 +145,6 @@ public class CheckoutController {
 		orderItem.setQuantity(cartItem.getQuantity());
 		orderItem.setTotalPrice(cartItem.getTotalPrice());
 		orderItem.setUnitPrice(cartItem.getUnitPrice());
-		orderItemRepository.save(orderItem);
+		orderItemService.saveOrUpdate(orderItem);
 	}
 }

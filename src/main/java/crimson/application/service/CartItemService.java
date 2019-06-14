@@ -45,6 +45,15 @@ public class CartItemService {
 		}
 	}
 
+	public CartItem get(Long id) {
+		try {
+			return cartItemRepository.findById(id).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public List<CartItem> getCartItems(Cart cart) {
 		try {
 			return cartItemRepository.findCartItemByCart(cart);

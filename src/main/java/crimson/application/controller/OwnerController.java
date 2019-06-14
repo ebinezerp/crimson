@@ -1,6 +1,5 @@
 package crimson.application.controller;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import crimson.application.model.User;
 import crimson.application.repository.UserRepository;
+import crimson.application.service.UserService;
 import crimson.application.util.Email;
 import crimson.application.util.RandomPasswordGenerator;
 import crimson.application.util.Validation;
@@ -29,17 +29,17 @@ import crimson.application.util.Validation;
 public class OwnerController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private RandomPasswordGenerator randomPasswordGenerator;
-	
+
 	@Autowired
 	private Validation validation;
-	
+
 	@Autowired
 	@Qualifier("adminRegEmail")
 	private Email emailService;
@@ -51,75 +51,74 @@ public class OwnerController {
 	}
 
 	@PostMapping("/registeradmin")
-	public String addAdmin(@Valid @ModelAttribute("user") User user,Errors errors, Model model,HttpServletRequest request) {
-		String password=randomPasswordGenerator.generatePassword();
+	public String addAdmin(@Valid @ModelAttribute("user") User user, Errors errors, Model model,
+			HttpServletRequest request) {
+		String password = randomPasswordGenerator.generatePassword();
 		user.setPassword(passwordEncoder.encode(password));
-		if(errors.hasErrors()) {
+		if (errors.hasErrors()) {
 			return "ownerpage";
-		}else {
-			Map<String, String> error_Messages=validation.userExistenceValidation(user);
-			if(error_Messages.size()>0) {
-				model.addAttribute("error_messages",error_Messages);
+		} else {
+			Map<String, String> error_Messages = validation.userExistenceValidation(user);
+			if (error_Messages.size() > 0) {
+				model.addAttribute("error_messages", error_Messages);
 				return "ownerpage";
 			}
 		}
-		userRepository.save(user);
-		emailService.send(user.getEmail(),password,"http://"+request.getServerName()+":"+request.getServerPort());
+		userService.saveOrUpdate(user);
+		emailService.send(user.getEmail(), password,
+				"http://" + request.getServerName() + ":" + request.getServerPort());
 		return "redirect:/owner/";
 	}
 
 	@GetMapping("/admins")
 	public String admins(Model model) {
-		model.addAttribute("admins", userRepository.findUserByRole("ROLE_ADMIN"));
+		model.addAttribute("admins", userService.getAllUserByRole("ROLE_ADMIN"));
 		return "adminlist";
 	}
-	
+
 	@GetMapping("/disableadmin/{userId}")
-	public String adminDisable(@PathVariable("userId")Long userId,Model model) {
-		User user=userRepository.getOne(userId);
-		if(user!=null) {
+	public String adminDisable(@PathVariable("userId") Long userId, Model model) {
+		User user = userService.getUserById(userId);
+		if (user != null) {
 			user.setIsActive(false);
-			userRepository.save(user);
-		}else {
+			userService.saveOrUpdate(user);
+		} else {
 			model.addAttribute("error_message", "User is not existed");
 			return "adminlist";
 		}
-		
+
 		return "redirect:/owner/admins";
-						
+
 	}
-	
-	
+
 	@GetMapping("/editadmin/{userId}")
-	public String editAdminDetails(@PathVariable("userId")Long userId,Model model) {
-		User user=userRepository.getOne(userId);
-		if(user!=null) {
+	public String editAdminDetails(@PathVariable("userId") Long userId, Model model) {
+		User user = userService.getUserById(userId);
+		if (user != null) {
 			model.addAttribute("user", user);
 			return "editadmin";
 		}
-		
+
 		model.addAttribute("error_message", "User is not existed");
 		return "adminlist";
 	}
-	
-	
+
 	@PostMapping("/update")
-	public String updateAdminDetails(@Valid User user,Errors errors,Model model) {
-		if(errors.hasErrors()) {
+	public String updateAdminDetails(@Valid User user, Errors errors, Model model) {
+		if (errors.hasErrors()) {
 			return "editadmin";
 		}
-		
-		Map<String,String> error_messages=validation.userUpdationValidation(user);
-		
-		
-		if(error_messages.size()>0) {
+
+		Map<String, String> error_messages = validation.userUpdationValidation(user);
+
+		if (error_messages.size() > 0) {
 			model.addAttribute("error_messages", error_messages);
 			return "editadmin";
 		}
-		
-		userRepository.save(user);
-		
+
+		userService.saveOrUpdate(user);
+
 		return "redirect:/owner/admins";
-		
+
 	}
 }

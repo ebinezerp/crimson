@@ -12,15 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import crimson.application.model.Order;
 import crimson.application.repository.OrderRepository;
 import crimson.application.repository.UserRepository;
+import crimson.application.service.OrderService;
+import crimson.application.service.UserService;
 
 @Controller
 public class OrdersController {
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderService orderService;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@GetMapping(value= {"/orders/{id}","/orders"})
 	public String orders(@RequestParam(name = "deliveryStatus", required = false) Boolean deliveryStatus,
@@ -31,9 +33,9 @@ public class OrdersController {
 		List<Order> orders = null;
 
 		if (id != null) {
-			orders = orderRepository.findAllByUserOrderByOrderedDateDesc(userRepository.getOne(id));
+			orders = orderService.getOrders(userService.getUserById(id));
 		} else {
-			orders = orderRepository.findAllByOrderByOrderedDateDesc();
+			orders = orderService.getOrders();
 		}
 
 		model.addAttribute("orders", orders);
@@ -42,7 +44,7 @@ public class OrdersController {
 
 	@GetMapping("/order/{id}")
 	private String billPage(@PathVariable("id") Long id, Model model) {
-		Order order = orderRepository.getOne(id);
+		Order order = orderService.get(id);
 		model.addAttribute("order", order);
 		return "order";
 	}

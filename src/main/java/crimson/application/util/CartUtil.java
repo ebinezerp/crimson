@@ -6,23 +6,25 @@ import org.springframework.stereotype.Service;
 import crimson.application.model.Cart;
 import crimson.application.repository.CartItemRepository;
 import crimson.application.repository.CartRepository;
+import crimson.application.service.CartItemService;
+import crimson.application.service.CartService;
 
 @Service
 public class CartUtil {
 
 	@Autowired
-	private CartItemRepository cartItemRepository;
+	private CartItemService cartItemService;
 
 	@Autowired
-	private CartRepository cartRepository;
+	private CartService cartService;
 
 	public boolean resetCart(Cart cart) {
 		try {
-			cartItemRepository.deleteAllByCart(cart);
+			cartItemService.deleteAll(cart);
 			cart.setQuantity(0);
 			cart.setTotalAmount(0.0);
 			cart.setCartItems(null);
-			cartRepository.save(cart);
+			cartService.saveOrUpdate(cart);
 			return true;
 		} catch (Exception e) {
 			return false;
