@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import crimson.application.FrontendApplication;
@@ -41,8 +43,8 @@ public class UserServiceAddUserTest {
 		assertThat(userService.saveOrUpdate(user)).isNotNull();
 	}
 	
-	@Test
-	@Transactional
+	@Test(expected = TransactionSystemException.class)
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	public void addTestWithUsernameNullValue() {
 		user.setUsername(null);
 		assertThat(userService.saveOrUpdate(user)).isNull();
