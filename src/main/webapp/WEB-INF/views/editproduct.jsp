@@ -69,7 +69,7 @@
 							<springform:input path="status" type="hidden" value="true" />
 							<div class="clearfix"></div>
 							<div class="col-sm-12 text-right">
-								<a href="#" onclick="addproduct()" class="shp-btn">Add
+								<a href="#" onclick="addproduct()" class="shp-btn">Update
 									Product</a> 
 									<a href="${contextPath}/admin/disable/${product.id}" class="shp-btn btn-danger">Disable</a>
 							</div>

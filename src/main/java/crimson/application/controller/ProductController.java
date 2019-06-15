@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -33,6 +34,8 @@ public class ProductController {
 
 	@Autowired
 	private Validation validation;
+	
+	
 
 	@GetMapping("/productform")
 	public String productForm(@RequestParam( value ="status", required = false) Boolean status, Model model) {
@@ -145,26 +148,20 @@ public class ProductController {
 		InputStream inputStream = product.getProductImage().getInputStream();
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
-
-		File productImagesFolder = new File(
-				request.getServletContext().getContextPath() + "/home/jelastic/resources/images/");
+		
+		File productImagesFolder = new File(request.getContextPath()+"/resources/images/");
 
 		if (!productImagesFolder.exists()) {
-
 			productImagesFolder.mkdirs();
-			System.out.println("folder created");
 		}
-
-		System.out.println(productImagesFolder.exists());
+		
 
 		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");
 
-		System.out.println("outputstream is created");
 		outputStream.write(array);
 		outputStream.flush();
 		outputStream.close();
-		System.out.println("finished");
 
 	}
 
