@@ -34,6 +34,18 @@
 							href='${contextPath}/register'>Register Here </a></span>
 					</c:if>
 					
+					<c:if test="${pwdstatus==false}">
+						<span class="error_msg">Password Should not be empty.</span>
+					</c:if>
+					
+					<c:if test="${update==false}">
+						<span class="error_msg">Error Occurred during update. Try again later.</span>
+					</c:if>
+					
+					<c:if test="${pwdequals==false}">
+						<span class="error_msg">Password and Confirm Password should be same.</span>
+					</c:if>
+					
 				</center>
 				<form class="form" action="${contextPath}/newpassword" method="post">
 					<input type="hidden" name="email" value="${email}" />

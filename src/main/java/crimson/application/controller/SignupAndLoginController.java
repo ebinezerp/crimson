@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.buf.UDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -80,8 +81,19 @@ public class SignupAndLoginController {
 	}
 
 	@GetMapping("/forgetpassword")
-	public String forgetPassword(Model model, HttpServletRequest request) {
+	public String forgetPassword(@RequestParam(value = "email", required = false) String emailExistStatus,
+			@RequestParam(value = "update_status", required = false) String updateStatus, Model model,
+			HttpServletRequest request) {
 		model.addAttribute("user", new User());
+
+		if (emailExistStatus != null) {
+			model.addAttribute("user_exists_status", emailExistStatus);
+		}
+
+		if (updateStatus != null) {
+			model.addAttribute("update_status", updateStatus);
+		}
+
 		return "forgetpassword";
 	}
 
@@ -90,24 +102,38 @@ public class SignupAndLoginController {
 
 		User user = userService.getUserByEmail(email);
 
+		model.addAttribute("user", new User());
+
 		if (user != null) {
 			String password = randomPasswordGenerator.generatePassword();
 			user.setPassword(passwordEncoder.encode(password));
 			if (userService.saveOrUpdate(user) == null) {
-				model.addAttribute("update_error", true);
-				return "forgetpassword";
+				return "redirect:/forgetpassword?update_status=false";
 			}
 			emailService.send(user.getEmail(), password,
 					"http://" + request.getServerName() + ":" + request.getServerPort());
 			return "redirect:/resetpassword?email=" + user.getEmail();
 		}
-		model.addAttribute("user", new User());
-		model.addAttribute("message", "Email is not register.");
-		return "forgetpassword";
+
+		return "redirect:/forgetpassword?email=false";
 	}
 
 	@GetMapping("/resetpassword")
-	public String resetPassword(@RequestParam("email") String email, Model model) {
+	public String resetPassword(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "pwdstatus", required = false) String pwdStatus, Model model) {
+
+		if (email == null) {
+			return "redirect:/forgetpassword";
+		}
+
+		if (userService.getUserByEmail(email) == null) {
+			return "redirect:/forgetpassword?email=false";
+		}
+
+		if (pwdStatus != null) {
+			model.addAttribute("pwdstatus", pwdStatus);
+		}
+
 		model.addAttribute("email", email);
 		model.addAttribute("user", new User());
 		return "resetpassword";
@@ -119,20 +145,32 @@ public class SignupAndLoginController {
 
 		User user = userService.getUserByEmail(email);
 		if (user == null) {
-			model.addAttribute("email_exists", false);
-			return "resetpassword";
+			return "redirect:/forgetpassword?email=false";
 		}
-		model.addAttribute("email", email);
-		model.addAttribute("user", new User());
 		if (passwordEncoder.matches(password, user.getPassword())) {
 			return "redirect:/newpassword?email=" + email;
 		}
-		model.addAttribute("password_match", false);
-		return "resetpassword";
+		return "redirect:/resetpassword?email=" + email + "&pwdstatus=false";
 	}
 
 	@GetMapping("/newpassword")
-	public String newPassword(@RequestParam("email") String email, Model model) {
+	public String newPassword(@RequestParam("email") String email,
+			@RequestParam(value = "pwdstatus", required = false) String pwdStatus,
+			@RequestParam(value = "update", required = false) String updateStatus,
+			@RequestParam(value = "pwdequals", required = false) String pwdEquals, Model model) {
+
+		if (pwdStatus != null) {
+			model.addAttribute("pwdstatus", pwdStatus);
+		}
+
+		if (updateStatus != null) {
+			model.addAttribute("update", updateStatus);
+		}
+
+		if (pwdEquals != null) {
+			model.addAttribute("pwdequals", pwdEquals);
+		}
+
 		model.addAttribute("email", email);
 		model.addAttribute("user", new User());
 		return "newpassword";
@@ -142,22 +180,21 @@ public class SignupAndLoginController {
 	public String storeNewPassword(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("confirmPassword") String confirmPassword, Model model) {
 
+		if (password.isEmpty() || confirmPassword.isEmpty()) {
+			return "redirect:/newpassword?email=" + email + "&pwdstatus=false";
+		}
 		if (password.equals(confirmPassword)) {
 			User user = userService.getUserByEmail(email);
 			if (user == null) {
-				model.addAttribute("email_exists", false);
-				return "newpassword";
+				return "redirect:/forgetpassword?email=false";
 			}
 			user.setPassword(passwordEncoder.encode(password));
-			if(userService.saveOrUpdate(user) == null) {
-				model.addAttribute("pass_update_error", false);
-				return "newpassword";
+			if (userService.saveOrUpdate(user) == null) {
+				return "redirect:/newpassword?update=false";
 			}
 			return "redirect:/?login";
 		}
-		model.addAttribute("user", new User());
-		model.addAttribute("message", "Password and Confirm Password should be same");
-		return "newpassword";
+		return "redirect:/newpassword?email=" + email + "&pwdequals=false";
 	}
 
 }

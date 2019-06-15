@@ -28,8 +28,7 @@
 					<h3>
 						<strong>Reset your Password</strong>
 					</h3>
-					<p>Enter reset password here.</p>
-					<c:if test="${password_match==false}">
+					<c:if test="${pwdstatus==false}">
 						<span class="error_msg">Reset Password is wrong</span>
 					</c:if>
 

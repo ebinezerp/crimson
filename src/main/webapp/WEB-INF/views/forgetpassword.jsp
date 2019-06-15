@@ -18,7 +18,7 @@
 
 		<%@include file="header.jsp"%>
 
-		<%@include file="searchmenu.jsp" %>
+		<%@include file="searchmenu.jsp"%>
 		<div class="container-fluid"></div>
 
 		<div class="container-fluid">
@@ -28,12 +28,20 @@
 					<h3>
 						<strong>Reset your Password</strong>
 					</h3>
+					<c:if test="${user_exists_status == false}">
+						<span class='error_msg'>Email is not Existed. Enter correct email.</span>
+					</c:if>
+					
+					<c:if test="${update_status == false}">
+						<span class='error_msg'>Update Process is failed. Try again later.</span>
+					</c:if>
+					
+					
 				</center>
 				<form class="form" action="${contextPath}/verifyemail" method="post">
 					<div class="form-group">
-						<p>Enter the register email below to
-							recieve reset password</p> <input type="text" name="email"
-							class="form-control">
+						<p>Enter the register email below to recieve reset password</p>
+						<input type="text" name="email" class="form-control">
 					</div>
 					<input type="submit" class="btn btn-primary form-control"
 						value="Submit">
