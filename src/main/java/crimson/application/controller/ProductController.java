@@ -35,7 +35,8 @@ public class ProductController {
 	@Autowired
 	private Validation validation;
 	
-	
+	@Value("${image.location}")
+	private String imageLocation;
 
 	@GetMapping("/productform")
 	public String productForm(@RequestParam( value ="status", required = false) Boolean status, Model model) {
@@ -149,7 +150,11 @@ public class ProductController {
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
 		
-		File productImagesFolder = new File(request.getContextPath()+"/resources/images/");
+		
+		System.out.println("Context Path:"+request.getContextPath());
+		System.out.println(request.getServletContext().getRealPath("/"));
+		
+		File productImagesFolder = new File(imageLocation);
 
 		if (!productImagesFolder.exists()) {
 			productImagesFolder.mkdirs();
