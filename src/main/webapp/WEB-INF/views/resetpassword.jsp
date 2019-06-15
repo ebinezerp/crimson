@@ -28,6 +28,7 @@
 					<h3>
 						<strong>Reset your Password</strong>
 					</h3>
+					<p>Reset Password is sent to register mail.</p>
 					<c:if test="${pwdstatus==false}">
 						<span class="error_msg">Reset Password is wrong</span>
 					</c:if>

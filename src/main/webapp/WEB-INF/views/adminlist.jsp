@@ -65,7 +65,9 @@
 		</div>
 		<hr>
 		<div class="container" style="margin-top: 20px;">
-
+			<c:if test="${id == false}">
+				<span class='error_msg'>Employee is not existed</span>
+			</c:if>
 			<table id="adminsListTable"
 				class="table table-striped table-bordered">
 				<thead>

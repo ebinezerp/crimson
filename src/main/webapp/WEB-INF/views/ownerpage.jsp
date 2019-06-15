@@ -55,6 +55,17 @@
 		<div class="container">
 			<div class="col-md-4 col-md-offset-4">
 				<h3>Register Admin</h3>
+
+				<c:choose>
+					<c:when test="${regStatus == false}">
+						<span class='error_msg'>Admin Registration Failed. Try
+							again later.</span>
+					</c:when>
+					<c:when test="${regStatus == true}">
+						<span class='alert alert-success'> Admin Registration is
+							successful.</span>
+					</c:when>
+				</c:choose>
 				<springform:form method="POST"
 					action="${contextPath}/owner/registeradmin" modelAttribute="user">
 					<div class="form-group">
@@ -77,7 +88,7 @@
 					</div>
 					<springform:input path="role" type="hidden" value="ROLE_ADMIN" />
 					<springform:input path="isActive" type="hidden" value="true" />
-					<springform:input path="password" type="hidden" value="Dummy@123#"/>
+					<springform:input path="password" type="hidden" value="Dummy@123#" />
 					<input type="submit" class="form-control btn btn-primary">
 				</springform:form>
 

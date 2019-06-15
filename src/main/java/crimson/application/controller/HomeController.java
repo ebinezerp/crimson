@@ -52,7 +52,7 @@ public class HomeController {
 		if (principal != null) {
 			User user = null;
 			if (session.getAttribute("reg_user") == null) {
-				user = userService.getUser(principal.getName());
+				user = userService.getUserByEmail(principal.getName());
 			}
 			if (user != null) {
 				session.setAttribute("reg_user", user);

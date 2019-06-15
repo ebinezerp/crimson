@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.xml.ws.RequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.User;
 import crimson.application.repository.UserRepository;
@@ -45,7 +47,12 @@ public class OwnerController {
 	private Email emailService;
 
 	@GetMapping
-	public String ownerpage(Model model) {
+	public String ownerpage(@RequestParam(value = "status", required = false) String registerStatus, Model model) {
+
+		if (registerStatus != null) {
+			model.addAttribute("regStatus", registerStatus);
+		}
+
 		model.addAttribute("user", new User());
 		return "ownerpage";
 	}
@@ -64,14 +71,21 @@ public class OwnerController {
 				return "ownerpage";
 			}
 		}
-		userService.saveOrUpdate(user);
+		if (userService.saveOrUpdate(user) == null) {
+			return "redirect:/owner?status=false";
+		}
 		emailService.send(user.getEmail(), password,
 				"http://" + request.getServerName() + ":" + request.getServerPort());
-		return "redirect:/owner/";
+		return "redirect:/owner?status=true";
 	}
 
 	@GetMapping("/admins")
-	public String admins(Model model) {
+	public String admins(@RequestParam(value = "id", required = false)String id ,Model model) {
+		
+		if(id!=null) {
+			model.addAttribute("id", id);
+		}
+		
 		model.addAttribute("admins", userService.getAllUserByRole("ROLE_ADMIN"));
 		return "adminlist";
 	}
@@ -94,13 +108,12 @@ public class OwnerController {
 	@GetMapping("/editadmin/{userId}")
 	public String editAdminDetails(@PathVariable("userId") Long userId, Model model) {
 		User user = userService.getUserById(userId);
-		if (user != null) {
+		if (user == null) {
+			return "redirect:/owner/admins?id=false";
+		}else {
 			model.addAttribute("user", user);
 			return "editadmin";
 		}
-
-		model.addAttribute("error_message", "User is not existed");
-		return "adminlist";
 	}
 
 	@PostMapping("/update")
