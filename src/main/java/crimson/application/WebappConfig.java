@@ -13,10 +13,13 @@ public class WebappConfig implements WebMvcConfigurer {
 	
 	@Value("${image.location}")
 	private String location;
+	
+	@Value("${image.dir}")
+	private String imageDir;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/images/**").addResourceLocations(location);
+		registry.addResourceHandler("/images/**").addResourceLocations(imageDir+location);
 	}
 
 }
