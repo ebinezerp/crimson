@@ -26,7 +26,7 @@
 		<div class="container-fluid header-main">
 			<div class="container text-center">
 
-				<h2>Cart</h2>
+				<h2>Contact Us</h2>
 				<div class="link-sec">
 					<a href="#">Home</a> <i class="fa fa-angle-right"></i> <a href="#">Cart</a>
 				</div>
@@ -106,12 +106,12 @@
 					<div class="clearfix"></div>
 					<div class="contact">
 						<i class="flaticon-headphones"></i>
-						<p class="phone-no">+91 98480 98480 | 044 - 6655 6655</p>
+						<p class="phone-no">044-24790545</p>
 					</div>
 					<div class="clearfix"></div>
 					<div class="contact">
 						<i class="flaticon-message"></i>
-						<p>contact@crimsontrading.in</p>
+						<p>tradingcrimson@gmail.com</p>
 					</div>
 					<div class="clearfix"></div>
 					<div class="contact">

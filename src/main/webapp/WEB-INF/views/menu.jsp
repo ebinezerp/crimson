@@ -11,11 +11,11 @@
 		<div class="header-left">
 			<div class="top-bar-list phone">
 				<i class="flaticon-phone-call"></i>
-				<p>+91 98480 98480</p>
+				<p>044-24790545</p>
 			</div>
 			<div class="top-bar-list">
 				<i class="flaticon-e-mail-envelope"></i>
-				<p>Info@crimsontrading.com</p>
+				<p>tradingcrimson@gmail.com</p>
 			</div>
 		</div>
 	</div>

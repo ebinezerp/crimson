@@ -37,8 +37,7 @@
 			<div class="col-md-4 col-sm-4 email">
 				<i class="flaticon-phone-call"></i>
 				<h3>CALL</h3>
-				<p>+91 98480 98480</p>
-				<p>044 - 6655 6655</p>
+				<p>044-24790545</p>
 			</div>
 			<div class="col-md-4 col-sm-4 email">
 				<i class="flaticon-placeholder-1"></i>
@@ -49,8 +48,7 @@
 			<div class="col-md-4 col-sm-4 email">
 				<i class="flaticon-e-mail-envelope"></i>
 				<h3>EMAIL</h3>
-				<p>info@crimsontrading.com</p>
-				<p>contact@crimsontrading.com</p>
+				<p>tradingcrimson@gmail.com</p>
 			</div>
 		</div>
 	</div>
@@ -60,7 +58,7 @@
 	<div class="container">
 		<div class="col-md-4 col-sm-3 copy-text">
 			<p>
-				© 2018 <a href="#">Crimson Trading</a>.
+				© 2018-19 all rights reserved <a href="#">Crimson Trading</a>.
 			</p>
 		</div>
 		<div class="col-md-8 col-xs-12 col-sm-9 terms-condition text-right">

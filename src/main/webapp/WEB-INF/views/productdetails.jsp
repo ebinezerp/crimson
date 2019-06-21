@@ -143,45 +143,24 @@
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation"><a href="#home" aria-controls="home"
 						role="tab" data-toggle="tab">Product Info</a></li>
-					<li role="presentation" class="active"><a href="#profile"
+					<!-- <li role="presentation" class="active"><a href="#profile"
 						aria-controls="profile" role="tab" data-toggle="tab">Delivery</a></li>
 					<li role="presentation"><a href="#messages"
 						aria-controls="messages" role="tab" data-toggle="tab">Returns</a></li>
 					<li role="presentation"><a href="#settings"
 						aria-controls="settings" role="tab" data-toggle="tab">Additional
-							Information</a></li>
+							Information</a></li> -->
 				</ul>
 
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane fade" id="home">
 						<p>
-							<b>Standard Shipping:</b> Shipping within 6 business days, $4 -
-							FREE (spend over $40) Orders under $40 may be shipped on an
-							untracked service and may take longer to arrive
+								${product.productDescription}
 						</p>
-						<p>
-							<b>4-Day Shipping:</b> $6.00
-						</p>
-						<p>
-							<b>2-Day Shipping:</b> $12.00 or FREE when you spend $140*
-						</p>
-						<p>
-							<b>1-Day Shipping:</b> Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet, consectetur adium porttitor egestas orci,
-							vitae ullamcor consectetur id. Vestib porttitor egestas orci,
-							vitae ullamcorper risus dolor sit amet,
-						</p>
-						<p>
-							<b>Dorem ipsum dolor sit: </b> Amet, consectetur adipiscing elit.
-							Vestib porttitor egestas orci, vitae ullamcorper risus dolor sit
-							amet, consectetur adium porttitor egestas orci, vitae ullamcor
-							consectetur id. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet,
-						</p>
+						
 					</div>
-					<div role="tabpanel" class="tab-pane fade in active" id="profile">
+					<!-- <div role="tabpanel" class="tab-pane fade in active" id="profile">
 						<p>
 							<b>Standard Shipping:</b> Shipping within 6 business days, $4 -
 							FREE (spend over $40) Orders under $40 may be shipped on an
@@ -261,7 +240,7 @@
 							consectetur id. Vestib porttitor egestas orci, vitae ullamcorper
 							risus dolor sit amet,
 						</p>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="clearfix"></div>

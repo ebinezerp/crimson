@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import crimson.application.exception.AddProductMethodNotExceptionHandler;
 import crimson.application.model.Product;
 import crimson.application.service.ProductService;
 import crimson.application.util.Validation;
@@ -149,10 +151,6 @@ public class ProductController {
 		InputStream inputStream = product.getProductImage().getInputStream();
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
-		
-		
-		System.out.println("Context Path:"+request.getContextPath());
-		System.out.println(request.getServletContext().getRealPath("/"));
 		
 		File productImagesFolder = new File(imageLocation);
 
