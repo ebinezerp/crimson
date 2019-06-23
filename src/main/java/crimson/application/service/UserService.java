@@ -119,5 +119,15 @@ public class UserService {
 			return null;
 		}
 	}
+	
+	
+	public User getUser(String email,String password,String role) {
+		try {
+			return userRepository.findUserByEmailAndPasswordAndRole(email, password, role);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
