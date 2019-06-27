@@ -6,14 +6,19 @@ import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import crimson.application.exception.UserNotFoundException;
 import crimson.application.model.User;
+import crimson.application.model.UserPrincipal;
 import crimson.application.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -119,9 +124,8 @@ public class UserService {
 			return null;
 		}
 	}
-	
-	
-	public User getUser(String email,String password,String role) {
+
+	public User getUser(String email, String password, String role) {
 		try {
 			return userRepository.findUserByEmailAndPasswordAndRole(email, password, role);
 		} catch (Exception e) {
@@ -129,5 +133,27 @@ public class UserService {
 			return null;
 		}
 	}
+
+	@Override
+	public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+		// Let people login with either username or email
+		try {
+			User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+			return UserPrincipal.create(user);
+		} catch (Exception e) {
+			throw new UserNotFoundException(usernameOrEmail);
+		}
+
+	}
+	
+	// This method is used by JWTAuthenticationFilter
+    @Transactional
+    public UserDetails loadUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+            () -> new UsernameNotFoundException("User not found with id : " + id)
+        );
+
+        return UserPrincipal.create(user);
+    }
 
 }

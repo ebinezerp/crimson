@@ -56,7 +56,7 @@ public class CartController {
 		User user = (User) session.getAttribute("reg_user");
 		Product product = productService.getProduct(id);
 		if (product == null) {
-			return "redirect:/products?status=true";
+			return "redirect:/products";
 		}
 		Cart cart = cartService.getCart(user);
 
@@ -67,12 +67,12 @@ public class CartController {
 		}
 
 		if (cartService.saveOrUpdate(cart) == null) {
-			return "redirect:/products?status=true";
+			return "redirect:/products";
 		}
 		session.setAttribute("cart_count", cart.getQuantity());
 
 		if (qant == null) {
-			return "redirect:/products?status=true";
+			return "redirect:/products";
 		} else {
 			return "redirect:/prod_details/" + id;
 		}
@@ -81,12 +81,13 @@ public class CartController {
 	@GetMapping("/cart")
 	public String cartDetails(Model model, Principal principal, HttpSession session) {
 		User user = (User) session.getAttribute("reg_user");
+		
 		Cart cart = cartService.getCart(user);
 
 		if (cart == null) {
-			return "redirect:/products";
+			return "redirect:/products?cartExists=false";
 		}
-
+        model.addAttribute("cartmenu", "active");
 		model.addAttribute("cart", cart);
 		model.addAttribute("cartItems", cartItemService.getCartItems(cart));
 		session.setAttribute("cart_count", cart.getQuantity());

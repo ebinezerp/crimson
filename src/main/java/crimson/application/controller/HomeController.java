@@ -84,17 +84,20 @@ public class HomeController {
 
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(name = "status", required = false) Boolean status,
-			@RequestParam(name = "disable", required = false) Boolean disableStatus, Model model, Principal principal,
+			@RequestParam(name = "disable", required = false) Boolean disableStatus, 
+			@RequestParam(name="cartExists", required= false) String cartStatus,Model model, Principal principal,
 			HttpSession session) {
 
 		model.addAttribute("user", new User());
 		model.addAttribute("products", productService.getActiveProducts());
-
+		model.addAttribute("productsmenu", "active");
+		model.addAttribute("cartStatus", cartStatus);
 		model.addAttribute("disable", disableStatus);
 
 		if (session.getAttribute("reg_user") != null) {
-			Cart cart = ((User) session.getAttribute("reg_user")).getCart();
+			Cart cart = userService.getUserByEmail((((User)session.getAttribute("reg_user")).getEmail())).getCart();
 			if (cart != null) {
+				System.out.println("cart is existed");
 				session.setAttribute("cart_count", cart.getQuantity());
 				model.addAttribute("cart", cart);
 			}
@@ -111,6 +114,7 @@ public class HomeController {
 	@GetMapping("/prod_details/{id}")
 	public String productDetails(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("productsmenu", "active");
 		Product product = productService.getProduct(id);
 		if (product == null) {
 			return "redirect:/products?status=false";
@@ -124,6 +128,7 @@ public class HomeController {
 	@GetMapping("/aboutus")
 	public String aboutUs(Model model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("aboutusmenu", "active");
 		return "index";
 	}
 

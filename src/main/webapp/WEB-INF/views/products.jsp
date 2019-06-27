@@ -40,7 +40,6 @@
 		<%@include file="searchmenu.jsp"%>
 
 
-
 		<security:authorize access="isAnonymous() || hasRole('ROLE_USERS')">
 
 			<!--discount-->
@@ -71,6 +70,11 @@
 					<span class="alert alert-danger">Sorry error occurred . Try
 						again</span>
 				</c:if>
+				
+				<c:if test="${cartStatus==false}">
+					<span class="alert alert-info">Cart is empty. Add Products to cart</span>
+				</c:if>
+				
 
 				<div class="clearfix"></div>
 				<c:forEach items="${products}" var="prod" varStatus="vs">
@@ -99,7 +103,6 @@
 									<c:set var="quant" value="0" />
 									<c:set var="cartItemId" value="" />
 									<c:forEach items="${cart.cartItems}" var="cartItem">
-
 										<c:if test="${cartItem.product.id==prod.id}">
 											<c:set var="exists" value="true" />
 											<c:set var="quant" value="${cartItem.quantity}"></c:set>
@@ -199,7 +202,8 @@
 																					error) {
 																				if ((quant - 1) == 0) {
 																					location
-																							.reload(true);
+																					.reload(true);
+																					
 																				} else {
 																					$(
 																							'#cart_count')
@@ -208,6 +212,9 @@
 																											'#cart_count')
 																											.html()) - 1);
 																				}
+																				
+																				
+																				
 
 																			})
 														}

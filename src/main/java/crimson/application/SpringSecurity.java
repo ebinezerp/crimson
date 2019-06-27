@@ -6,15 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import crimson.application.filter.JwtAuthenticationFilter;
+import crimson.application.service.UserService;
 
 @Configuration
 @Order(value = 0)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
+@EnableWebSecurity
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -26,21 +36,25 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.usersByUsernameQuery("select email,password,is_Active from user where email=?")
 				.authoritiesByUsernameQuery("select email,role from user where email=?");
 	}
-
+	
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
-		http.csrf().disable().authorizeRequests().antMatchers("/api/**").permitAll()
-				.antMatchers("/user/**").hasRole("USER").antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/owner/**").hasRole("OWNER").antMatchers("/profile**").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/orders/**").hasAnyRole("ADMIN", "USER").antMatchers("/**").permitAll().and().formLogin()
-				.loginPage("/?login").usernameParameter("email").passwordParameter("password")
-				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/", true).failureUrl("/?login=error").and()
-				.logout().logoutUrl("/logout").logoutSuccessUrl("/?login");
+		http.csrf().disable().authorizeRequests().antMatchers("/user/**").hasRole("USER").antMatchers("/admin/**")
+				.hasRole("ADMIN").antMatchers("/owner/**").hasRole("OWNER").antMatchers("/profile**")
+				.hasAnyRole("ADMIN", "USER").antMatchers("/orders/**").hasAnyRole("ADMIN", "USER")
+				.and().formLogin().loginPage("/?login").usernameParameter("email")
+				.passwordParameter("password").loginProcessingUrl("/processlogin").defaultSuccessUrl("/", true)
+				.failureUrl("/?login=error").and().logout().logoutUrl("/logout").logoutSuccessUrl("/?login");
+		System.out.println("Web Configureed");
 	}
 
+	
+
 	@Bean
-	public PasswordEncoder encoder() {
+	public static PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 

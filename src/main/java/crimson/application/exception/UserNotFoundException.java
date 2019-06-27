@@ -2,17 +2,26 @@ package crimson.application.exception;
 
 import crimson.application.model.LoginUser;
 
-public class UserNotFoundException extends RuntimeException{
-	
+public class UserNotFoundException extends RuntimeException {
+
 	private LoginUser user;
-	
+	private String username;
+
 	public UserNotFoundException(LoginUser user) {
-		this.user=user;
+		this.user = user;
 	}
-	
+
+	public UserNotFoundException(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String getMessage() {
-		return user.getEmail()+" is not found";
+		if (user != null) {
+			return user.getEmail() + " is not found";
+		} else {
+			return username + " is not found";
+		}
 	}
 
 }

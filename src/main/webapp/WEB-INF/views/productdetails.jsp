@@ -136,29 +136,33 @@
 				</form>
 			</div>
 			<div class="clearfix"></div>
-
+<%-- 
 			<div class="product-tab">
-
-				<!-- Nav tabs -->
+				<!-- 
+				Nav tabs
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation"><a href="#home" aria-controls="home"
 						role="tab" data-toggle="tab">Product Info</a></li>
-					<!-- <li role="presentation" class="active"><a href="#profile"
+					<li role="presentation" class="active"><a href="#profile"
 						aria-controls="profile" role="tab" data-toggle="tab">Delivery</a></li>
 					<li role="presentation"><a href="#messages"
 						aria-controls="messages" role="tab" data-toggle="tab">Returns</a></li>
 					<li role="presentation"><a href="#settings"
 						aria-controls="settings" role="tab" data-toggle="tab">Additional
-							Information</a></li> -->
-				</ul>
+							Information</a></li>
+				</ul> -->
 
 				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade" id="home">
-						<p>
-								${product.productDescription}
-						</p>
-						
+				<div class="d-flex flex-column justify-content-between">
+					<div>
+						<ul class="nav nav-tabs">
+							<li role="presentation"><a href="#home" aria-controls="home"
+								role="tab" data-toggle="tab">Product Info</a></li>
+						</ul>
+					</div>
+					<div role="" class="" id="home">
+						<p>${product.productDescription}</p>
+
 					</div>
 					<!-- <div role="tabpanel" class="tab-pane fade in active" id="profile">
 						<p>
@@ -241,12 +245,25 @@
 							risus dolor sit amet,
 						</p>
 					</div> -->
+				</div> --%>
+				
+				
+				<div class="d-flex flex-colum justify-content-center">
+				<div class='border border-success' style="padding:10px;">
+				   <b>Product Info</b>
 				</div>
+				<div class='border border-success' style="padding:10px">
+				${product.productDescription}
+				</div>
+				</div>
+				
+				
 
 				<div class="clearfix"></div>
 
 			</div>
 
+      <div style="margin:25px"></div>
 			<div class="slider-head">
 				<h3>Related Products</h3>
 			</div>
@@ -348,13 +365,13 @@
 	</script>
 
 	<script>
-	/* 	$(document).ready(function(){
-			$('.sub').click(function(){
-				if(parseInt($(this).next().val())<=0){
-					$('#prod_quantity').val(1);
-				}
-			})
-		}) */
+		/* 	$(document).ready(function(){
+				$('.sub').click(function(){
+					if(parseInt($(this).next().val())<=0){
+						$('#prod_quantity').val(1);
+					}
+				})
+			}) */
 	</script>
 
 

@@ -96,6 +96,19 @@ public class APISignupAndLoginController {
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
+	@GetMapping("/logout")
+	public ResponseEntity<Boolean> logout(@RequestParam("email") String email,HttpSession session){
+		if(session.getAttribute("email") != null) {
+			System.out.println("Existed");
+			if(session.getAttribute("email").toString().equals(email)) {
+				System.out.println("Same");
+				session.removeAttribute("email");
+				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<Boolean>(true,HttpStatus.FORBIDDEN);
+	}
 
 	@GetMapping("/forgetpassword")
 	public String forgetPassword(@RequestParam(value = "email", required = false) String emailExistStatus,

@@ -5,15 +5,15 @@
 	prefix="security"%>
 
 
-<div class="container header-sec">
+<div claess="container header-sec">
 
 	<div class="col-md-5 header">
 		<div class="header-left">
-			<div class="top-bar-list phone">
+			<div class="top-bar-list phone align-items-center">
 				<i class="flaticon-phone-call"></i>
 				<p>044-24790545</p>
 			</div>
-			<div class="top-bar-list">
+			<div class="top-bar-list align-items-center">
 				<i class="flaticon-e-mail-envelope"></i>
 				<p>tradingcrimson@gmail.com</p>
 			</div>

@@ -17,9 +17,12 @@
 		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
 		<%@include file="header.jsp"%>
-		
-		<%@include file="searchmenu.jsp" %>
-
+		<div class="container logo-name">
+			<div class="col-md-5 logo-name text-center">
+		<a href="index.html"><img src="${img}/index/logo.png" alt=""
+			class="img-responsive" /></a>
+	</div>
+</div>
 		
 		<div class="container-fluid">
 			<!-- 	<div class="alert alert-warning alert-dismissible fade show"
@@ -62,26 +65,32 @@
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-medal"></i>
 				<h3>WHAT WE ARE</h3>
-				<h5>BEST TRADERS OF SPICES</h5>
-				<p>Crimson products are shipped to worldwide markets including
-					India, Singapore, Europe, USA, Middle East and Africa.</p>
+				<h5>BEST TRADERS</h5>
+				<p>Crimson is an aggregator of all food retail outlets-Bakeries,Restaurants and Canteens in India. We want to build the largest network across 100 cities in India
+
+
+
+</p>
 			</div>
 
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-like"></i>
 				<h3>WHAT WE DO</h3>
 				<h5>BEST SPICES OF THE WORLD</h5>
-				<p>Quality and service is the cornerstone of our philosophy and
-					dynamic, which continues to drive the growth of the organization.</p>
+				<p>We offer our network to companies at a fraction of the cost of setting up their own distribution network, thereby giving food retail outlets even at remote locations access to quality products</p>
 			</div>
 
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-check"></i>
-				<h3>QUALITY POLICY</h3>
+				<h3>Our Promise</h3>
 				<h5>Trusted</h5>
-				<p>The commitment and primary objective of Lankadiva , is to
-					produce and supply goods that meet or surpass the requirements of
-					our customers.</p>
+				<pre>High choice of All Products
+
+					 Competitive Pricing
+
+					 On Time of Delivery
+
+</pre>
 			</div>
 			<div class="clearfix"></div>
 
@@ -97,12 +106,9 @@
 				</h4>
 				<h6>Our mission are always tested by users so you can be sure
 					you always purchase fully valuable products.</h6>
-				<p>Our aim at Crimson, is to serve as an ambassador of this
-					legacy. We understand that we are dealing with more than just a
-					commodity, and seek to use our expertise and experience to provide
-					the best possible service, at the highest standards.</p>
-				<p>Aliquam non est a ipsum facilisis scelerisque eu sed lectus.
-					Nullam faucibus nunc quis ex tristique accumsan. Sed non</p>
+				<p>To give all food processors and producers access to the largest network of food retail outlets in India
+</p>
+				<p>Use Technology as a bridge to establish the network and to provide quality raw materials to the organised and unorganised food retail outlets</p>
 				<a href="#" class="work-btn">Our work</a>
 			</div>
 			<div class="clearfix"></div>
@@ -134,7 +140,7 @@
 									cinnamon / Ceylon cinnamon’ in recognition of this indigenous
 									Sri Lankan plant being the source of the world’s finest
 									cinnamon.</p>
-								<a href="contact.html" class="shop-btn">Enquire Now <i
+								<a href="menu.jsp" class="shop-btn">Enquire Now <i
 									class="flaticon-3-right-arrow"></i></a>
 							</div>
 						</div>
@@ -152,7 +158,7 @@
 									strongly aromatic fragrance along with a fiery taste. Cloves
 									are used in a variety of food preparations as well as in
 									Ayurvedic / ..</p>
-								<a href="contact.html" class="shop-btn">Enquire Now <i
+								<a href="menu.jsp" class="shop-btn">Enquire Now <i
 									class="flaticon-3-right-arrow"></i></a>
 							</div>
 						</div>
@@ -169,7 +175,7 @@
 									fragrans Houtt tree. Nutmeg is used in many sweet and savoury
 									dishes, to impart a slightly sweet zesty flavour. and is also
 									available in a BWP grade for extraction purposes...</p>
-								<a href="contact.html" class="shop-btn">Enquire Now <i
+								<a href="menu.jsp" class="shop-btn">Enquire Now <i
 									class="flaticon-3-right-arrow"></i></a>
 							</div>
 						</div>
@@ -187,7 +193,7 @@
 									preparations as a spice. It has a more delicate flavour than
 									the sweeter nutmeg, and is preferred in lighter coloured dishes
 									for the saffron-like hue it imparts.</p>
-								<a href="contact.html" class="shop-btn">Read more <i
+								<a href="menu.jsp" class="shop-btn">Read more <i
 									class="flaticon-3-right-arrow"></i></a>
 							</div>
 						</div>
@@ -206,7 +212,7 @@
 									content (the alkaloid responsible for the pungency of Black
 									Pepper), and is widely used as a " hot" cooking spice and
 									seasoning.</p>
-								<a href="contact.html" class="shop-btn">Read more <i
+								<a href="menu.jsp" class="shop-btn">Read more <i
 									class="flaticon-3-right-arrow"></i></a>
 							</div>
 						</div>

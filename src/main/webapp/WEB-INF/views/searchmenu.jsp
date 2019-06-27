@@ -22,29 +22,30 @@
 				id="bs-example-navbar-collapse-1">
 
 				<ul class="nav navbar-nav navbar-left">
-					<li><a href="${contextPath}/aboutus">About Us</a></li>
+					<li class='menuitem ${aboutusmenu}' ><a href="${contextPath}/aboutus">About Us</a></li>
 
 
-					<li class="active "><a href="${contextPath}/products">PRODUCTS</a></li>
+					
 
 					<security:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a href="${contextPath}/admin/productform">ADD
+						<li class='menuitem ${productsmenu}' ><a href="${contextPath}/admin/productform">ADD
 								PRODUCT</a></li>
-						<li><a href="${contextPath}/orders">ORDERS</a></li>
+						<li class='menuitem ${ordersmenu}'><a href="${contextPath}/orders">ORDERS</a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('ROLE_USER')">
-						<li><a href="${contextPath}/user/cart">CART&nbsp&nbsp<span id="cart_count"
+					    <li class="menuitem ${productsmenu}"><a href="${contextPath}/products">PRODUCTS</a></li>
+						<li class='menuitem ${cartmenu}'><a href="${contextPath}/user/cart">CART&nbsp&nbsp<span id="cart_count"
 								style="background-color: #ef402b; color: white; padding: 4px;">${cart_count}</span></a></li>
 					</security:authorize>
-					<security:authorize access="hasRole('ROLE_USER')">
-						<li><a href="${contextPath}/contact">CONTACT</a></li>
+				<%-- 	<security:authorize access="hasRole('ROLE_USER')">
+						<li class='menuitem ${contactmenu}'><a href="${contextPath}/contact">CONTACT</a></li>
 					</security:authorize>
 					<security:authorize access="isAnonymous()">
-						<li><a href="${contextPath}/contact">CONTACT</a></li>
+						<li class='menuitem ${contactmenu}'><a href="${contextPath}/contact">CONTACT</a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a href="${contextPath}/admin/contacts">CONTACT MESSAGES</a></li>
-					</security:authorize>
+						<li class='menuitem ${contactmenu}'><a href="${contextPath}/admin/contacts">CONTACT MESSAGES</a></li>
+					</security:authorize> --%>
 
 
 				</ul>
@@ -54,6 +55,16 @@
 
 		</nav>
 	</div>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	    	$('.menuitem').click(function(){
+	    		console.log(this);
+	    		console.log(this.siblings);
+	    	})
+	    })
+	</script>
 
 
 	<div class="clearfix"></div>
