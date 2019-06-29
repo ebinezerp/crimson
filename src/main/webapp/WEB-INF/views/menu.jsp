@@ -7,20 +7,20 @@
 
 <div claess="container header-sec">
 
-	<div class="col-md-5 header">
+	<div class="col-md-4 header p-2 m-2">
 		<div class="header-left">
-			<div class="top-bar-list phone align-items-center">
+			<div class="top-bar-list phone">
 				<i class="flaticon-phone-call"></i>
 				<p>044-24790545</p>
 			</div>
-			<div class="top-bar-list align-items-center">
+			<div class="top-bar-list">
 				<i class="flaticon-e-mail-envelope"></i>
 				<p>tradingcrimson@gmail.com</p>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-7 col-sm-12 header">
+	<div class="col-md-7 col-sm-12 header p-2 m-1">
 
 		<div class="header-right">
 			<div class="top-bar-list">

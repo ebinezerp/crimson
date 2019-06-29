@@ -79,7 +79,7 @@ public class HomeController {
 			return "redirect:/products?login";
 		}
 
-		return "redirect:/products";
+		return "index";
 	}
 
 	@GetMapping("/products")
