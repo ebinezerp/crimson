@@ -7,7 +7,7 @@
 
 <div claess="container header-sec">
 
-	<div class="col-md-4 header p-2 m-2">
+	<div class="col-md-4 header">
 		<div class="header-left">
 			<div class="top-bar-list phone">
 				<i class="flaticon-phone-call"></i>
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-7 col-sm-12 header p-2 m-1">
+	<div class="col-md-7 col-sm-12 header">
 
 		<div class="header-right">
 			<div class="top-bar-list">
