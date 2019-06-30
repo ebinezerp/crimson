@@ -13,9 +13,20 @@
 	<div class="grid-page">
 		<!--page wrap-->
 
-		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
-		<%@include file="menu.jsp"%>
-		<%@include file="searchmenu.jsp"%>
+
+		<div class="border" style="padding: 15px">
+			<a href="javascript:" id="return-to-top"><i
+				class="fa fa-angle-up"></i></a>
+			<div class='border'>
+				<%@include file="menu.jsp"%>
+			</div>
+			<%@include file="searchmenu.jsp"%>
+		</div>
+
+
+
+
+		<%-- <%@include file="header.jsp"%> --%>
 
 		<!--Header-->
 		<div class="container-fluid header-main">
@@ -23,7 +34,8 @@
 
 				<h2>Cart</h2>
 				<div class="link-sec">
-					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i> <a href="${contextPath}/products">Products</a>
+					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i>
+					<a href="${contextPath}/products">Products</a>
 				</div>
 
 			</div>
@@ -48,38 +60,39 @@
 								<th>Total</th>
 								<th></th>
 							</tr>
-							
 
-								<c:forEach items="${cartItems}" var="cartItem" varStatus="vs">
-									<tr>
-										<td class="width">
-											<div class="image">
-												<img src="${prodimgs}/${cartItem.product.id}.jpg" alt=""
-													class="img-responsive" />
-												<p>${cartItem.product.productName}</p>
 
-											</div>
-										</td>
-										<td class="cart-price">Rs. ${cartItem.unitPrice}</td>
-										<td class="user">
+							<c:forEach items="${cartItems}" var="cartItem" varStatus="vs">
+								<tr>
+									<td class="width">
+										<div class="image">
+											<img src="${prodimgs}/${cartItem.product.id}.jpg" alt=""
+												class="img-responsive" />
+											<p>${cartItem.product.productName}</p>
 
-											<div id=field1 class="quantity">
-												<button type="button" id="sub" class="sub">
-													<i class="fa fa-minus" aria-hidden="true"></i>
-												</button>
-												<input type="text" id="${cartItem.cartItemId}"  value="${cartItem.quantity}" class="field" />
-												<button type="button" id="add" class="add">
-													<i class="fa fa-plus" aria-hidden="true"></i>
-												</button>
-											</div>
+										</div>
+									</td>
+									<td class="cart-price">Rs. ${cartItem.unitPrice}</td>
+									<td class="user">
 
-										</td>
-										<td>Rs. ${cartItem.totalPrice}</td>
-										<td><a href="#"><i class="fa fa-times-circle-o"
-												aria-hidden="true"></i></a></td>
-									</tr>
-								</c:forEach>
-							
+										<div id=field1 class="quantity">
+											<button type="button" id="sub" class="sub">
+												<i class="fa fa-minus" aria-hidden="true"></i>
+											</button>
+											<input type="text" id="${cartItem.cartItemId}"
+												value="${cartItem.quantity}" class="field" />
+											<button type="button" id="add" class="add">
+												<i class="fa fa-plus" aria-hidden="true"></i>
+											</button>
+										</div>
+
+									</td>
+									<td>Rs. ${cartItem.totalPrice}</td>
+									<td><a href="#"><i class="fa fa-times-circle-o"
+											aria-hidden="true"></i></a></td>
+								</tr>
+							</c:forEach>
+
 
 						</table>
 					</div>
@@ -90,7 +103,7 @@
 						shopping cart</a>
 				</div>
 				<div class="pull-right">
-					 <a href="${contextPath}/products" class="shp-btn">Continue
+					<a href="${contextPath}/products" class="shp-btn">Continue
 						shopping</a>
 				</div>
 
@@ -120,8 +133,8 @@
 							</tr>
 						</table>
 					</div>
-					<a href="${contextPath}/user/checkout" class="shp-btn pull-right">Process to
-						checkout</a>
+					<a href="${contextPath}/user/checkout" class="shp-btn pull-right">Process
+						to checkout</a>
 				</div>
 			</div>
 		</c:if>
@@ -131,24 +144,23 @@
 			function updatecart() {
 				document.forms['updatecartform'].submit();
 			}
-			
-			$(document).ready(function(){
-				$('.add').click(function(){
-					var cartItemId= $(this).parent().find('input').attr('id');
-					$.get('/user/addcartitem/'+cartItemId,function(){
+
+			$(document).ready(function() {
+				$('.add').click(function() {
+					var cartItemId = $(this).parent().find('input').attr('id');
+					$.get('/user/addcartitem/' + cartItemId, function() {
 						location.reload(true);
 					});
 				})
-				
-				$('.sub').click(function(){
-					var cartItemId= $(this).parent().find('input').attr('id');
-					$.get('/user/subcartitem/'+cartItemId,function(){
+
+				$('.sub').click(function() {
+					var cartItemId = $(this).parent().find('input').attr('id');
+					$.get('/user/subcartitem/' + cartItemId, function() {
 						location.reload(true);
 					});
-					
+
 				})
 			})
-			
 		</script>
 </body>
 

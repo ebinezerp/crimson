@@ -163,16 +163,6 @@
 
 		<%@include file="footer.jsp"%>
 
-		<script type="text/javascript">
-			if ('${signup_status}' === 'input_errors') {
-				document.getElementById('signup').click();
-			}
-
-			var query = window.location.search;
-			if (query.includes('?login')) {
-				document.getElementById('login').click();
-			}
-		</script>
 
 		<security:authorize access="hasRole('ROLE_USER')">
 			<script type="text/javascript">

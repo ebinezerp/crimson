@@ -16,15 +16,25 @@
 
 		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
-		<%@include file="header.jsp"%>
+		<%-- <%@include file="header.jsp"%>
+		
+		
+		
 		<div class="container logo-name">
 			<div class="col-md-5 logo-name text-center">
 		<a href="index.html"><img src="${img}/index/logo.png" alt=""
 			class="img-responsive" /></a>
-	</div>
-</div>
-		
-		<div class="container-fluid">
+	</div> --%>
+
+		<%@include file="header.jsp"%>
+		<div class="container logo-name">
+			<security:authorize access="hasRole('ROLE_USER')">
+				<%@include file="searchmenu.jsp"%>
+			</security:authorize>
+
+		</div>
+
+		<div class="container-fluid" style='margin-bottom: 15px'>
 			<!-- 	<div class="alert alert-warning alert-dismissible fade show"
 				role="alert">
 				<strong></strong> You should check in on some of
@@ -66,18 +76,18 @@
 				<i class="flaticon-3-medal"></i>
 				<h3>WHAT WE ARE</h3>
 				<h5>BEST TRADERS</h5>
-				<p>Crimson is an aggregator of all food retail outlets-Bakeries,Restaurants and Canteens in India. We want to build the largest network across 100 cities in India
-
-
-
-</p>
+				<p>Crimson is an aggregator of all food retail
+					outlets-Bakeries,Restaurants and Canteens in India. We want to
+					build the largest network across 100 cities in India</p>
 			</div>
 
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-like"></i>
 				<h3>WHAT WE DO</h3>
 				<h5>BEST SPICES OF THE WORLD</h5>
-				<p>We offer our network to companies at a fraction of the cost of setting up their own distribution network, thereby giving food retail outlets even at remote locations access to quality products</p>
+				<p>We offer our network to companies at a fraction of the cost
+					of setting up their own distribution network, thereby giving food
+					retail outlets even at remote locations access to quality products</p>
 			</div>
 
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
@@ -106,9 +116,11 @@
 				</h4>
 				<h6>Our mission are always tested by users so you can be sure
 					you always purchase fully valuable products.</h6>
-				<p>To give all food processors and producers access to the largest network of food retail outlets in India
-</p>
-				<p>Use Technology as a bridge to establish the network and to provide quality raw materials to the organised and unorganised food retail outlets</p>
+				<p>To give all food processors and producers access to the
+					largest network of food retail outlets in India</p>
+				<p>Use Technology as a bridge to establish the network and to
+					provide quality raw materials to the organised and unorganised food
+					retail outlets</p>
 				<a href="#" class="work-btn">Our work</a>
 			</div>
 			<div class="clearfix"></div>
@@ -325,10 +337,24 @@
 		</div>
 	</div>
 
+
+
+
+
 	<!--footer-->
 	<%@include file="footer.jsp"%>
+	<script type="text/javascript">
+		if ('${signup_status}' === 'input_errors') {
+			document.getElementById('signup').click();
+		}
 
-	
+		var query = window.location.search;
+
+		if (query.includes('?login')) {
+			document.getElementById('login').click();
+		}
+	</script>
+
 
 </body>
 

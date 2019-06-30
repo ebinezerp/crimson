@@ -12,16 +12,17 @@
 
 <body>
 
-	<div class="grid-page">
+	<div class="about-page">
 		<!--page wrap-->
 
-		<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
-
-		<%@include file="menu.jsp"%>
-		<hr>
-		<%@include file="searchmenu.jsp"%>
-		<hr>
-
+		<div style="padding:15px;">
+			<a href="javascript:" id="return-to-top"><i
+				class="fa fa-angle-up"></i></a>
+			<div class='border'>
+				<%@include file="menu.jsp"%>
+			</div>
+			<%@include file="searchmenu.jsp"%>
+		</div>
 
 
 		<!--special-offer-->
@@ -36,11 +37,20 @@
 						Successfully.</span>
 				</c:if>
 
+				<c:if test="${status=='exists'}">
+					<span class="alert alert-warning">Product Added
+						Successfully.</span>
+				</c:if>
+
+
+
+
 
 				<c:if test="${product_save_status==false}">
 					<span class="alert alert-danger">Error Occurred. Try Again
 						later</span>
 				</c:if>
+
 				<div class="col-md-6 contact-left">
 
 					<div class="contact-info">
@@ -55,6 +65,7 @@
 								<label>Product Name *</label>
 								<springform:input path="productName" />
 								<springform:errors class="error_msg" path="productName"></springform:errors>
+								<span class='error_msg'>${error_messages.productName_error}</span>
 							</div>
 							<div class="col-sm-6">
 								<label>Product Price *</label>

@@ -13,9 +13,11 @@
 </head>
 <body>
 	<div class="about-page">
-		<%@include file="menu.jsp"%>
+		<div class='border' style="padding:15px">
+			<%@include file="menu.jsp"%>
+		</div>
 		<%@include file="searchmenu.jsp"%>
-		<hr>
+	
 		<div class="container-fluid">
 			<div class="orders col-md-7 col-md-offset-2">
 				<c:if test="${deliveryStatus!=null}">
@@ -56,8 +58,7 @@
 								<td><c:if test="${order.deliveryStatus==true}">
 										<button class="btn btn-success">Delivered</button>
 									</c:if> <security:authorize access="hasRole('ROLE_USER')">
-										<c:if
-											test="${order.deliveryStatus==false}">
+										<c:if test="${order.deliveryStatus==false}">
 											<button class="btn btn-warning">Sent for Delivery</button>
 										</c:if>
 

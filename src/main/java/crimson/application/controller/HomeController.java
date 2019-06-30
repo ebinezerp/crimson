@@ -67,6 +67,7 @@ public class HomeController {
 				} else {
 					session.setAttribute("cart_count", cart.getQuantity());
 				}
+				return "redirect:/products";
 			} else {
 				return "redirect:/logout";
 			}
@@ -76,7 +77,6 @@ public class HomeController {
 			if (login.equalsIgnoreCase("error")) {
 				return "redirect:/products?login=error";
 			}
-			return "redirect:/products?login";
 		}
 
 		return "index";

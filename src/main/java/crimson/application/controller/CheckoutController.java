@@ -63,8 +63,15 @@ public class CheckoutController {
 
 	@GetMapping("/checkout")
 	public String checkoutPage(Model model, HttpSession session) {
+
+		Cart cart = cartService.getCart((User) (session.getAttribute("reg_user")));
+
+		if (cart.getQuantity() == 0) {
+			return "redirect:/user/cart";
+		}
+
 		model.addAttribute("orderReciever", new OrderReciever());
-		model.addAttribute("cart", cartService.getCart((User) (session.getAttribute("reg_user"))));
+		model.addAttribute("cart", cart);
 		return "checkout";
 	}
 
@@ -72,7 +79,12 @@ public class CheckoutController {
 	public String orderCheckout(@Valid @ModelAttribute("orderReciever") OrderReciever orderReciever, Errors errors,
 			Model model, Principal principal, HttpServletRequest request, HttpSession session) {
 
-		Cart cart = ((User) (session.getAttribute("reg_user"))).getCart();
+		Cart cart = cartService.getCart(((User) (session.getAttribute("reg_user"))));
+
+		if (cart.getQuantity() == 0) {
+			return "redirect:/user/cart";
+		}
+
 		if (errors.hasErrors()) {
 			model.addAttribute("cart", cart);
 			return "checkout";

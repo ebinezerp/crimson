@@ -10,11 +10,11 @@
 	<div class="col-md-4 header">
 		<div class="header-left">
 			<div class="top-bar-list phone">
-				<i class="flaticon-phone-call"></i>
+				<i class="flaticon-phone-call" style="margin-top:10px"></i>
 				<p>044-24790545</p>
 			</div>
 			<div class="top-bar-list">
-				<i class="flaticon-e-mail-envelope"></i>
+				<i class="flaticon-e-mail-envelope" style="margin-top:10px"></i>
 				<p>tradingcrimson@gmail.com</p>
 			</div>
 		</div>

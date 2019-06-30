@@ -469,9 +469,9 @@ select:focus{
 	border-bottom:1px solid #dedede;
 }
 .top-bar-list{
-	float:left;
 	border-right:1px solid #e2e2e2;
 	padding-right:15px;
+	display:inline-flex;
 }
 .header-left .top-bar-list:last-child,.header-right .top-bar-list:last-child{
 	border:none;

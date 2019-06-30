@@ -41,11 +41,12 @@ public class ProductController {
 	private String imageLocation;
 
 	@GetMapping("/productform")
-	public String productForm(@RequestParam( value ="status", required = false) Boolean status, Model model) {
+	public String productForm(@RequestParam( value ="status", required = false) String status, Model model) {
 		if (status != null) {
 			model.addAttribute("status", status);
 		}
 		model.addAttribute("product", new Product());
+		model.addAttribute("addproductform", "active");
 		return "productform";
 	}
 
@@ -55,6 +56,12 @@ public class ProductController {
 		if (errors.hasErrors()) {
 			return "productform";
 		}
+		
+		if(product.getId()!=null && product.getId()!=0) {
+			return "redirect:/productform?status=exists";
+		}
+		
+		
 		Map<String, String> error_messages = validation.productExistenceValidation(product);
 		if (error_messages.size() > 0) {
 			model.addAttribute("error_messages", error_messages);
