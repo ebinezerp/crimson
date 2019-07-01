@@ -7,6 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | Crimson</title>
 <%@include file="links.jsp"%>
+<style>
+ul > li {
+
+   font-size:14px;
+}
+
+</style>
 </head>
 
 <body>
@@ -28,9 +35,9 @@
 
 		<%@include file="header.jsp"%>
 		<div class="container logo-name">
-			<security:authorize access="hasRole('ROLE_USER')">
-				<%@include file="searchmenu.jsp"%>
-			</security:authorize>
+
+			<%@include file="searchmenu.jsp"%>
+
 
 		</div>
 
@@ -94,13 +101,13 @@
 				<i class="flaticon-3-check"></i>
 				<h3>Our Promise</h3>
 				<h5>Trusted</h5>
-				<pre>High choice of All Products
-
-					 Competitive Pricing
-
-					 On Time of Delivery
-
-</pre>
+				<p></p>
+				<ul>
+					<li>High choice of All Products</li>
+					<li> Competitive Pricing</li>
+					<li> On Time of Delivery</li>
+				</ul>
+				
 			</div>
 			<div class="clearfix"></div>
 
