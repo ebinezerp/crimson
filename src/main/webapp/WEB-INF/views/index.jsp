@@ -8,11 +8,23 @@
 <title>Home | Crimson</title>
 <%@include file="links.jsp"%>
 <style>
-ul > li {
-
-   font-size:14px;
+ul>li {
+	font-size: 14px;
 }
 
+div.image-gallery-row {
+	width: 90%;
+}
+
+div.image-gallery-col {
+	padding: 15px;
+}
+
+div.image-gallery-col> a > img {
+	width: 100%;
+	height: 120px;
+	border-radius: 8px;
+}
 </style>
 </head>
 
@@ -104,10 +116,10 @@ ul > li {
 				<p></p>
 				<ul>
 					<li>High choice of All Products</li>
-					<li> Competitive Pricing</li>
-					<li> On Time of Delivery</li>
+					<li>Competitive Pricing</li>
+					<li>On Time of Delivery</li>
 				</ul>
-				
+
 			</div>
 			<div class="clearfix"></div>
 
@@ -145,99 +157,19 @@ ul > li {
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
 			<div class="tranding mt-30">
-				<div class="owl-carousel special-offer" id="Bathroom">
 
-					<div class="thumbnail col-md-12 no-border no-padding">
-						<div class="team-detail">
-							<a href="#"><img src="${img}/about-us/team-1.jpg" alt=""
-								class="img-responsive" /></a>
-							<div class="team-info">
-								<h4>CINNAMON</h4>
 
-								<p>The dried scraped peel of the inner bark of the
-									Cinnamomum zeylanicum tree has traditionally been termed ‘true
-									cinnamon / Ceylon cinnamon’ in recognition of this indigenous
-									Sri Lankan plant being the source of the world’s finest
-									cinnamon.</p>
-								<a href="menu.jsp" class="shop-btn">Enquire Now <i
-									class="flaticon-3-right-arrow"></i></a>
-							</div>
+				<c:forEach items="${products}" var="product" varStatus="vs">
+					<div class='image-gallery-row'>
+						<div class='col-md-3 col-sm-3 image-gallery-col'>
+							<a href="${contextPath}/prod_details/${product.id}" ><img src="${prodimgs}/${product.id}.jpg"
+								alt="${product.productName}"></img></a>
 						</div>
 					</div>
+				</c:forEach>
 
-					<div class="thumbnail col-md-12 no-border no-padding">
-						<div class="team-detail">
-							<a href="#"><img src="${img}/about-us/team-5.jpg" alt=""
-								class="img-responsive" /></a>
-							<div class="team-info">
-								<h4>CLOVES</h4>
 
-								<p>Cloves are the aromatic dried unopened whole flower buds
-									of Eugenia caryophyllus C. Sprengel/Bullock and impart a
-									strongly aromatic fragrance along with a fiery taste. Cloves
-									are used in a variety of food preparations as well as in
-									Ayurvedic / ..</p>
-								<a href="menu.jsp" class="shop-btn">Enquire Now <i
-									class="flaticon-3-right-arrow"></i></a>
-							</div>
-						</div>
-					</div>
 
-					<div class="thumbnail col-md-12 no-border no-padding">
-						<div class="team-detail">
-							<a href="#"><img src="${img}/about-us/team-3.jpg" alt=""
-								class="img-responsive" /></a>
-							<div class="team-info">
-								<h4>NUTMEG</h4>
-
-								<p>Nutmeg is the oval mottled brown nut of the Myristica
-									fragrans Houtt tree. Nutmeg is used in many sweet and savoury
-									dishes, to impart a slightly sweet zesty flavour. and is also
-									available in a BWP grade for extraction purposes...</p>
-								<a href="menu.jsp" class="shop-btn">Enquire Now <i
-									class="flaticon-3-right-arrow"></i></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="thumbnail col-md-12 no-border no-padding">
-						<div class="team-detail">
-							<a href="#"><img src="${img}/about-us/team-4.jpg" alt=""
-								class="img-responsive" /></a>
-							<div class="team-info">
-								<h4>MACE</h4>
-
-								<p>Mace is the dried red/orange/yellow aril covering on the
-									surface of the nutmeg seed, and is used in many food
-									preparations as a spice. It has a more delicate flavour than
-									the sweeter nutmeg, and is preferred in lighter coloured dishes
-									for the saffron-like hue it imparts.</p>
-								<a href="menu.jsp" class="shop-btn">Read more <i
-									class="flaticon-3-right-arrow"></i></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="thumbnail col-md-12 no-border no-padding">
-						<div class="team-detail">
-							<a href="#"><img src="${img}/about-us/team-2.jpg" alt=""
-								class="img-responsive" /></a>
-							<div class="team-info">
-								<h4>BLACK PEPPER</h4>
-
-								<p>Black Pepper is produced from the green unripe berries of
-									the Pepper plant (Piper nigrum Linn), and is the resultant
-									dried whole fruit. Sri Lankan Black Pepper has a high Piperine
-									content (the alkaloid responsible for the pungency of Black
-									Pepper), and is widely used as a " hot" cooking spice and
-									seasoning.</p>
-								<a href="menu.jsp" class="shop-btn">Read more <i
-									class="flaticon-3-right-arrow"></i></a>
-							</div>
-						</div>
-					</div>
-
-				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

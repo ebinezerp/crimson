@@ -72,7 +72,17 @@ public class ProductService {
 
 	public List<Product> top10Products() {
 		try {
-			return productRepository.findTop10ByStatusIsTrueOrderById();
+			return productRepository.findTop8ByStatusIsTrueOrderById();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	public List<Product> recentProducts(){
+		try {
+			return productRepository.findTop8ByStatusIsTrueOrderById();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

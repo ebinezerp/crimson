@@ -10,5 +10,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	public Product findProductByProductName(String productName);
 	public Product findProductByProductNameAndIdNot(String productName,Long id);
 	public List<Product> findAllByStatusIsTrue();
-	public List<Product> findTop10ByStatusIsTrueOrderById();
+	public List<Product> findTop8ByStatusIsTrueOrderById();
 }

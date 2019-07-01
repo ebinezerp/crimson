@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -110,42 +111,38 @@ public class APISignupAndLoginController {
 		return new ResponseEntity<Boolean>(true,HttpStatus.FORBIDDEN);
 	}
 
-	@GetMapping("/forgetpassword")
-	public String forgetPassword(@RequestParam(value = "email", required = false) String emailExistStatus,
-			@RequestParam(value = "update_status", required = false) String updateStatus, Model model,
-			HttpServletRequest request) {
-		model.addAttribute("user", new User());
-
-		if (emailExistStatus != null) {
-			model.addAttribute("user_exists_status", emailExistStatus);
-		}
-
-		if (updateStatus != null) {
-			model.addAttribute("update_status", updateStatus);
-		}
-
-		return "forgetpassword";
-	}
-
+	/*
+	 * @GetMapping("/forgetpassword") public String
+	 * forgetPassword(@RequestParam(value = "email", required = false) String
+	 * emailExistStatus,
+	 * 
+	 * @RequestParam(value = "update_status", required = false) String updateStatus,
+	 * Model model, HttpServletRequest request) { model.addAttribute("user", new
+	 * User());
+	 * 
+	 * if (emailExistStatus != null) { model.addAttribute("user_exists_status",
+	 * emailExistStatus); }
+	 * 
+	 * if (updateStatus != null) { model.addAttribute("update_status",
+	 * updateStatus); }
+	 * 
+	 * return "forgetpassword"; }
+	 */
 	@PostMapping("/verifyemail")
-	public String verifyemail(@RequestParam("email") String email, HttpServletRequest request, Model model) {
-
-		User user = userService.getUserByEmail(email);
-
-		model.addAttribute("user", new User());
-
-		if (user != null) {
-			String password = randomPasswordGenerator.generatePassword();
-			user.setPassword(passwordEncoder.encode(password));
-			if (userService.saveOrUpdate(user) == null) {
-				return "redirect:/forgetpassword?update_status=false";
-			}
-			emailService.send(user.getEmail(), password,
-					"http://" + request.getServerName() + ":" + request.getServerPort());
-			return "redirect:/resetpassword?email=" + user.getEmail();
+	public ResponseEntity<Boolean> verifyemail(@RequestBody String email, HttpServletRequest request, Model model) {
+		
+		User user=userService.getUserByEmail(email);
+		if(user == null) {
+			throw new UsernameNotFoundException(email);
 		}
-
-		return "redirect:/forgetpassword?email=false";
+		
+		user.setPassword(randomPasswordGenerator.generatePassword());
+		
+		if(userService.saveOrUpdate(user) == null) {
+			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	}
 
 	@GetMapping("/resetpassword")

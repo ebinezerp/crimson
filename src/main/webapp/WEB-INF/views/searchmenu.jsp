@@ -22,12 +22,7 @@
 				id="bs-example-navbar-collapse-1">
 
 				<ul class="nav navbar-nav navbar-left">
-					<security:authorize access="isAnonymous()">
-						<li class='menuitem ${aboutusmenu}'><a
-							href="${contextPath}/aboutus">About Us</a></li>
-					</security:authorize>
-
-
+					
 
 					<security:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="menuitem ${productsmenu}"><a

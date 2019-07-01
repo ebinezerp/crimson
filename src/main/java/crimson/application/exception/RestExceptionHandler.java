@@ -21,7 +21,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<String> userNotFoundException(UserNotFoundException ex) {
-		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(InvalidCredentialsException.class)

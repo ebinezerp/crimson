@@ -48,6 +48,8 @@ public class HomeController {
 			HttpServletRequest request, Principal principal, HttpSession session) {
 
 		model.addAttribute("user", new User());
+		
+		model.addAttribute("products", productService.recentProducts());
 
 		if (principal != null) {
 			User user = null;
@@ -70,12 +72,6 @@ public class HomeController {
 				return "redirect:/products";
 			} else {
 				return "redirect:/logout";
-			}
-		}
-
-		if (login != null) {
-			if (login.equalsIgnoreCase("error")) {
-				return "redirect:/products?login=error";
 			}
 		}
 
