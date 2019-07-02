@@ -4,6 +4,9 @@ import crimson.application.model.LoginUser;
 
 public class InvalidCredentialsException extends RuntimeException {
 	private LoginUser user;
+	
+	
+	public InvalidCredentialsException() {}
 
 	public InvalidCredentialsException(LoginUser user) {
 		this.user = user;

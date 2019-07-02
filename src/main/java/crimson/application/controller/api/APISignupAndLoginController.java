@@ -97,18 +97,18 @@ public class APISignupAndLoginController {
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/logout")
-	public ResponseEntity<Boolean> logout(@RequestParam("email") String email,HttpSession session){
-		if(session.getAttribute("email") != null) {
+	public ResponseEntity<Boolean> logout(@RequestParam("email") String email, HttpSession session) {
+		if (session.getAttribute("email") != null) {
 			System.out.println("Existed");
-			if(session.getAttribute("email").toString().equals(email)) {
+			if (session.getAttribute("email").toString().equals(email)) {
 				System.out.println("Same");
 				session.removeAttribute("email");
-				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 			}
 		}
-		return new ResponseEntity<Boolean>(true,HttpStatus.FORBIDDEN);
+		return new ResponseEntity<Boolean>(true, HttpStatus.FORBIDDEN);
 	}
 
 	/*
@@ -130,98 +130,78 @@ public class APISignupAndLoginController {
 	 */
 	@PostMapping("/verifyemail")
 	public ResponseEntity<Boolean> verifyemail(@RequestBody String email, HttpServletRequest request, Model model) {
-		
-		User user=userService.getUserByEmail(email);
-		if(user == null) {
-			throw new UsernameNotFoundException(email);
-		}
-		
-		user.setPassword(randomPasswordGenerator.generatePassword());
-		
-		if(userService.saveOrUpdate(user) == null) {
-			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
-
-	@GetMapping("/resetpassword")
-	public String resetPassword(@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "pwdstatus", required = false) String pwdStatus, Model model) {
-
-		if (email == null) {
-			return "redirect:/forgetpassword";
-		}
-
-		if (userService.getUserByEmail(email) == null) {
-			return "redirect:/forgetpassword?email=false";
-		}
-
-		if (pwdStatus != null) {
-			model.addAttribute("pwdstatus", pwdStatus);
-		}
-
-		model.addAttribute("email", email);
-		model.addAttribute("user", new User());
-		return "resetpassword";
-	}
-
-	@PostMapping("/resetpassword")
-	public String resetNewPassword(@RequestParam("email") String email, @RequestParam("password") String password,
-			Model model) {
 
 		User user = userService.getUserByEmail(email);
 		if (user == null) {
-			return "redirect:/forgetpassword?email=false";
+			throw new UserNotFoundException(email);
 		}
-		if (passwordEncoder.matches(password, user.getPassword())) {
-			return "redirect:/newpassword?email=" + email;
+
+		String password = randomPasswordGenerator.generatePassword();
+		user.setPassword(passwordEncoder.encode(password));
+
+		if (userService.saveOrUpdate(user) == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return "redirect:/resetpassword?email=" + email + "&pwdstatus=false";
+
+		if (!emailService.send(user.getEmail(), password,
+				"http://" + request.getServerName() + ":" + request.getServerPort())) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
-	@GetMapping("/newpassword")
-	public String newPassword(@RequestParam("email") String email,
-			@RequestParam(value = "pwdstatus", required = false) String pwdStatus,
-			@RequestParam(value = "update", required = false) String updateStatus,
-			@RequestParam(value = "pwdequals", required = false) String pwdEquals, Model model) {
 
-		if (pwdStatus != null) {
-			model.addAttribute("pwdstatus", pwdStatus);
+	@PostMapping("/resetpassword")
+	public ResponseEntity<Boolean> resetNewPassword(@RequestParam("email") String email,
+			@RequestParam("code") String password) {
+
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			throw new UserNotFoundException(email);
 		}
-
-		if (updateStatus != null) {
-			model.addAttribute("update", updateStatus);
+		if (!passwordEncoder.matches(password, user.getPassword())) {
+			throw new InvalidCredentialsException();
 		}
-
-		if (pwdEquals != null) {
-			model.addAttribute("pwdequals", pwdEquals);
-		}
-
-		model.addAttribute("email", email);
-		model.addAttribute("user", new User());
-		return "newpassword";
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
+
+	/*
+	 * @GetMapping("/newpassword") public String newPassword(@RequestParam("email")
+	 * String email,
+	 * 
+	 * @RequestParam(value = "pwdstatus", required = false) String pwdStatus,
+	 * 
+	 * @RequestParam(value = "update", required = false) String updateStatus,
+	 * 
+	 * @RequestParam(value = "pwdequals", required = false) String pwdEquals, Model
+	 * model) {
+	 * 
+	 * if (pwdStatus != null) { model.addAttribute("pwdstatus", pwdStatus); }
+	 * 
+	 * if (updateStatus != null) { model.addAttribute("update", updateStatus); }
+	 * 
+	 * if (pwdEquals != null) { model.addAttribute("pwdequals", pwdEquals); }
+	 * 
+	 * model.addAttribute("email", email); model.addAttribute("user", new User());
+	 * return "newpassword"; }
+	 */
 
 	@PostMapping("/newpassword")
-	public String storeNewPassword(@RequestParam("email") String email, @RequestParam("password") String password,
-			@RequestParam("confirmPassword") String confirmPassword, Model model) {
+	public ResponseEntity<Boolean> storeNewPassword(@RequestParam("email") String email,
+			@RequestParam("password") String password) {
 
-		if (password.isEmpty() || confirmPassword.isEmpty()) {
-			return "redirect:/newpassword?email=" + email + "&pwdstatus=false";
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			throw new UserNotFoundException(email);
 		}
-		if (password.equals(confirmPassword)) {
-			User user = userService.getUserByEmail(email);
-			if (user == null) {
-				return "redirect:/forgetpassword?email=false";
-			}
-			user.setPassword(passwordEncoder.encode(password));
-			if (userService.saveOrUpdate(user) == null) {
-				return "redirect:/newpassword?update=false";
-			}
-			return "redirect:/?login";
+		user.setPassword(passwordEncoder.encode(password));
+
+		if (userService.saveOrUpdate(user) == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return "redirect:/newpassword?email=" + email + "&pwdequals=false";
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
 }

@@ -16,13 +16,13 @@ div.image-gallery-row {
 	width: 90%;
 }
 
-div.image-gallery-col {
+div.our-prod-images {
 	padding: 15px;
 }
 
-div.image-gallery-col> a > img {
+div.our-prod-images> img {
 	width: 100%;
-	height: 120px;
+	height: 180px;
 	border-radius: 8px;
 }
 </style>
@@ -156,20 +156,29 @@ div.image-gallery-col> a > img {
 			</div>
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
-			<div class="tranding mt-30">
-
-
-				<c:forEach items="${products}" var="product" varStatus="vs">
-					<div class='image-gallery-row'>
-						<div class='col-md-3 col-sm-3 image-gallery-col'>
-							<a href="${contextPath}/prod_details/${product.id}" ><img src="${prodimgs}/${product.id}.jpg"
-								alt="${product.productName}"></img></a>
-						</div>
+			<div class="tranding mt-40 col-md-offset-2">
+				<div class='row'>
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/Bakeryshortening.jpg">
 					</div>
-				</c:forEach>
-
-
-
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/cocoapowder.jpg">
+					</div>
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/essance.jpg">
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/flour.jpg">
+					</div>
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/sugar.jpg">
+					</div>
+					<div class='col-md-3 our-prod-images'>
+						<img src="${img}/index/yeast.jpg">
+					</div>
+				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

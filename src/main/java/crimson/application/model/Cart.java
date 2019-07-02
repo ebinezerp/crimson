@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -24,7 +26,8 @@ public class Cart {
 	private Long cartId;
 
 	@OneToOne
-	@ToString.Exclude 
+	@ToString.Exclude
+	@JsonIgnore
 	private User user;
 
 	@Digits(integer = 12, fraction = 2)
