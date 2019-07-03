@@ -175,28 +175,11 @@
 
 						<h2>Payment method</h2>
 
-						<div class="accordion accordion-open check-faq mt-20"
-							id="section4">
-							<label>Direct bank transfer</label><span></span>
-						</div>
-						<div class="accordian-body">
-							<div class="faq">
-								<span class="payment-box"></span>
-								<p>Please send a check to Store Name, Store Street, Store
-									Town, Store State / County, Store Postal code.</p>
-							</div>
-						</div>
 
 						<div class="accordion accordion-open check-faq" id="section5">
 							<label>Cash on Delivery</label><span></span>
 						</div>
-						<div class="accordian-body">
-							<div class="faq">
-								<span class="payment-box"></span>
-								<p>Please send a check to Store Name, Store Street, Store
-									Town, Store State / County, Store Postal code.</p>
-							</div>
-						</div>
+						
 
 
 

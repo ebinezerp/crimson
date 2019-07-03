@@ -3,6 +3,14 @@
 
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+	
+	
+<style>
+.menu-btn{
+	background-color: #ef402b;
+	color:white;
+}
+</style>
 
 
 <div claess="container header-sec">
@@ -28,15 +36,15 @@
 
 					<security:authorize access="isAnonymous()">
 						<i class="flaticon-login"></i>
-						<b><a href="#" data-toggle="modal" id="signup"
-							data-target="#myModal">Register</a></b>
-						or <b><a href="#" data-toggle="modal" id="login"
-							data-target="#myModal2">Sign in</a></b>
+						<a href="#" data-toggle="modal" id="signup"
+							data-target="#myModal">Register</a>
+						or <a href="#" data-toggle="modal" id="login"
+							data-target="#myModal2">Sign in</a>
 					</security:authorize>
 				</p>
 				<security:authorize access="isAuthenticated()">
 					<div class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" type="button"
+						<button class="btn menu-btn dropdown-toggle" type="button"
 							data-toggle="dropdown">
 							${reg_user.username} <span class="caret"></span>
 						</button>

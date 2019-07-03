@@ -21,6 +21,9 @@ body{
 .padd-30{
 	padding:30px 0;
 }
+.padd-5{
+	padding:5px 0;
+}
 .padd-60{
 	padding:60px 0;
 }
@@ -1734,7 +1737,7 @@ a.work-btn{
 .welcome-content p{
 	font-size:16px;
 	color:#333;	
-	margin-top:40px;
+	margin-top:60px;
 }
 @media (min-width:320px) and (max-width:480px){
 .about-heading h3{
@@ -1959,7 +1962,7 @@ a.work-btn{
 	left:0;	
 }
 .mission-sec .mission-detail{
-	background-color:#f4f4f4;
+	background-color:#f3e8e8f8;
 	padding-left:80px !important;
 }
 .mission-detail h4{
@@ -1974,7 +1977,7 @@ a.work-btn{
 	height:4px;
 	background-color:#ff3c20;
 	left:0;
-	bottom:-25px;	
+	bottom:-10px;	
 }
 .mission-detail h4 span{
 	font-weight:700;	
@@ -2665,8 +2668,8 @@ a.work-btn:hover{
 .social-sec .social-circle{
 	display:inline-block;
 	float:left;
-	width:40px;
-	height:40px;
+	width:35px;
+	height:35px;
 	border-radius:50%;
 	background-color:#bababa;	
 	text-align:center;
@@ -2700,10 +2703,10 @@ a.work-btn:hover{
 	border-bottom:1px solid #e5e5e5;
 }
 .call{
-	margin-top:35px;
+	margin-top:10px;
 }
 .email{
-	margin-top:30px;
+	margin-top:10px;
 }
 .call h3{
 	font-size:18px;
@@ -2719,7 +2722,7 @@ a.work-btn:hover{
 	color:#333;
 }
 .footer-sec{
-	background-color:#f7f6f6;
+	background-color:#f3e8e8f8;
 }
 .email{
 	text-align:center;
@@ -2872,7 +2875,7 @@ p.phone-no{
 	color:#ff3c20;
 }
 .copy-right{
-	background-color:#e8e8e8;
+	background-color:white;
 	padding:10px 0;
 }
 .copy-text p{
@@ -7357,5 +7360,9 @@ fieldset .shp-cart-btn{
 }
 .product:hover .add-cart-hover{
 	width:145px;
+}
+
+.menu-btn{
+	background-color: #ef402b
 }
 }

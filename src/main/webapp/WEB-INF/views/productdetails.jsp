@@ -7,6 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cart | Crimson</title>
 <%@include file="links.jsp"%>
+<style type="">
+.product-img > img{
+    height:120px;
+    
+}
+</style>
 </head>
 
 <body>
@@ -30,7 +36,7 @@
 				<h2>Product</h2>
 				<div class="link-sec">
 					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i>
-					<a href="${contextPath}/user/cart">Cart</a>
+				<a href="${contextPath}/user/cart">Cart</a>
 				</div>
 
 			</div>
@@ -82,61 +88,44 @@
 							<p>${product.productDescription}</p>
 						</ul></li>
 				</ul>
-				<form action="${contextPath}/user/addtocart/${product.id}"
-					name="cartform" method="get">
-					<span id="prodexits" class="error_msg" style="display: none">Product
-						is in Cart</span>
-					<div class="detail-btm">
-						<div class="detail-row quantity-box">
-							<p class="text-uppercase">Quantity</p>
-							<div class="clearfix"></div>
-							<div class="input--filled" id="input--filled">
-								<button type="button" class="sub" id="sub">
-									<i class="fa fa-minus" aria-hidden="true"></i>
-								</button>
-								<input type="text" id="prod_quantity" name="prod_quantity"
-									class="field">
-								<button type="button" class="add" id="add">
-									<i class="fa fa-plus" aria-hidden="true"></i>
-								</button>
+				<security:authorize access="!hasRole('ROLE_ADMIN')">
+					<form action="${contextPath}/user/addtocart/${product.id}"
+						name="cartform" method="get">
+						<span id="prodexits" class="error_msg" style="display: none">Product
+							is in Cart</span>
+						<div class="detail-btm">
+							<div class="detail-row quantity-box">
+								<p class="text-uppercase">Quantity</p>
+								<div class="clearfix"></div>
+								<div class="input--filled" id="input--filled">
+									<button type="button" class="sub" id="sub">
+										<i class="fa fa-minus" aria-hidden="true"></i>
+									</button>
+									<input type="text" id="prod_quantity" name="prod_quantity"
+										class="field">
+									<button type="button" class="add" id="add">
+										<i class="fa fa-plus" aria-hidden="true"></i>
+									</button>
+									<div class="clearfix"></div>
+								</div>
+
 								<div class="clearfix"></div>
 							</div>
-
-							<div class="clearfix"></div>
-						</div>
-						<div class="detail-row">
-							<a class="coupon" href="#" id="addtocartbtn"
-								onclick="cartsubmit()">Add to cart</a> <a class="coupon"
-								style="display: none" id="updatecartbtn">Update Cart</a> <a
-								class="coupon" href="${contextPath}/products">Continue
-								Shopping</a>
-						</div>
-						<div class="clearfix"></div>
-						<div class="detail-row">
-							<p>
-								<span>Share:</span>
-							</p>
-							<div class="soc-icon">
-								<a href="#" data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a>
-								<a href="#" data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Instagram"><i class="fa fa-instagram"></i></a>
-								<a href="#" data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-								<a href="#" data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Dribble"><i class="fa fa-dribbble"></i></a>
-								<a href="#" data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Pinterest"><i
-									class="fa fa-pinterest-p"></i></a>
-								<div class="clearfix"></div>
+							<div class="detail-row">
+								<a class="coupon" href="#" id="addtocartbtn"
+									onclick="cartsubmit()">Add to cart</a> <a class="coupon"
+									style="display: none" id="updatecartbtn">Update Cart</a> <a
+									class="coupon" href="${contextPath}/products">Continue
+									Shopping</a>
 							</div>
-
+							<div class="clearfix"></div>
+						
 						</div>
-					</div>
-				</form>
+					</form>
+				</security:authorize>
 			</div>
 			<div class="clearfix"></div>
-<%-- 
+			<%-- 
 			<div class="product-tab">
 				<!-- 
 				Nav tabs
@@ -246,90 +235,88 @@
 						</p>
 					</div> -->
 				</div> --%>
-				
-				
-				<div class="d-flex flex-colum justify-content-center">
-				<div class='border border-success' style="padding:10px;">
-				   <b>Product Info</b>
-				</div>
-				<div class='border border-success' style="padding:10px">
-				${product.productDescription}
-				</div>
-				</div>
-				
-				
 
-				<div class="clearfix"></div>
 
+			<div class="d-flex flex-colum justify-content-center">
+				<div class='border border-success' style="padding: 10px;">
+					<b>Product Info</b>
+				</div>
+				<div class='border border-success' style="padding: 10px">
+					${product.productDescription}</div>
 			</div>
 
-      <div style="margin:25px"></div>
-			<div class="slider-head">
-				<h3>Related Products</h3>
-			</div>
-
-			<div class="container padd-60 special-offer">
-
-				<div class="col-md-9 grid-list">
-
-					<div class="clearfix"></div>
-
-					<c:forEach items="${top10Products}" var="prod" varStatus="vs">
-
-						<div class="col-md-3 col-sm-3 mt-40">
-							<div class="product">
-
-								<div class="product-img">
-									<a href="${contextPath}/prod_details/${prod.id}"
-										class="product-href"></a> <img
-										src="${prodimgs}/${prod.id}.jpg" alt=""
-										class="img-responsive img-overlay" /> <img
-										src="${prodimgs}/${prod.id}.jpg" alt="" class="img-responsive" />
-
-									<div class="sale-heart-hover">
-										<a href="#"><i class="flaticon-heart"></i></a>
-									</div>
-								</div>
-								<div class="product-body">
-									<p>
-										<a href="${contextPath}/prod_details/${prod.id}">${prod.productName}</a>
-									</p>
-									<h4>Rs.${prod.price}</h4>
-									<div class="product-hover">
-										<div class="add-cart-hover">
-											<security:authorize access="!hasRole('ROLE_ADMIN')">
-												<a href="${contextPath}/user/addtocart/${prod.id}"><h6>Add
-														to cart</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
-											</security:authorize>
-											<security:authorize access="hasRole('ROLE_ADMIN')">
-												<a href="${contextPath}/admin/editproduct/${prod.id}"><h6>Edit
-														Product</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
-											</security:authorize>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					</c:forEach>
 
 
-					<div class="clearfix"></div>
-
-
-
-				</div>
-
-
-
-				<div class="clearfix"></div>
-
-			</div>
-
+			<div class="clearfix"></div>
 
 		</div>
+
+		<div style="margin: 25px"></div>
+		<div class="col-md-offset-2 slider-head">
+			<h3>Related Products</h3>
+		</div>
+
+		<div class="container padd-60 special-offer">
+
+			<div class="col-md-9 grid-list">
+
+				<div class="clearfix"></div>
+
+				<c:forEach items="${top10Products}" var="prod" varStatus="vs">
+
+					<div class="col-md-3 col-sm-3 mt-40">
+						<div class="product">
+
+							<div class="product-img">
+								<a href="${contextPath}/prod_details/${prod.id}"
+									class="product-href"></a> <img src="${prodimgs}/${prod.id}.jpg"
+									alt="" class="img-responsive img-overlay" /> <img
+									src="${prodimgs}/${prod.id}.jpg" alt="" class="img-responsive" />
+
+								<div class="sale-heart-hover">
+									<a href="#"><i class="flaticon-heart"></i></a>
+								</div>
+							</div>
+							<div class="product-body">
+								<p>
+									<a href="${contextPath}/prod_details/${prod.id}">${prod.productName}</a>
+								</p>
+								<h4>Rs.${prod.price}</h4>
+								<div class="product-hover">
+									<div class="add-cart-hover">
+										<security:authorize access="!hasRole('ROLE_ADMIN')">
+											<a href="${contextPath}/user/addtocart/${prod.id}"><h6>Add
+													to cart</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
+										</security:authorize>
+										<security:authorize access="hasRole('ROLE_ADMIN')">
+											<a href="${contextPath}/admin/editproduct/${prod.id}"><h6>Edit
+													Product</h6> <i class="flaticon-3-signs" aria-hidden="true"></i></a>
+										</security:authorize>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</c:forEach>
+
+
+				<div class="clearfix"></div>
+
+
+
+			</div>
+
+
+
+			<div class="clearfix"></div>
+
+		</div>
+
+
+	</div>
 	</div>
 
 

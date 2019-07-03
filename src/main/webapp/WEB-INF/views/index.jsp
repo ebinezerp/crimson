@@ -85,8 +85,7 @@ div.our-prod-images> img {
 				<h3>
 					Welcome To <span>Crimson Trading</span>
 				</h3>
-				<h5>Quickly Repurpose Innovation Business Before Global The
-					Communities.</h5>
+				
 
 			</div>
 			<div class="clearfix"></div>
@@ -94,7 +93,7 @@ div.our-prod-images> img {
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-medal"></i>
 				<h3>WHAT WE ARE</h3>
-				<h5>BEST TRADERS</h5>
+				
 				<p>Crimson is an aggregator of all food retail
 					outlets-Bakeries,Restaurants and Canteens in India. We want to
 					build the largest network across 100 cities in India</p>
@@ -103,7 +102,7 @@ div.our-prod-images> img {
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-like"></i>
 				<h3>WHAT WE DO</h3>
-				<h5>BEST SPICES OF THE WORLD</h5>
+				
 				<p>We offer our network to companies at a fraction of the cost
 					of setting up their own distribution network, thereby giving food
 					retail outlets even at remote locations access to quality products</p>
@@ -112,7 +111,7 @@ div.our-prod-images> img {
 			<div class="col-md-4 col-sm-4 mt-50 welcome-content padd-40">
 				<i class="flaticon-3-check"></i>
 				<h3>Our Promise</h3>
-				<h5>Trusted</h5>
+				
 				<p></p>
 				<ul>
 					<li>High choice of All Products</li>
@@ -133,14 +132,13 @@ div.our-prod-images> img {
 				<h4>
 					Our <span>Mission</span>
 				</h4>
-				<h6>Our mission are always tested by users so you can be sure
-					you always purchase fully valuable products.</h6>
+				
 				<p>To give all food processors and producers access to the
 					largest network of food retail outlets in India</p>
 				<p>Use Technology as a bridge to establish the network and to
 					provide quality raw materials to the organised and unorganised food
 					retail outlets</p>
-				<a href="#" class="work-btn">Our work</a>
+				
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -151,8 +149,7 @@ div.our-prod-images> img {
 				<h3>
 					Our <span>Products</span>
 				</h3>
-				<h5>Quickly Repurpose Innovation Business Before Global The
-					Communities.</h5>
+				
 			</div>
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
@@ -163,9 +160,9 @@ div.our-prod-images> img {
                         <div class="team-detail">
                             <a href="#"><img src="${img}/index/Bakeryshortening.jpg" alt="" class="img-responsive" /></a>
                             <div class="team-info">
-                                <h4>CINNAMON</h4>
+                                <h4>BAKERY SHORTENING</h4>
 
-                                <p>The dried scraped peel of the inner bark of the Cinnamomum zeylanicum tree has traditionally been termed ‘true cinnamon / Ceylon cinnamon’ in recognition of this indigenous Sri Lankan plant being the source of the world’s finest cinnamon. </p>
+                                <p>At its most basic, a bakery shortening ¬consists of low-melting-point liquid oils and higher-melting-point solid fats that form a soft, plastic material. smoothness, spreadability and lubricity as well as crystalline structure.</p>
                                 <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
                             </div>
                         </div>
@@ -175,9 +172,9 @@ div.our-prod-images> img {
                         <div class="team-detail">
                             <a href="#"><img src="${img}/index/cocoapowder.jpg" alt="" class="img-responsive" /></a>
                             <div class="team-info">
-                                <h4>CLOVES</h4>
+                                <h4>COCOA POWDER</h4>
 
-                                <p>Cloves are the aromatic dried unopened whole flower buds of Eugenia caryophyllus C. Sprengel/Bullock and impart a strongly aromatic fragrance along with a fiery taste. Cloves are used in a variety of food preparations as well as in Ayurvedic / .. </p>
+                                <p>Cocoa powder is one of the staples of baking and a key ingredient in everything from cakes and brownies to frostings and even beverages. Cocoa powder is an unsweetened powder produced by grinding the seeds of the fruit of a tropical evergreen tree called the cacao.  </p>
                                 <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
                             </div>
                         </div>
@@ -187,9 +184,9 @@ div.our-prod-images> img {
                         <div class="team-detail">
                             <a href="#"><img src="${img}/index/essance.jpg" alt="" class="img-responsive" /></a>
                             <div class="team-info">
-                                <h4>NUTMEG</h4>
+                                <h4>ESSENCE</h4>
 
-                                <p>Nutmeg is the oval mottled brown nut of the Myristica fragrans Houtt tree. Nutmeg is used in many sweet and savoury dishes, to impart a slightly sweet zesty flavour. and is also available in a BWP grade for extraction purposes... </p>
+                                <p>Flavouring, also spelled flavoring, any of the liquid extracts, essences, and flavours that are added to foods to enhance their taste and aroma. ... The flavour of food results from the stimulation of the chemical senses of taste and smell by specific…</p>
                                 <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
                             </div>
                         </div>
@@ -199,9 +196,9 @@ div.our-prod-images> img {
                         <div class="team-detail">
                             <a href="#"><img src="${img}/index/flour.jpg" alt="" class="img-responsive" /></a>
                             <div class="team-info">
-                                <h4>MACE</h4>
+                                <h4>MAIDA</h4>
 
-                                <p>Mace is the dried red/orange/yellow aril covering on the surface of the nutmeg seed, and is used in many food preparations as a spice. It has a more delicate flavour than the sweeter nutmeg, and is preferred in lighter coloured dishes for the saffron-like hue it imparts. </p>
+                                <p>Maida is a white flour from the Indian subcontinent, made from wheat. Finely milled without any bran, refined, and bleached, it closely resembles cake flour. Maida is used extensively for making fast foods, baked goods such as pastries, bread, several varieties of sweets, and traditional flatbreads.</p>
                                 <a href="contact.html" class="shop-btn">Read more <i class="flaticon-3-right-arrow"></i></a>
                             </div>
                         </div>
@@ -211,9 +208,9 @@ div.our-prod-images> img {
                         <div class="team-detail">
                             <a href="#"><img src="${img}/index/sugar.jpg" alt="" class="img-responsive" /></a>
                             <div class="team-info">
-                                <h4>BLACK PEPPER</h4>
+                                <h4>SUGAR</h4>
 
-                                <p>Black Pepper is produced from the green unripe berries of the Pepper plant (Piper nigrum Linn), and is the resultant dried whole fruit. Sri Lankan Black Pepper has a high Piperine content (the alkaloid responsible for the pungency of Black Pepper), and is widely used as a " hot" cooking spice and seasoning. </p>
+                                <p>Sugar is the generic name for sweet-tasting, soluble carbohydrates, many of which are used in food. The various types of sugar are derived from different sources. Simple sugars are called monosaccharides and include glucose (also known as dextrose), fructose, and galactose. </p>
                                 <a href="contact.html" class="shop-btn">Read more <i class="flaticon-3-right-arrow"></i></a>
                             </div>
                         </div>
@@ -241,9 +238,9 @@ div.our-prod-images> img {
                                     <div class="testimonial-2">
                                         <div class="pic-2"> <img src="${img}/index/insta-1.png" class="img-responsive" alt=""> </div>
                                         <div class="testimonial-review">
-                                            <h3 class="">Lucius Cashmere</h3>
-                                            <h4>Position</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulum, rutrum quis.</p>
+                                            <h3 class="">Ravi</h3>
+                                            <h4>Bakery Owner</h4>
+                                            <p>Well, this review comes after my 12th order from Crimson Trading Company, and they have never ever disappointed me till date.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -251,9 +248,9 @@ div.our-prod-images> img {
                                     <div class="testimonial-2">
                                         <div class="pic-2"> <img src="${img}/index-3/testimonial-img-2.png" class="img-responsive" alt=""> </div>
                                         <div class="testimonial-review">
-                                            <h3 class="">Xena Wobbles</h3>
-                                            <h4>Position</h4>
-                                            <p>Dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus. Donec at velit vest ulum, rutrum massa quis, porttitor lorem.</p>
+                                            <h3 class="">Sunil Nathan</h3>
+                                            <h4>Whole Seller</h4>
+                                            <p>I am a continuous buyer of products from Big Basket, and they have always delivered the orders on time</p>
                                         </div>
                                     </div>
                                 </div>
@@ -261,9 +258,9 @@ div.our-prod-images> img {
                                     <div class="testimonial-2">
                                         <div class="pic-2"> <img src="${img}/index-3/testimonial-img-3.png" class="img-responsive" alt=""> </div>
                                         <div class="testimonial-review">
-                                            <h3 class="">Flip Jupiter</h3>
-                                            <h4>Position</h4>
-                                            <p>Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulumm massa quis.</p>
+                                            <h3 class="">Munuswamy</h3>
+                                            <h4>Bakery Shop Owner</h4>
+                                            <p>One week ago I ordered product from Crimson, Its awesome. products are available at low cost.  I placed order and delivery at next day.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -271,13 +268,13 @@ div.our-prod-images> img {
                                     <div class="testimonial-2">
                                         <div class="pic-2"> <img src="${img}/index-3/testimonial-img-1.png" class="img-responsive" alt=""> </div>
                                         <div class="testimonial-review">
-                                            <h3 class="">Lucius Cashmere</h3>
-                                            <h4>Position</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulum massa quis.</p>
+                                            <h3 class="">David Raj</h3>
+                                            <h4>Whole Seller</h4>
+                                            <p>I have had fairly good experience with Crimson in Chennai. I ordered Biscuit Dough Fat from the website.For Bulk orders they have some good deals too.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+                              <%--   <div class="col-sm-12">
                                     <div class="testimonial-2">
                                         <div class="pic-2"> <img src="${img}/index-3/testimonial-img-2.png" class="img-responsive" alt=""> </div>
                                         <div class="testimonial-review">
@@ -286,7 +283,7 @@ div.our-prod-images> img {
                                             <p>Dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus. Donec at velit vest ulum, rutrum massa quis, porttitor lorem.</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --%>
                                 
                              
                             </div>

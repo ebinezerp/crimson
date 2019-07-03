@@ -2,13 +2,13 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 
 <div class="container-fluid footer-sec">
-	<div class="container padd-30">
+	<div class="container padd-5">
 		<div class="col-md-12 footer-top-sec">
 			<div class="col-md-4 col-sm-5 payment">
-				<img src="${img}/footer/paypal.png" alt="" class="img-responsive" />
+				<%-- <img src="${img}/footer/paypal.png" alt="" class="img-responsive" />
 				<img src="${img}/footer/visa.png" alt="" class="img-responsive" />
 				<img src="${img}/footer/mastercard.png" alt=""
-					class="img-responsive" />
+					class="img-responsive" /> --%>
 			</div>
 			<div class="col-md-4 col-sm-2 footer-logo">
 				<img src="${img}/index/logo.png" alt="" class="img-responsive" />
@@ -16,24 +16,23 @@
 			<div class="col-md-4 col-sm-5 social-sec text-center">
 				<div class="social">
 					<div class="social-circle">
-						<a href="#"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
+						<a href="https://www.facebook.com/crimson.trading.39"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
 					</div>
 					<div class="social-circle">
-						<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+						<a href="https://www.instagram.com/tradingcrimson/?hl=en"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 					</div>
 					<div class="social-circle">
-						<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+						<a href="https://twitter.com/company_crimson"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 					</div>
-					<div class="social-circle">
+					<!-- <div class="social-circle">
 						<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 
 		<div class="col-md-12 call">
-			<h3>CONTACT INFORMATION</h3>
 			<div class="col-md-4 col-sm-4 email">
 				<i class="flaticon-phone-call"></i>
 				<h3>CALL</h3>
@@ -64,10 +63,10 @@
 		<div class="col-md-8 col-xs-12 col-sm-9 terms-condition text-right">
 			<ul>
 
-				<li><a href="#">Legal information</a></li>
+				<%-- <li><a href="${contextPath}/terms">Legal information</a></li> --%>
 
-				<li><a href="#">Term of service</a></li>
-				<li><a href="#">Privacy Policy</a></li>
+				<li><a href="${contextPath}/terms">Term of service</a></li>
+				<li><a href="${contextPath}/privacy">Privacy Policy</a></li>
 			</ul>
 		</div>
 	</div>

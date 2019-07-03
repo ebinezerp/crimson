@@ -14,8 +14,7 @@
 				<div class="col-sm-5 modal-img">
 					<img src="${img}/index/modal2-bg.jpg" class="img-responsive" alt="" />
 					<h2>Login</h2>
-					<p>Sign up our Website and receive up to $100 coupon for first
-						shopping</p>
+					
 					<div class="modal-img-text">
 						<a href="#"><img src="${img}/index/login-logo.png" alt=""
 							class="img-responsive" /></a>

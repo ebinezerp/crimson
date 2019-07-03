@@ -153,5 +153,15 @@ public class HomeController {
 		session.setAttribute("reg_user", user);
 		return "redirect:/profile";
 	}
+	
+	@GetMapping("/terms")
+	public String termsAndCondtions() {
+		return "termsandconditions";
+	}
+	
+	@GetMapping("/privacy")
+	public String privacy() {
+		return "privacyandpolicy";
+	}
 
 }

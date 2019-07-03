@@ -8,9 +8,11 @@
 <%@include file="links.jsp"%>
 </head>
 <body>
+
+	<div class="border" style="padding:10px">
 	<%@include file="menu.jsp"%>
+	</div>
 	<%@include file="searchmenu.jsp"%>
-	<hr>
 	<div class="container">
 
 		<div class="row">
@@ -64,10 +66,10 @@
 					</div>
 
 				</div>
-				<button class="btn btn-primary" onclick="printBill()">Print</button>
+				<button class="btn" style="background-color:#ef402b;color:white" onclick="printBill()">Print</button>
 			</div>
 		</div>
-		<div>
+		<div class="col-md-offset-3 col-md-3 padd-5">
 			<a href="${contextPath}/products" class="shp-btn">Continue
 				shopping</a>
 		</div>
