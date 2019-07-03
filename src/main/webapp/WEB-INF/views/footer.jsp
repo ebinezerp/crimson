@@ -81,7 +81,7 @@
 <script src="${js}/theme.js"></script>
 <!--testimonial-slider-->
 <script src="${js}/testimonial.js"></script>
-<%-- <script src="${js}/about-custom.js"></script> --%>
+<script src="${js}/about-custom.js"></script>
 
 <!--custom-->
 <script src="${js}/custom.js"></script>

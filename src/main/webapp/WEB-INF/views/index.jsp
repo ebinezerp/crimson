@@ -156,134 +156,147 @@ div.our-prod-images> img {
 			</div>
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
-			<div class="tranding mt-40 col-md-offset-2">
-				<div class='row'>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/Bakeryshortening.jpg">
-					</div>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/cocoapowder.jpg">
-					</div>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/essance.jpg">
-					</div>
-				</div>
-				<div class='row'>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/flour.jpg">
-					</div>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/sugar.jpg">
-					</div>
-					<div class='col-md-3 our-prod-images'>
-						<img src="${img}/index/yeast.jpg">
-					</div>
-				</div>
+			<div class="tranding mt-30 ">
+				<div class="owl-carousel special-offer" id="Bathroom">
+
+                    <div class="thumbnail col-md-12 no-border no-padding">
+                        <div class="team-detail">
+                            <a href="#"><img src="${img}/index/Bakeryshortening.jpg" alt="" class="img-responsive" /></a>
+                            <div class="team-info">
+                                <h4>CINNAMON</h4>
+
+                                <p>The dried scraped peel of the inner bark of the Cinnamomum zeylanicum tree has traditionally been termed ‘true cinnamon / Ceylon cinnamon’ in recognition of this indigenous Sri Lankan plant being the source of the world’s finest cinnamon. </p>
+                                <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail col-md-12 no-border no-padding">
+                        <div class="team-detail">
+                            <a href="#"><img src="${img}/index/cocoapowder.jpg" alt="" class="img-responsive" /></a>
+                            <div class="team-info">
+                                <h4>CLOVES</h4>
+
+                                <p>Cloves are the aromatic dried unopened whole flower buds of Eugenia caryophyllus C. Sprengel/Bullock and impart a strongly aromatic fragrance along with a fiery taste. Cloves are used in a variety of food preparations as well as in Ayurvedic / .. </p>
+                                <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail col-md-12 no-border no-padding">
+                        <div class="team-detail">
+                            <a href="#"><img src="${img}/index/essance.jpg" alt="" class="img-responsive" /></a>
+                            <div class="team-info">
+                                <h4>NUTMEG</h4>
+
+                                <p>Nutmeg is the oval mottled brown nut of the Myristica fragrans Houtt tree. Nutmeg is used in many sweet and savoury dishes, to impart a slightly sweet zesty flavour. and is also available in a BWP grade for extraction purposes... </p>
+                                <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail col-md-12 no-border no-padding">
+                        <div class="team-detail">
+                            <a href="#"><img src="${img}/index/flour.jpg" alt="" class="img-responsive" /></a>
+                            <div class="team-info">
+                                <h4>MACE</h4>
+
+                                <p>Mace is the dried red/orange/yellow aril covering on the surface of the nutmeg seed, and is used in many food preparations as a spice. It has a more delicate flavour than the sweeter nutmeg, and is preferred in lighter coloured dishes for the saffron-like hue it imparts. </p>
+                                <a href="contact.html" class="shop-btn">Read more <i class="flaticon-3-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail col-md-12 no-border no-padding">
+                        <div class="team-detail">
+                            <a href="#"><img src="${img}/index/sugar.jpg" alt="" class="img-responsive" /></a>
+                            <div class="team-info">
+                                <h4>BLACK PEPPER</h4>
+
+                                <p>Black Pepper is produced from the green unripe berries of the Pepper plant (Piper nigrum Linn), and is the resultant dried whole fruit. Sri Lankan Black Pepper has a high Piperine content (the alkaloid responsible for the pungency of Black Pepper), and is widely used as a " hot" cooking spice and seasoning. </p>
+                                <a href="contact.html" class="shop-btn">Read more <i class="flaticon-3-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 
 		<!--testimonial-->
-		<div class="container-fluid testi-bg">
-			<div class="col-md-4 testi">
-				<div class="col-md-11 col-md-offset-1 testi-text">
-					<h4>Customer story</h4>
-				</div>
-			</div>
-			<div class="col-md-offset-4 col-md-8 testimonial-slider">
-				<div class="container padd-50">
-					<div class="clearfix"></div>
-					<div class="row">
-						<div class="col-md-12">
-							<div id="testimonial-slider" class="owl-carousel">
-								<div class="col-sm-12">
-									<div class="testimonial-2">
-										<div class="pic-2">
-											<img src="${img}/index-3/testimonial-img-1.png"
-												class="img-responsive" alt="">
-										</div>
-										<div class="testimonial-review">
-											<h3 class="">Lucius Cashmere</h3>
-											<h4>Position</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing
-												elit. Vestibulum porttitor egestas orci, vitae ullamco rper
-												risus consectetur id. Donec at velit vest ulum, rutrum quis.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="testimonial-2">
-										<div class="pic-2">
-											<img src="${img}/index-3/testimonial-img-2.png"
-												class="img-responsive" alt="">
-										</div>
-										<div class="testimonial-review">
-											<h3 class="">Xena Wobbles</h3>
-											<h4>Position</h4>
-											<p>Dolor sit amet, consectetur adipiscing elit.
-												Vestibulum porttitor egestas orci, vitae ullamco rper risus.
-												Donec at velit vest ulum, rutrum massa quis, porttitor
-												lorem.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="testimonial-2">
-										<div class="pic-2">
-											<img src="${img}/index-3/testimonial-img-3.png"
-												class="img-responsive" alt="">
-										</div>
-										<div class="testimonial-review">
-											<h3 class="">Flip Jupiter</h3>
-											<h4>Position</h4>
-											<p>Ipsum dolor sit amet, consectetur adipiscing elit.
-												Vestibulum porttitor egestas orci, vitae ullamco rper risus
-												consectetur id. Donec at velit vest ulumm massa quis.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="testimonial-2">
-										<div class="pic-2">
-											<img src="${img}/index-3/testimonial-img-1.png"
-												class="img-responsive" alt="">
-										</div>
-										<div class="testimonial-review">
-											<h3 class="">Lucius Cashmere</h3>
-											<h4>Position</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing
-												elit. Vestibulum porttitor egestas orci, vitae ullamco rper
-												risus consectetur id. Donec at velit vest ulum massa quis.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="testimonial-2">
-										<div class="pic-2">
-											<img src="${img}/index-3/testimonial-img-2.png"
-												class="img-responsive" alt="">
-										</div>
-										<div class="testimonial-review">
-											<h3 class="">Xena Wobbles</h3>
-											<h4>Position</h4>
-											<p>Dolor sit amet, consectetur adipiscing elit.
-												Vestibulum porttitor egestas orci, vitae ullamco rper risus.
-												Donec at velit vest ulum, rutrum massa quis, porttitor
-												lorem.</p>
-										</div>
-									</div>
-								</div>
+        <div class="container-fluid testi-bg">
+            <div class="col-md-4 testi">
+                <div class="col-md-11 col-md-offset-1 testi-text">
+                    <h4>Customer story</h4>
+                </div>
+            </div>
+            <div class="col-md-offset-4 col-md-8 testimonial-slider">
+                <div class="container padd-50">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="testimonial-slider" class="owl-carousel">
+                                <div class="col-sm-12">
+                                    <div class="testimonial-2">
+                                        <div class="pic-2"> <img src="${img}/index/insta-1.png" class="img-responsive" alt=""> </div>
+                                        <div class="testimonial-review">
+                                            <h3 class="">Lucius Cashmere</h3>
+                                            <h4>Position</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulum, rutrum quis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="testimonial-2">
+                                        <div class="pic-2"> <img src="${img}/index-3/testimonial-img-2.png" class="img-responsive" alt=""> </div>
+                                        <div class="testimonial-review">
+                                            <h3 class="">Xena Wobbles</h3>
+                                            <h4>Position</h4>
+                                            <p>Dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus. Donec at velit vest ulum, rutrum massa quis, porttitor lorem.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="testimonial-2">
+                                        <div class="pic-2"> <img src="${img}/index-3/testimonial-img-3.png" class="img-responsive" alt=""> </div>
+                                        <div class="testimonial-review">
+                                            <h3 class="">Flip Jupiter</h3>
+                                            <h4>Position</h4>
+                                            <p>Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulumm massa quis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="testimonial-2">
+                                        <div class="pic-2"> <img src="${img}/index-3/testimonial-img-1.png" class="img-responsive" alt=""> </div>
+                                        <div class="testimonial-review">
+                                            <h3 class="">Lucius Cashmere</h3>
+                                            <h4>Position</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus consectetur id. Donec at velit vest ulum massa quis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="testimonial-2">
+                                        <div class="pic-2"> <img src="${img}/index-3/testimonial-img-2.png" class="img-responsive" alt=""> </div>
+                                        <div class="testimonial-review">
+                                            <h3 class="">Xena Wobbles</h3>
+                                            <h4>Position</h4>
+                                            <p>Dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor egestas orci, vitae ullamco rper risus. Donec at velit vest ulum, rutrum massa quis, porttitor lorem.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
 
-
-							</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-
-		</div>
-	</div>
+        </div>
 
 
 
