@@ -62,6 +62,9 @@ public class APISignupAndLoginController {
 			HttpServletRequest request) {
 
 		if (errors.hasErrors()) {
+			
+			System.out.println("Errors:"+ errors);
+			
 			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 		}
 
