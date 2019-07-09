@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -42,6 +44,7 @@ public class Order {
 
 	@ManyToOne
 	@ToString.Exclude
+	@JsonIgnore
 	private User user;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
