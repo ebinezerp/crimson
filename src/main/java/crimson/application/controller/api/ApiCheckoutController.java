@@ -90,10 +90,6 @@ public class ApiCheckoutController {
 		return new ResponseEntity<Order>(order, HttpStatus.OK);
 	}
 
-	@GetMapping("/order")
-	public ResponseEntity<Order> getOrder(@RequestParam("orderId") Long orderId) {
-		return new ResponseEntity<Order>(orderService.get(orderId), HttpStatus.OK);
-	}
 
 	private Order createOrder(Cart cart) {
 		Order order = new Order();

@@ -9,5 +9,6 @@ import crimson.application.model.User;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 	public List<Order> findAllByUserOrderByOrderedDateDesc(User user);
+
 	public List<Order> findAllByOrderByOrderedDateDesc();
 }
