@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.exception.AddProductMethodNotExceptionHandler;
 import crimson.application.model.Product;
+import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
 import crimson.application.util.Validation;
 
@@ -36,7 +37,10 @@ public class ProductController {
 
 	@Autowired
 	private Validation validation;
-	
+
+	@Autowired
+	private CategoryService categoryService;
+
 	@Value("${image.location}")
 	private String imageLocation;
 
@@ -46,6 +50,7 @@ public class ProductController {
 			model.addAttribute("status", status);
 		}
 		model.addAttribute("product", new Product());
+		model.addAttribute("categories", categoryService.getCategories());
 		model.addAttribute("addproductform", "active");
 		return "productform";
 	}
@@ -53,15 +58,16 @@ public class ProductController {
 	@PostMapping("/addproduct")
 	public String addproduct(@Valid @ModelAttribute("product") Product product, Errors errors, Model model,
 			HttpServletRequest request) {
+		model.addAttribute("categories", categoryService.getCategories());
 		if (errors.hasErrors()) {
+			
 			return "productform";
 		}
-		
-		if(product.getId()!=null && product.getId()!=0) {
+
+		if (product.getId() != null && product.getId() != 0) {
 			return "redirect:/productform?status=exists";
 		}
-		
-		
+
 		Map<String, String> error_messages = validation.productExistenceValidation(product);
 		if (error_messages.size() > 0) {
 			model.addAttribute("error_messages", error_messages);
@@ -92,10 +98,9 @@ public class ProductController {
 	@GetMapping("/editproduct/{id}")
 	public String edidProductFormPage(@PathVariable("id") Long id, Model model) {
 		Product product = productService.getProduct(id);
-		
-		System.out.println("ProductValue: "+ product);
-		
-		
+
+		System.out.println("ProductValue: " + product);
+
 		if (product == null) {
 			model.addAttribute("editproduct_error", "Product is not available");
 			return "redirect:/products";
@@ -158,13 +163,12 @@ public class ProductController {
 		InputStream inputStream = product.getProductImage().getInputStream();
 		byte[] array = new byte[inputStream.available()];
 		inputStream.read(array);
-		
+
 		File productImagesFolder = new File(imageLocation);
 
 		if (!productImagesFolder.exists()) {
 			productImagesFolder.mkdirs();
 		}
-		
 
 		final FileOutputStream outputStream = new FileOutputStream(
 				productImagesFolder.getPath() + "/" + product.getId() + ".jpg");

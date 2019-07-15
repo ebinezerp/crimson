@@ -19,6 +19,7 @@
 <spring:url value="/resources/fonts" var="fonts"></spring:url>
 <spring:url value="/resources/js" var="js"></spring:url>
 <spring:url value="/images" var="prodimgs"></spring:url>
+<spring:url value="/images/catimages" var="catimages"></spring:url>
 
 
 

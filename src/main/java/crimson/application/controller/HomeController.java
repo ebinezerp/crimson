@@ -24,6 +24,7 @@ import crimson.application.repository.CartRepository;
 import crimson.application.repository.ProductRepository;
 import crimson.application.repository.UserRepository;
 import crimson.application.service.CartService;
+import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
 import crimson.application.service.UserService;
 import crimson.application.util.Validation;
@@ -42,6 +43,10 @@ public class HomeController {
 
 	@Autowired
 	private Validation validation;
+	
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@GetMapping("/")
 	public String indexPage(Model model, @RequestParam(name = "login", required = false) String login,
@@ -49,7 +54,7 @@ public class HomeController {
 
 		model.addAttribute("user", new User());
 		
-		model.addAttribute("products", productService.recentProducts());
+		model.addAttribute("categories", categoryService.getCategories());
 
 		if (principal != null) {
 			User user = null;
@@ -69,13 +74,22 @@ public class HomeController {
 				} else {
 					session.setAttribute("cart_count", cart.getQuantity());
 				}
-				return "redirect:/products";
+				return "redirect:/categories";
 			} else {
 				return "redirect:/logout";
 			}
 		}
 
 		return "index";
+	}
+	
+	
+	@GetMapping("/categories")
+	public String getCategories(Model model) {
+		model.addAttribute("categories", categoryService.getCategories());
+		model.addAttribute("categorymenu", "active");
+		model.addAttribute("user", new User());
+		return "categories";
 	}
 
 	@GetMapping("/products")
@@ -106,6 +120,38 @@ public class HomeController {
 
 		return "products";
 	}
+	
+	
+	@GetMapping("/catproducts/{id}")
+	public String catProducts(@RequestParam(name = "status", required = false) Boolean status,
+			@RequestParam(name = "disable", required = false) Boolean disableStatus, 
+			@RequestParam(name="cartExists", required= false) String cartStatus,
+			@PathVariable("id")Long categoryId,Model model, Principal principal,
+			HttpSession session) {
+
+		model.addAttribute("user", new User());
+		model.addAttribute("products", productService.getProducts(categoryService.getCategory(categoryId)));
+		model.addAttribute("productsmenu", "active");
+		model.addAttribute("cartStatus", cartStatus);
+		model.addAttribute("disable", disableStatus);
+
+		if (session.getAttribute("reg_user") != null) {
+			Cart cart = userService.getUserByEmail((((User)session.getAttribute("reg_user")).getEmail())).getCart();
+			if (cart != null) {
+				System.out.println("cart is existed");
+				session.setAttribute("cart_count", cart.getQuantity());
+				model.addAttribute("cart", cart);
+			}
+
+		}
+
+		if (status != null) {
+			model.addAttribute("status", status);
+		}
+
+		return "products";
+	}
+
 
 	@GetMapping("/prod_details/{id}")
 	public String productDetails(@PathVariable("id") Long id, Model model) {

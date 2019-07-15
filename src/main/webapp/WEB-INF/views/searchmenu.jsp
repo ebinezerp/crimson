@@ -27,6 +27,8 @@
 					<security:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="menuitem ${productsmenu}"><a
 							href="${contextPath}/products">PRODUCTS</a></li>
+							<li class="menuitem ${categorymenu}"><a
+							href="${contextPath}/category">CATEGORY</a></li>
 						<li class='menuitem ${addproductform}'><a
 							href="${contextPath}/admin/productform">ADD PRODUCT</a></li>
 						<li class='menuitem ${ordersmenu}'><a
@@ -35,6 +37,8 @@
 					<security:authorize access="hasRole('ROLE_USER')">
 						<li class='menuitem ${aboutusmenu}'><a
 							href="${contextPath}/aboutus">About Us</a></li>
+							<li class="menuitem ${categorymenu}"><a
+							href="${contextPath}/categories">CATEGORY</a></li>
 						<li class="menuitem ${productsmenu}"><a
 							href="${contextPath}/products">PRODUCTS</a></li>
 						<li class='menuitem ${cartmenu}'><a

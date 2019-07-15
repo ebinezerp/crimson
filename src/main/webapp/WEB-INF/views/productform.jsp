@@ -73,12 +73,19 @@
 								<springform:errors class="error_msg" path="price"></springform:errors>
 							</div>
 							<div class="col-sm-6">
+								<label>Category *</label>
+								<springform:select path="category">
+									<springform:options  items="${categories}" itemLabel="categoryName" itemValue="categoryId" />
+								</springform:select>
+								<springform:errors class="error_msg" path="category"></springform:errors>
+							</div>
+							<div class="col-sm-6">
 								<label>Stock(Tons) *</label>
 								<springform:input path="stock" />
 								<springform:errors class="error_msg" path="stock"></springform:errors>
 							</div>
 
-							<div class="col-sm-6">
+							<div class="col-sm-12">
 								<label>Upload Image *</label>
 								<springform:input path="productImage" type="file" />
 								<springform:errors class="error_msg" path="productImage"></springform:errors>

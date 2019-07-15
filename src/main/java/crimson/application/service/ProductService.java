@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import crimson.application.model.Category;
 import crimson.application.model.Product;
 import crimson.application.repository.ProductRepository;
 
@@ -83,6 +84,16 @@ public class ProductService {
 	public List<Product> recentProducts(){
 		try {
 			return productRepository.findTop8ByStatusIsTrueOrderById();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	public List<Product> getProducts(Category category){
+		try {
+			return productRepository.findAllByCategory(category);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
