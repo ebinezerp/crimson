@@ -52,7 +52,7 @@ public class SignupAndLoginController {
 			HttpServletRequest request) {
 		if (errors.hasErrors()) {
 			model.addAttribute("signup_status", "input_errors");
-			return "products";
+			return "index";
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Map<String, String> error_messages = validation.userExistenceValidation(user);
@@ -60,13 +60,13 @@ public class SignupAndLoginController {
 		if (error_messages.size() > 0) {
 			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("error_messages", error_messages);
-			return "products";
+			return "index";
 		}
 
 		if (userService.saveOrUpdate(user) == null) {
 			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("signup_error", true);
-			return "products";
+			return "index";
 		}
 
 		if (!regEmailService.send(user.getEmail(), "",
@@ -74,7 +74,7 @@ public class SignupAndLoginController {
 			System.out.println("Register Error");
 			model.addAttribute("signup_status", "input_errors");
 			model.addAttribute("email_error", "Email is not valid. Enter correct email.");
-			return "products";
+			return "index";
 		}
 
 		return "redirect:/?login";
