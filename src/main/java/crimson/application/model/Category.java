@@ -1,9 +1,11 @@
 package crimson.application.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,7 @@ import lombok.ToString.Exclude;
 
 @Entity
 @Data
-public class Category {
+public class Category implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +33,7 @@ public class Category {
 	@Column(unique = true, nullable = false)
 	private String categoryName;
 
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category",fetch=FetchType.EAGER)
 	@JsonIgnore
 	@ToString.Exclude
 	private List<Product> products;

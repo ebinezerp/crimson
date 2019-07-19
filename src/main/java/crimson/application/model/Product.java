@@ -1,7 +1,10 @@
 package crimson.application.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +18,14 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
 @Entity
 @Data
-public class Product {
+public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -60,8 +65,8 @@ public class Product {
 	@ToString.Exclude
 	private MultipartFile productImage;
 	
-	@ManyToOne
-	@ToString.Exclude
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private Category category;
 	
 	
