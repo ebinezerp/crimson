@@ -13,7 +13,7 @@
 
 .team-detail>a>img {
 	width: 100%;
-	height: 250px;
+	/* height: 250px; */
 	border-radius: 8px;
 }
 </style>

@@ -77,9 +77,10 @@
 				
 
 				<div class="clearfix"></div>
+				<div class='cinnamon'>
 				<c:forEach items="${products}" var="prod" varStatus="vs">
 
-					<div class="col-md-3 col-sm-3 mt-40">
+					<div class="col-md-3 col-sm-5 mt-40">
 						<div class="product">
 
 							<div class="product-img">
@@ -152,6 +153,7 @@
 					</div>
 
 				</c:forEach>
+				</div>
 
 			</div>
 

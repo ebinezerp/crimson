@@ -49,7 +49,7 @@ public class User {
 
 	@NotNull
 	@Column(nullable = false)
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password Should Contain atleast 8 characters with atleast one Capital, one small alphabet, one digit and one special character")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$*%^&+=])(?=\\S+$).{8,}$", message = "Password Should Contain atleast 8 characters with atleast one Capital, one small alphabet, one digit and one special character")
 	private String password;
 
 	@Transient

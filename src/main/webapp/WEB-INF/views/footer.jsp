@@ -16,7 +16,7 @@
 			<div class="col-md-4 col-sm-5 social-sec text-center">
 				<div class="social">
 					<div class="social-circle">
-						<a href="https://www.facebook.com/crimson.trading.39"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
+						<a href="https://www.facebook.com/Crimson-Trading-Company-841853702877594/"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
 					</div>
 					<div class="social-circle">
 						<a href="https://www.instagram.com/tradingcrimson/?hl=en"><i class="fa fa-twitter" aria-hidden="true"></i></a>
@@ -55,12 +55,12 @@
 
 <div class="container-fluid copy-right">
 	<div class="container">
-		<div class="col-md-4 col-sm-3 copy-text">
+		<div class="col-md-7 col-sm-7 copy-text">
 			<p>
 				© 2018-19 all rights reserved <a href="#">Crimson Trading</a>.
 			</p>
 		</div>
-		<div class="col-md-8 col-xs-12 col-sm-9 terms-condition text-right">
+		<div class="col-md-5 col-xs-12 col-sm-5 terms-condition text-right">
 			<ul>
 
 				<%-- <li><a href="${contextPath}/terms">Legal information</a></li> --%>

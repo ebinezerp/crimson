@@ -6,6 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cart | Crimson</title>
 <%@include file="links.jsp"%>
+<style>
+#products tr td {
+	padding: 5px;
+}
+</style>
 </head>
 
 <body>
@@ -52,59 +57,66 @@
 				<div class="col-md-12 element-table">
 					<div class="row">
 
-						<table>
-							<tr>
-								<th>Product</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total</th>
-								<th></th>
-							</tr>
-
-
-							<c:forEach items="${cartItems}" var="cartItem" varStatus="vs">
+						<table id="products" class='products'>
+							<thead>
 								<tr>
-									<td class="width">
-										<div class="image">
-											<img src="${prodimgs}/${cartItem.product.id}.jpg" alt=""
-												class="img-responsive" />
-											<p>${cartItem.product.productName}</p>
-
-										</div>
-									</td>
-									<td class="cart-price">Rs. ${cartItem.unitPrice}</td>
-									<td class="user">
-
-										<div id=field1 class="quantity">
-											<button type="button" id="sub" class="sub">
-												<i class="fa fa-minus" aria-hidden="true"></i>
-											</button>
-											<input type="text" id="${cartItem.cartItemId}"
-												value="${cartItem.quantity}" class="field" />
-											<button type="button" id="add" class="add">
-												<i class="fa fa-plus" aria-hidden="true"></i>
-											</button>
-										</div>
-
-									</td>
-									<td>Rs. ${cartItem.totalPrice}</td>
-									<td><a href="#"><i class="fa fa-times-circle-o"
-											aria-hidden="true"></i></a></td>
+									<th>Product</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+									<th></th>
 								</tr>
-							</c:forEach>
+							</thead>
+							<tbody>
+
+								<c:forEach items="${cartItems}" var="cartItem" varStatus="vs">
+									<tr>
+										<td class="width col-md-3 col-sm-3 col-xs-3">
+											<div class="image">
+												<img src="${prodimgs}/${cartItem.product.id}.jpg" alt=""
+													class="img-responsive" />
+												<p align='center'>${cartItem.product.productName}</p>
+
+											</div>
+										</td>
+										<td class="cart-price col-md-2 col-sm-2 col-xs-2">Rs.
+											${cartItem.unitPrice}</td>
+										<td class="user col-md-3 col-sm-3 col-xs-2">
+
+											<div id=field1 class="quantity d-flex justify-content-center">
+												<button type="button" id="sub" class="sub">
+													<i class="fa fa-minus" aria-hidden="true"></i>
+												</button>
+												<input type="text" id="${cartItem.cartItemId}"
+													value="${cartItem.quantity}" class="field" />
+												<button type="button" id="add" class="add">
+													<i class="fa fa-plus" aria-hidden="true"></i>
+												</button>
+											</div>
+
+										</td>
+										<td class='col-md-3 col-sm-3 col-xs-3'>Rs.
+											${cartItem.totalPrice}</td>
+										<td class='col-md-1 col-sm-1 col-xs-1'><a href="#"><i
+												class="fa fa-times-circle-o" aria-hidden="true"></i></a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 
 
 						</table>
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<div class="shp-cart-btn">
-					<a href="${contextPath}/user/clearcart" class="cart-btn">Clear
-						shopping cart</a>
-				</div>
-				<div class="pull-right">
-					<a href="${contextPath}/products" class="shp-btn">Continue
-						shopping</a>
+				<div class=''>
+					<div class="shp-cart-btn">
+						<a href="${contextPath}/user/clearcart" class="cart-btn">Clear
+							shopping cart</a>
+					</div>
+					<div class="shp-cart-btn">
+						<a href="${contextPath}/products" class="shp-btn">Continue
+							shopping</a>
+					</div>
 				</div>
 
 			</div>
@@ -133,8 +145,10 @@
 							</tr>
 						</table>
 					</div>
-					<a href="${contextPath}/user/checkout" class="shp-btn pull-right">Process
-						to checkout</a>
+					<div class="shp-cart-btn">
+						<a href="${contextPath}/user/checkout" class="shp-btn">Process
+							to checkout</a>
+					</div>
 				</div>
 			</div>
 		</c:if>
