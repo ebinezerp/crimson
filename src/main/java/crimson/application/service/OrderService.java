@@ -61,5 +61,15 @@ public class OrderService {
 			return null;
 		}
 	}
+	
+	
+	public Order getLast(User user) {
+		try {
+			return orderRepository.findTopByUserOrderByOrderIdDesc(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

@@ -42,6 +42,16 @@ public class OrderRecieverService {
 	}
 	
 	
+	public OrderReciever lastOrderReciever(Order order) {
+		try {
+			return orderRecieverRepository.findByOrder(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	
 
 }
