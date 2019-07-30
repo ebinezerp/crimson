@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.exception.AddProductMethodNotExceptionHandler;
 import crimson.application.model.Product;
+import crimson.application.model.ProductSpecification;
 import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
 import crimson.application.util.Validation;
@@ -45,7 +46,7 @@ public class ProductController {
 	private String imageLocation;
 
 	@GetMapping("/productform")
-	public String productForm(@RequestParam( value ="status", required = false) String status, Model model) {
+	public String productForm(@RequestParam(value = "status", required = false) String status, Model model) {
 		if (status != null) {
 			model.addAttribute("status", status);
 		}
@@ -59,8 +60,12 @@ public class ProductController {
 	public String addproduct(@Valid @ModelAttribute("product") Product product, Errors errors, Model model,
 			HttpServletRequest request) {
 		model.addAttribute("categories", categoryService.getCategories());
+
+		System.out.println(product);
+		System.out.println(product.getProductDescriptions());
+
 		if (errors.hasErrors()) {
-			
+			model.addAttribute("product", product);
 			return "productform";
 		}
 
@@ -75,7 +80,29 @@ public class ProductController {
 		}
 
 		if (!product.getProductImage().isEmpty()) {
-			if (productService.saveOrUpdate(product) == null) {
+			
+			
+			product.getProductDescriptions().forEach((productDescription) -> {
+				productDescription.setProduct(product);
+			});
+			
+			product.getProductApplications().forEach((productApplication) -> {
+				productApplication.setProduct(product);
+			});
+			
+			product.getProductFeatures().forEach((productFeature) -> {
+				productFeature.setProduct(product);
+			});
+			
+			product.getProductSpecifications().forEach((productSpecification)->{
+				productSpecification.setProduct(product);
+			});
+			
+			product.getPackagings().forEach((packaging) -> {
+				packaging.setProduct(product);
+			});
+			
+			if (productService.save(product) == null) {
 				model.addAttribute("product_save_status", false);
 				return "productform";
 			}
@@ -113,6 +140,7 @@ public class ProductController {
 	@PostMapping("/updateproduct")
 	public String updateProduct(@Valid @ModelAttribute("product") Product product, Errors errors, Model model,
 			HttpServletRequest request) {
+		
 		if (errors.hasErrors()) {
 			return "editproduct";
 		}
@@ -121,8 +149,30 @@ public class ProductController {
 			model.addAttribute("error_messages", error_messages);
 			return "editproduct";
 		}
+		
+		
+		product.getProductDescriptions().forEach((productDescription) -> {
+			productDescription.setProduct(product);
+		});
+		
+		product.getProductApplications().forEach((productApplication) -> {
+			productApplication.setProduct(product);
+		});
+		
+		product.getProductFeatures().forEach((productFeature) -> {
+			productFeature.setProduct(product);
+		});
+		
+		product.getProductSpecifications().forEach((productSpecification)->{
+			productSpecification.setProduct(product);
+		});
+		
+		product.getPackagings().forEach((packaging) -> {
+			packaging.setProduct(product);
+		});
+		
 
-		if (productService.saveOrUpdate(product) == null) {
+		if (productService.update(product) == null) {
 			model.addAttribute("update_status", false);
 			return "editproduct";
 		}
@@ -152,7 +202,7 @@ public class ProductController {
 
 		product.setStatus(false);
 
-		if (productService.saveOrUpdate(product) == null) {
+		if (productService.update(product) == null) {
 			return "redirect:/products?disable=false";
 		}
 		return "redirect:/products?disable=true";

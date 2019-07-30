@@ -15,9 +15,19 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	public Product saveOrUpdate(Product product) {
+	public Product save(Product product) {
 		try {
 			return productRepository.save(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Product update(Product product) {
+
+		try {
+			return productRepository.saveAndFlush(product);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -79,9 +89,8 @@ public class ProductService {
 			return null;
 		}
 	}
-	
-	
-	public List<Product> recentProducts(){
+
+	public List<Product> recentProducts() {
 		try {
 			return productRepository.findTop8ByStatusIsTrueOrderById();
 		} catch (Exception e) {
@@ -89,9 +98,8 @@ public class ProductService {
 			return null;
 		}
 	}
-	
-	
-	public List<Product> getProducts(Category category){
+
+	public List<Product> getProducts(Category category) {
 		try {
 			return productRepository.findAllByCategory(category);
 		} catch (Exception e) {

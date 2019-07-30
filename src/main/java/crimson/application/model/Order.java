@@ -3,6 +3,7 @@ package crimson.application.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -50,6 +51,9 @@ public class Order {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
 	@ToString.Exclude
 	private List<OrderItem> orderItems;
+	
+	@Column(nullable = false)
+	private boolean paymentStatus;
 
 	@OneToOne(mappedBy = "order")
 	@ToString.Exclude

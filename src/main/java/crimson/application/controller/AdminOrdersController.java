@@ -53,5 +53,17 @@ public class AdminOrdersController {
 		orderDeliveryEmailService.send(order.getUser().getEmail(), order.getOrderId().toString(), "http://"+request.getServerName()+":"+request.getServerPort());
 		return "redirect:/orders?deliveryStatus=true";
 	}
+	
+	
+	@GetMapping("/paymentupdate/{id}")
+	public String paymentUpdate(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+		Order order = orderService.get(id);
+		if (order.getDispatchStatus() == false || order.getDeliveryStatus() == false) {
+			return "redirect:/orders?deliveryStatus=false&dispatchStatus=false";
+		}
+		order.setPaymentStatus(true);
+		orderService.saveOrUpdate(order);
+		return "redirect:/orders?deliveryStatus=true";
+	}
 
 }

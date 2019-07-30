@@ -13,11 +13,11 @@
 </head>
 <body>
 	<div class="about-page">
-		<div class='border' style="padding:15px">
+		<div class='border' style="padding: 15px">
 			<%@include file="menu.jsp"%>
 		</div>
 		<%@include file="searchmenu.jsp"%>
-	
+
 		<div class="container-fluid">
 			<div class="orders col-md-7 col-md-offset-2">
 				<c:if test="${deliveryStatus!=null}">
@@ -32,9 +32,11 @@
 					<thead>
 						<tr>
 							<th>Order Id</th>
+							<th>Ordered Date</th>
 							<th>Total Amount</th>
 							<th>Dispatch Status</th>
 							<th>Delivery Status</th>
+							<th>Payment Status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,6 +44,7 @@
 							<tr>
 								<td><a style="text-decoration: underline;"
 									href="${contextPath}/order/${order.orderId}">${order.orderId}</a></td>
+								<td>${order.orderedDate}</td>
 								<td>${order.totalAmount}</td>
 								<td><c:if test="${order.dispatchStatus==true}">
 										<button class="btn btn-success">Dispatched</button>
@@ -68,6 +71,23 @@
 												class="btn btn-warning">Deliver</a>
 										</c:if>
 									</security:authorize></td>
+									<td>
+									
+									
+									<c:if test="${order.paymentStatus==true}">
+										<button class="btn btn-success">Paid</button>
+									</c:if> <security:authorize access="hasRole('ROLE_USER')">
+										<c:if test="${order.paymentStatus==false}">
+											<button class="btn btn-warning">Payment is pending</button>
+										</c:if>
+
+									</security:authorize> <security:authorize access="hasRole('ROLE_ADMIN')">
+										<c:if test="${order.deliveryStatus==false}">
+											<a href="${contextPath}/admin/paymentupdate/${order.orderId}"
+												class="btn btn-warning">Click to update payment status as Paid</a>
+										</c:if>
+									</security:authorize>
+									</td>
 							</tr>
 						</c:forEach>
 					</tbody>

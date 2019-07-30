@@ -85,7 +85,7 @@
 							class="fa fa-angle-down"></i></a>
 
 						<ul>
-							<p>${product.productDescription}</p>
+
 						</ul></li>
 				</ul>
 				<security:authorize access="!hasRole('ROLE_ADMIN')">
@@ -125,125 +125,66 @@
 				</security:authorize>
 			</div>
 			<div class="clearfix"></div>
-			<%-- 
 			<div class="product-tab">
-				<!-- 
-				Nav tabs
+
+				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation"><a href="#home" aria-controls="home"
-						role="tab" data-toggle="tab">Product Info</a></li>
-					<li role="presentation" class="active"><a href="#profile"
-						aria-controls="profile" role="tab" data-toggle="tab">Delivery</a></li>
-					<li role="presentation"><a href="#messages"
-						aria-controls="messages" role="tab" data-toggle="tab">Returns</a></li>
-					<li role="presentation"><a href="#settings"
-						aria-controls="settings" role="tab" data-toggle="tab">Additional
-							Information</a></li>
-				</ul> -->
+					<li role="presentation" class="active"><a href="#description"
+						aria-controls="home" role="tab" data-toggle="tab">Product Info</a></li>
+					<li role="presentation"><a href="#features"
+						aria-controls="profile" role="tab" data-toggle="tab">Features</a></li>
+					<li role="presentation"><a href="#applications"
+						aria-controls="messages" role="tab" data-toggle="tab">Applications</a></li>
+					<li role="presentation"><a href="#specifications"
+						aria-controls="settings" role="tab" data-toggle="tab">Specifications</a></li>
+					<li role="presentation"><a href="#packaging"
+						aria-controls="packaging" role="tab" data-toggle="tab">Packaging</a></li>
+				</ul>
 
 				<!-- Tab panes -->
-				<div class="d-flex flex-column justify-content-between">
-					<div>
-						<ul class="nav nav-tabs">
-							<li role="presentation"><a href="#home" aria-controls="home"
-								role="tab" data-toggle="tab">Product Info</a></li>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade" id="description">
+						<ul>
+							<c:forEach items="${product.productDescriptions}"
+								var="productDescription">
+								<li>${ productDescription.description}</li>
+							</c:forEach>
 						</ul>
 					</div>
-					<div role="" class="" id="home">
-						<p>${product.productDescription}</p>
-
+					<div role="tabpanel" class="tab-pane fade in active" id="features">
+						<ul>
+							<c:forEach items="${product.productFeatures}"
+								var="productFeature">
+								<li>${ productFeature.feature}</li>
+							</c:forEach>
+						</ul>
 					</div>
-					<!-- <div role="tabpanel" class="tab-pane fade in active" id="profile">
-						<p>
-							<b>Standard Shipping:</b> Shipping within 6 business days, $4 -
-							FREE (spend over $40) Orders under $40 may be shipped on an
-							untracked service and may take longer to arrive
-						</p>
-						<p>
-							<b>4-Day Shipping:</b> $6.00
-						</p>
-						<p>
-							<b>2-Day Shipping:</b> $12.00 or FREE when you spend $140*
-						</p>
-						<p>
-							<b>1-Day Shipping:</b> Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet, consectetur adium porttitor egestas orci,
-							vitae ullamcor consectetur id. Vestib porttitor egestas orci,
-							vitae ullamcorper risus dolor sit amet,
-						</p>
-						<p>
-							<b>Dorem ipsum dolor sit: </b> Amet, consectetur adipiscing elit.
-							Vestib porttitor egestas orci, vitae ullamcorper risus dolor sit
-							amet, consectetur adium porttitor egestas orci, vitae ullamcor
-							consectetur id. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet,
-						</p>
+					<div role="tabpanel" class="tab-pane fade" id="applications">
+						<ul>
+							<c:forEach items="${product.productApplications}"
+								var="productApplication">
+								<li>${ productApplication.application}</li>
+							</c:forEach>
+						</ul>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="messages">
-						<p>
-							<b>Standard Shipping:</b> Shipping within 6 business days, $4 -
-							FREE (spend over $40) Orders under $40 may be shipped on an
-							untracked service and may take longer to arrive
-						</p>
-						<p>
-							<b>4-Day Shipping:</b> $6.00
-						</p>
-						<p>
-							<b>2-Day Shipping:</b> $12.00 or FREE when you spend $140*
-						</p>
-						<p>
-							<b>1-Day Shipping:</b> Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet, consectetur adium porttitor egestas orci,
-							vitae ullamcor consectetur id. Vestib porttitor egestas orci,
-							vitae ullamcorper risus dolor sit amet,
-						</p>
-						<p>
-							<b>Dorem ipsum dolor sit: </b> Amet, consectetur adipiscing elit.
-							Vestib porttitor egestas orci, vitae ullamcorper risus dolor sit
-							amet, consectetur adium porttitor egestas orci, vitae ullamcor
-							consectetur id. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet,
-						</p>
+					<div role="tabpanel" class="tab-pane fade" id="specifications">
+						<ul>
+							<c:forEach items="${product.productSpecifications}"
+								var="productSpecification">
+								<li>${ productSpecification.specification}</li>
+							</c:forEach>
+						</ul>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="settings">
-						<p>
-							<b>Standard Shipping:</b> Shipping within 6 business days, $4 -
-							FREE (spend over $40) Orders under $40 may be shipped on an
-							untracked service and may take longer to arrive
-						</p>
-						<p>
-							<b>4-Day Shipping:</b> $6.00
-						</p>
-						<p>
-							<b>2-Day Shipping:</b> $12.00 or FREE when you spend $140*
-						</p>
-						<p>
-							<b>1-Day Shipping:</b> Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet, consectetur adium porttitor egestas orci,
-							vitae ullamcor consectetur id. Vestib porttitor egestas orci,
-							vitae ullamcorper risus dolor sit amet,
-						</p>
-						<p>
-							<b>Dorem ipsum dolor sit: </b> Amet, consectetur adipiscing elit.
-							Vestib porttitor egestas orci, vitae ullamcorper risus dolor sit
-							amet, consectetur adium porttitor egestas orci, vitae ullamcor
-							consectetur id. Vestib porttitor egestas orci, vitae ullamcorper
-							risus dolor sit amet,
-						</p>
-					</div> -->
-				</div> --%>
-
-
-			<div class="d-flex flex-colum justify-content-center">
-				<div class='border border-success' style="padding: 10px;">
-					<b>Product Info</b>
+					
+					<div role="tabpanel" class="tab-pane fade" id="packaging">
+						<ul>
+							<c:forEach items="${product.packagings}"
+								var="productPackage">
+								<li>${ productPackage.packaging}</li>
+							</c:forEach>
+						</ul>
+					</div>
 				</div>
-				<div class='border border-success' style="padding: 10px">
-					${product.productDescription}</div>
-			</div>
 
 
 
