@@ -18,8 +18,8 @@
 		</div>
 		<%@include file="searchmenu.jsp"%>
 
-		<div class="container-fluid">
-			<div class="orders col-md-7 col-md-offset-2">
+		<div class="container">
+			<div class="orders col-md-9">
 				<c:if test="${deliveryStatus!=null}">
 					<c:if test="${dispatchStatus==false}">
 						<h4 class="alert alert-danger">Dispatch is not yet done</h4>
@@ -33,6 +33,7 @@
 						<tr>
 							<th>Order Id</th>
 							<th>Ordered Date</th>
+							<th>Company Name</th>
 							<th>Total Amount</th>
 							<th>Dispatch Status</th>
 							<th>Delivery Status</th>
@@ -45,6 +46,7 @@
 								<td><a style="text-decoration: underline;"
 									href="${contextPath}/order/${order.orderId}">${order.orderId}</a></td>
 								<td>${order.orderedDate}</td>
+								<td>${order.orderReciever.companyName}</td>
 								<td>${order.totalAmount}</td>
 								<td><c:if test="${order.dispatchStatus==true}">
 										<button class="btn btn-success">Dispatched</button>
@@ -82,9 +84,9 @@
 										</c:if>
 
 									</security:authorize> <security:authorize access="hasRole('ROLE_ADMIN')">
-										<c:if test="${order.deliveryStatus==false}">
+										<c:if test="${order.deliveryStatus==true && order.paymentStatus == false}">
 											<a href="${contextPath}/admin/paymentupdate/${order.orderId}"
-												class="btn btn-warning">Click to update payment status as Paid</a>
+												class="btn btn-warning">Update Payment</a>
 										</c:if>
 									</security:authorize>
 									</td>

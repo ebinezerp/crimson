@@ -288,6 +288,7 @@
 		document.getElementById('prod_quantity').value = 1;
 
 		function cartsubmit() {
+			console.log(document.getElementById('prod_quantity').value);
 			document.forms['cartform'].submit();
 		}
 	</script>

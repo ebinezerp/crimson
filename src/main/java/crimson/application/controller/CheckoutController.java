@@ -1,6 +1,8 @@
 package crimson.application.controller;
 
+import java.lang.reflect.Field;
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -138,6 +140,13 @@ public class CheckoutController {
 		order.setDeliveryStatus(false);
 		order.setDispatchStatus(false);
 		order.setOrderedDate(new Date());
+		order.setPaymentStatus(false);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(order.getOrderedDate());
+		cal.add(Calendar.DAY_OF_MONTH, 3);
+		
+		order.setDeliveryDate(cal.getTime());
 
 		if (orderService.saveOrUpdate(order) == null) {
 			return null;

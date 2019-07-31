@@ -3,11 +3,14 @@ $(document).ready(function() {
 	var id = url.substring(url.lastIndexOf('/') + 1);
 	console.log(id);
 	$.get('/user/checkcartitem/' + id, function(data, error) {
+		console.log(data);
 		if (data != "") {
+			console.log("if hello");
 			$('#addtocartbtn').hide();
 			$('#prodexits').show();
 			$('#prod_quantity').val(data.quantity);
 		} else {
+			console.log("else hello");
 			$('#prod_quantity').val(1);
 		}
 	});

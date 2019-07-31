@@ -123,7 +123,10 @@ public class CartController {
 	@ResponseBody
 	public CartItem cartItemExists(@PathVariable("id") Long productId, HttpSession session) {
 		User user = (User) session.getAttribute("reg_user");
-		CartItem cartItem = cartItemService.getCartItem(user.getCart(), productService.getProduct(productId));
+		
+		Cart cart = cartService.getCart(user);
+		
+		CartItem cartItem = cartItemService.getCartItem(cart, productService.getProduct(productId));
 		return cartItem;
 	}
 
@@ -158,7 +161,7 @@ public class CartController {
 		List<CartItem> cartItems = new ArrayList<CartItem>();
 		cartItems.add(cartItem);
 		cart.setCartItems(cartItems);
-		cart.setQuantity(1);
+		cart.setQuantity(quantity);
 		cart.setTotalAmount(product.getPrice().doubleValue());
 		cart.setUser(user);
 		return cart;

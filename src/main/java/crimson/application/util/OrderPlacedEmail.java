@@ -54,7 +54,7 @@ public class OrderPlacedEmail implements Email {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 				helper.setTo(address);
 				helper.setSubject("Order Placed: " + orderId);
-				Template template=freemarkerConfig.getTemplate("orderplaced.ftl");
+				Template template=freemarkerConfig.getTemplate("invoice.ftl");
 				String body=FreeMarkerTemplateUtils.processTemplateIntoString(template, order);
 				helper.setText(body, true);
 			}

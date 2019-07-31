@@ -49,8 +49,8 @@
 								</div>
 								<div class="modal-acc">
 									<p>
-										Already have an account? <a data-toggle="modal" id="log-m"
-											data-target="#myModal" href="#">Sign In</a>
+										Create a New Account <a data-toggle="modal" id="log-m"
+											data-target="#myModal" href="#">Sign Up</a>
 									</p>
 									<p>
 										<a href="${contextPath}/forgetpassword">Forget Password?</a>

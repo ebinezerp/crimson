@@ -51,7 +51,7 @@ public class OrderDeliveryEmail implements Email {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 				helper.setTo(address);
 				helper.setSubject("Order Delivered: " + orderId);
-				Template template=freemarkerConfig.getTemplate("delivery-mail.ftl");
+				Template template=freemarkerConfig.getTemplate("delivery-email.ftl");
 				String body=FreeMarkerTemplateUtils.processTemplateIntoString(template, order);
 				helper.setText(body, true);
 			}
