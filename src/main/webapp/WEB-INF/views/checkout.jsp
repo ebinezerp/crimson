@@ -30,7 +30,8 @@
 
 				<h2>Checkout</h2>
 				<div class="link-sec">
-					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i> <a href="${contextPath}/user/cart">Cart</a>
+					<a href="${contextPath}/">Home</a> <i class="fa fa-angle-right"></i>
+					<a href="${contextPath}/user/cart">Cart</a>
 				</div>
 
 			</div>
@@ -38,7 +39,7 @@
 
 		<!--top-->
 		<springform:form action="${contextPath}/user/checkout" method="POST"
-			name="checkoutform" modelAttribute="orderReciever">
+			name="checkoutform" modelAttribute="userDetails">
 			<div class="container product-table padd-80">
 
 
@@ -50,7 +51,7 @@
 						<div class="col-md-12">
 							<h2>Billing Details</h2>
 						</div>
-						<div class="col-md-6">
+						<%-- <div class="col-md-6">
 							<h3>First Name *</h3>
 							<springform:input type="text" path="firstname" />
 							<springform:errors class="error_msg" path="firstname"></springform:errors>
@@ -59,56 +60,74 @@
 							<h3>Last Name *</h3>
 							<springform:input type="text" path="lastname" />
 							<springform:errors class="error_msg" path="lastname"></springform:errors>
-						</div>
+						</div> --%>
+
+						<springform:input path="id" id="userDetailsId"
+							name="userDetails" type="hidden" value="" />
+						<springform:input path="address.id"
+							id="addressId" name="userDetails" type="hidden" value="" />
+
+
 						<div class="col-md-12">
 							<h3>Company Name</h3>
-							<springform:input type="text" path="companyName" />
-							<springform:errors class="error_msg" path="companyName"></springform:errors>
+							<springform:input type="text" path="companyName"
+								readonly="true"/>
+							<springform:errors class="error_msg"
+								path="companyName"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Email Address *</h3>
-							<springform:input type="email" path="email" />
-							<springform:errors class="error_msg" path="email"></springform:errors>
+							<springform:input type="email" path="user.email" readonly="true" />
+							<springform:errors class="error_msg" path="user.email"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Phone *</h3>
-							<springform:input type="tel" path="mobile" />
-							<springform:errors class="error_msg" path="mobile" />
+							<springform:input type="tel" path="user.mobile" readonly="true" />
+							<springform:errors class="error_msg" path="user.mobile" />
 						</div>
 						<div class="col-md-12">
-							<h3>Country *</h3>
-							<springform:select class="form-control" path="address.country">
-								<springform:option value="India">India</springform:option>
-								<springform:option value="England">England</springform:option>
-								<springform:option value="China">China</springform:option>
-								<springform:option value="Sri lanka">Sri Lanka</springform:option>
-							</springform:select>
-							<springform:errors class="error_msg" path="address.country"/>
+							<label for="Country">Country *</label>
+							<springform:input name="Country"
+								path="address.country" class="form-control" readonly="true"></springform:input>
+
+						</div>
+
+						<div class="col-md-12">
+							<label for="doorNo">Door No</label>
+							<springform:input type="text"
+								path="address.doorNo"
+								placeholder="Apartment, suite, unit etc. (optional)"
+								readonly="true" class="editable" />
+							<springform:errors class="error_msg"
+								path="address.doorNo"></springform:errors>
 						</div>
 						<div class="col-md-12">
-							<h3>Address *</h3>
-							<springform:input path="address.street" type="text"
-								placeholder="Street Address" />
-							<springform:errors class="error_msg" path="address.street"></springform:errors>
-						</div>
-						<div class="col-md-12">
-							<springform:input type="text" path="address.apartment"
-								placeholder="Apartment, suite, unit etc. (optional)" />
-							<springform:errors class="error_msg" path="address.apartment" ></springform:errors>
+							<h3>Street *</h3>
+							<springform:input path="address.street"
+								type="text" placeholder="Street Address" readonly="true"
+								class="editable" />
+							<springform:errors class="error_msg"
+								path="address.street"></springform:errors>
 						</div>
 						<div class="col-md-12">
 							<h3>Town / City *</h3>
-							<springform:input type="text" path="address.city"
-								placeholder="Street Address" />
-							<springform:errors class="error_msg" path="address.city"></springform:errors>
+							<springform:input type="text"
+								path="address.city"
+								placeholder="Street Address" readonly="true" class="editable" />
+							<springform:errors class="error_msg"
+								path="address.city"></springform:errors>
 						</div>
 						<div class="col-md-6">
 							<h3>Postcode *</h3>
-							<springform:input type="text" path="address.code" />
+							<springform:input type="text"
+								path="address.code" readonly="true"
+								class="editable" />
 							<springform:errors path="address.code"></springform:errors>
 						</div>
 
-
+						<div class="col-md-12" align="center">
+							<div class="shp-btn" id="EditAddress">Edit Address</div>
+						</div>
 					</div>
 
 
@@ -179,7 +198,7 @@
 						<div class="accordion accordion-open check-faq" id="section5">
 							<label>Cash on Delivery</label><span></span>
 						</div>
-						
+
 
 
 
@@ -210,6 +229,13 @@
 			$('.accordion').accordion({
 				defaultOpen : 'some_id'
 			}); //some_id section1 in demo
+			
+			
+			$("#EditAddress").click(function(){
+				$(".editable").removeAttr("readonly");
+				$(this).hide();
+				$("#addressId").val(0);
+			})
 		});
 	</script>
 

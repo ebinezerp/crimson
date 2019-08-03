@@ -29,7 +29,9 @@
 							<li class="menuitem ${productsmenu}"><a
 								href="${contextPath}/products">PRODUCTS</a></li>
 							<li class="menuitem ${categorymenu}"><a
-								href="${contextPath}/category">CATEGORY</a></li>
+								href="${contextPath}/category">PRODUCT CATEGORY</a></li>
+							<li class="menuitem ${usercategorymenu}"><a
+								href="${contextPath}/usercategory">USER CATEGORY</a></li>
 							<li class='menuitem ${addproductform}'><a
 								href="${contextPath}/admin/productform">ADD PRODUCT</a></li>
 							<li class='menuitem ${ordersmenu}'><a

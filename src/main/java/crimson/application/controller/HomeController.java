@@ -1,6 +1,7 @@
 package crimson.application.controller;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import crimson.application.model.Cart;
 import crimson.application.model.Product;
 import crimson.application.model.User;
+import crimson.application.model.UserDetails;
 import crimson.application.repository.CartRepository;
 import crimson.application.repository.ProductRepository;
 import crimson.application.repository.UserRepository;
 import crimson.application.service.CartService;
 import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
+import crimson.application.service.UserCategoryService;
+import crimson.application.service.UserDetailsService;
 import crimson.application.service.UserService;
 import crimson.application.util.Validation;
 
@@ -36,6 +40,12 @@ public class HomeController {
 	private UserService userService;
 
 	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private UserCategoryService userCategoryService;
+
+	@Autowired
 	private ProductService productService;
 
 	@Autowired
@@ -43,8 +53,7 @@ public class HomeController {
 
 	@Autowired
 	private Validation validation;
-	
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -53,14 +62,14 @@ public class HomeController {
 			HttpServletRequest request, Principal principal, HttpSession session) {
 
 		model.addAttribute("user", new User());
-		
+
 		model.addAttribute("categories", categoryService.getCategories());
 
+		System.out.println(principal);
 		if (principal != null) {
+			System.out.println(principal);
 			User user = null;
-			if (session.getAttribute("reg_user") == null) {
-				user = userService.getUserByEmail(principal.getName());
-			}
+			user = userService.getUserByEmail(principal.getName());
 			if (user != null) {
 				session.setAttribute("reg_user", user);
 				if (user.getRole().equalsIgnoreCase("ROLE_OWNER")) {
@@ -74,16 +83,21 @@ public class HomeController {
 				} else {
 					session.setAttribute("cart_count", cart.getQuantity());
 				}
+
+				if (user.getUserDetails() == null) {
+					return "redirect:/profile/" + user.getUserId() + "?redirect=true";
+				}
+
 				return "redirect:/categories";
 			} else {
+				System.out.println("logout");
 				return "redirect:/logout";
 			}
 		}
 
 		return "index";
 	}
-	
-	
+
 	@GetMapping("/categories")
 	public String getCategories(Model model) {
 		model.addAttribute("categories", categoryService.getCategories());
@@ -94,8 +108,8 @@ public class HomeController {
 
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(name = "status", required = false) Boolean status,
-			@RequestParam(name = "disable", required = false) Boolean disableStatus, 
-			@RequestParam(name="cartExists", required= false) String cartStatus,Model model, Principal principal,
+			@RequestParam(name = "disable", required = false) Boolean disableStatus,
+			@RequestParam(name = "cartExists", required = false) String cartStatus, Model model, Principal principal,
 			HttpSession session) {
 
 		model.addAttribute("user", new User());
@@ -105,7 +119,7 @@ public class HomeController {
 		model.addAttribute("disable", disableStatus);
 
 		if (session.getAttribute("reg_user") != null) {
-			Cart cart = userService.getUserByEmail((((User)session.getAttribute("reg_user")).getEmail())).getCart();
+			Cart cart = userService.getUserByEmail((((User) session.getAttribute("reg_user")).getEmail())).getCart();
 			if (cart != null) {
 				System.out.println("cart is existed");
 				session.setAttribute("cart_count", cart.getQuantity());
@@ -120,14 +134,12 @@ public class HomeController {
 
 		return "products";
 	}
-	
-	
+
 	@GetMapping("/catproducts/{id}")
 	public String catProducts(@RequestParam(name = "status", required = false) Boolean status,
-			@RequestParam(name = "disable", required = false) Boolean disableStatus, 
-			@RequestParam(name="cartExists", required= false) String cartStatus,
-			@PathVariable("id")Long categoryId,Model model, Principal principal,
-			HttpSession session) {
+			@RequestParam(name = "disable", required = false) Boolean disableStatus,
+			@RequestParam(name = "cartExists", required = false) String cartStatus, @PathVariable("id") Long categoryId,
+			Model model, Principal principal, HttpSession session) {
 
 		model.addAttribute("user", new User());
 		model.addAttribute("products", productService.getProducts(categoryService.getCategory(categoryId)));
@@ -136,7 +148,7 @@ public class HomeController {
 		model.addAttribute("disable", disableStatus);
 
 		if (session.getAttribute("reg_user") != null) {
-			Cart cart = userService.getUserByEmail((((User)session.getAttribute("reg_user")).getEmail())).getCart();
+			Cart cart = userService.getUserByEmail((((User) session.getAttribute("reg_user")).getEmail())).getCart();
 			if (cart != null) {
 				System.out.println("cart is existed");
 				session.setAttribute("cart_count", cart.getQuantity());
@@ -151,7 +163,6 @@ public class HomeController {
 
 		return "products";
 	}
-
 
 	@GetMapping("/prod_details/{id}")
 	public String productDetails(@PathVariable("id") Long id, Model model) {
@@ -177,34 +188,69 @@ public class HomeController {
 	@GetMapping("/profile")
 	public String profile(Model model, HttpSession session) {
 		model.addAttribute("user", session.getAttribute("reg_user"));
+		model.addAttribute("userCategories", userCategoryService.getUserCategories());
+		return "profile";
+	}
+
+	@GetMapping("/profile/{id}")
+	public String profile(@PathVariable("id") Long id,
+			@RequestParam(name = "redirect", required = false) String redirect, Model model, HttpSession session) {
+		model.addAttribute("user", userService.getUserById(id));
+		model.addAttribute("userCategories", userCategoryService.getUserCategories());
+
+		if (redirect != null) {
+			model.addAttribute("redirect", redirect);
+		}
+
 		return "profile";
 	}
 
 	@PostMapping("/profile")
-	public String profileUpdate(@Valid @ModelAttribute("user") User user, Errors errors, Model model,
-			HttpSession session, HttpServletRequest request, Principal principal) {
+	public String profileUpdate(@Valid @ModelAttribute("user") User user, Errors errors,
+			@RequestParam(name = "redirect", required = false) String redirect, Model model, HttpSession session,
+			HttpServletRequest request, Principal principal) {
+
+		System.err.println(user);
+
 		if (errors.hasErrors()) {
+			System.err.println("errors");
 			return "profile";
 		}
 
 		Map<String, String> errorMessages = validation.userUpdationValidation(user);
 		if (errorMessages.size() > 0) {
-			model.addAttribute("user", session.getAttribute("reg_user"));
+			System.err.println("message errors");
+			model.addAttribute("user", user);
+			model.addAttribute("userCategories", userCategoryService.getUserCategories());
 			model.addAttribute("errorMessages", errorMessages);
+			model.addAttribute("redirect", redirect);
 			return "profile";
 		}
-		System.out.println(user.getPassword());
-		userService.saveOrUpdate(user);
+
+		UserDetails userDetails = user.getUserDetails();
+		userDetails.setUser(user);
+
+		userService.update(user);
 		// updateAuthentication.doLogin(user, request);
-		session.setAttribute("reg_user", user);
-		return "redirect:/profile";
+
+		if (session.getAttribute("reg_user") != null) {
+			session.setAttribute("reg_user", user);
+			if (redirect != null) {
+				System.out.println("redirect");
+				System.out.println(principal);
+				return "redirect:/";
+			}
+			return "redirect:/profile";
+		} else {
+			return "redirect:/?login";
+		}
 	}
-	
+
 	@GetMapping("/terms")
 	public String termsAndCondtions() {
 		return "termsandconditions";
 	}
-	
+
 	@GetMapping("/privacy")
 	public String privacy() {
 		return "privacyandpolicy";

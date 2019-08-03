@@ -3,6 +3,7 @@ package crimson.application.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,9 +55,9 @@ public class Order {
 	
 	@Column(nullable = false)
 	private boolean paymentStatus;
+	
+	@OneToOne(mappedBy="order", cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	private Address orderAddress;
 
-	@OneToOne(mappedBy = "order")
-	@ToString.Exclude
-	private OrderReciever orderReciever;
 
 }

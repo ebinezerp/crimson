@@ -46,7 +46,7 @@
 								<td><a style="text-decoration: underline;"
 									href="${contextPath}/order/${order.orderId}">${order.orderId}</a></td>
 								<td>${order.orderedDate}</td>
-								<td>${order.orderReciever.companyName}</td>
+								<td>${order.user.userDetails.companyName}</td>
 								<td>${order.totalAmount}</td>
 								<td><c:if test="${order.dispatchStatus==true}">
 										<button class="btn btn-success">Dispatched</button>

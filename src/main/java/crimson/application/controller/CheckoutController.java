@@ -1,3 +1,4 @@
+
 package crimson.application.controller;
 
 import java.lang.reflect.Field;
@@ -25,19 +26,18 @@ import crimson.application.model.Cart;
 import crimson.application.model.CartItem;
 import crimson.application.model.Order;
 import crimson.application.model.OrderItem;
-import crimson.application.model.OrderReciever;
 import crimson.application.model.User;
+import crimson.application.model.UserDetails;
 import crimson.application.repository.AddressRepository;
-import crimson.application.repository.OrderRecieverRepository;
 import crimson.application.service.AddressService;
 import crimson.application.service.CartService;
 import crimson.application.service.OrderItemService;
-import crimson.application.service.OrderRecieverService;
 import crimson.application.service.OrderService;
 import crimson.application.util.CartUtil;
 import crimson.application.util.OrderPlacedEmail;
 
 @Controller
+
 @RequestMapping("/user")
 public class CheckoutController {
 
@@ -51,15 +51,13 @@ public class CheckoutController {
 	private OrderItemService orderItemService;
 
 	@Autowired
-	private OrderRecieverService orderRecieverService;
-
-	@Autowired
 	private AddressService addressService;
 
 	@Autowired
 	private CartUtil cartUtilService;
 
 	@Autowired
+
 	@Qualifier("orderPlacedEmail")
 	private OrderPlacedEmail orderPlacedEmail;
 
@@ -72,13 +70,13 @@ public class CheckoutController {
 			return "redirect:/user/cart";
 		}
 
-		model.addAttribute("orderReciever", new OrderReciever());
+		model.addAttribute("userDetails", cart.getUser().getUserDetails());
 		model.addAttribute("cart", cart);
 		return "checkout";
 	}
 
 	@PostMapping("/checkout")
-	public String orderCheckout(@Valid @ModelAttribute("orderReciever") OrderReciever orderReciever, Errors errors,
+	public String orderCheckout(@Valid @ModelAttribute("userDetails") UserDetails userDetails, Errors errors,
 			Model model, Principal principal, HttpServletRequest request, HttpSession session) {
 
 		Cart cart = cartService.getCart(((User) (session.getAttribute("reg_user"))));
@@ -92,7 +90,12 @@ public class CheckoutController {
 			return "checkout";
 		}
 
-		Order order = saveOrder(cart, orderReciever);
+		System.err.println(userDetails);
+		System.err.println(userDetails.getAddress());
+
+		// address.setOrder(order);
+
+		Order order = saveOrder(cart, userDetails);
 
 		if (order == null) {
 			model.addAttribute("cart", cart);
@@ -100,23 +103,7 @@ public class CheckoutController {
 			return "checkout";
 		}
 
-		Address address = orderReciever.getAddress();
-		address.setOrderReciever(orderReciever);
-		orderReciever.setAddress(null);
-		if (orderRecieverService.saveOrUpdate(orderReciever) == null) {
-			orderService.delete(order);
-			model.addAttribute("cart", cart);
-			model.addAttribute("order_status", false);
-			return "checkout";
-		}
-
-		if (addressService.saveOrUpdate(address) == null) {
-			orderRecieverService.delete(orderReciever);
-			orderService.delete(order);
-			model.addAttribute("cart", cart);
-			model.addAttribute("order_status", false);
-			return "checkout";
-		}
+		// order.setAddress(null);
 
 		orderPlacedEmail.send(cart.getUser().getEmail(), order.getOrderId().toString(),
 				"http://" + request.getServerName() + ":" + request.getServerPort());
@@ -132,7 +119,7 @@ public class CheckoutController {
 		return "billpage";
 	}
 
-	private Order saveOrder(Cart cart, OrderReciever orderReciever) {
+	private Order saveOrder(Cart cart, UserDetails userDetails) {
 		Order order = new Order();
 		order.setQuantity(cart.getQuantity());
 		order.setTotalAmount(cart.getTotalAmount());
@@ -141,17 +128,22 @@ public class CheckoutController {
 		order.setDispatchStatus(false);
 		order.setOrderedDate(new Date());
 		order.setPaymentStatus(false);
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(order.getOrderedDate());
 		cal.add(Calendar.DAY_OF_MONTH, 3);
-		
+
 		order.setDeliveryDate(cal.getTime());
+
+		Address address = userDetails.getAddress();
+		userDetails.setAddress(null);
+		address.setId(null);
+		address.setOrder(order);
+		order.setOrderAddress(address);
 
 		if (orderService.saveOrUpdate(order) == null) {
 			return null;
 		}
-		orderReciever.setOrder(order);
 		for (CartItem cartItem : cart.getCartItems()) {
 			saveOrderItem(cartItem, order);
 		}

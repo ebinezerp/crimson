@@ -1,5 +1,6 @@
 package crimson.application.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,30 +31,31 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 	@NotBlank(message = "Username should not be empty.")
-	@NotNull
+	@NotNull(message = "Username Should not be null")
 	@Column(unique = true, nullable = false)
 	@Size(min = 5, message = "Username should be atleast min 5 characters.")
 	private String username;
 
 	@NotBlank(message = "Email should not be empty.")
-	@NotNull
+	@NotNull(message= "Email Should not be null")
 	@Column(unique = true, nullable = false)
 	@Pattern(regexp = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$", message = "Enter a valid email Id")
 	private String email;
 
 	@NotBlank(message = "Mobile should not be empty.")
-	@NotNull
+	@NotNull(message = "mobile should not be null")
 	@Column(unique = true, nullable = false)
 	@Pattern(regexp = "^[6-9]{1}[0-9]{9}$", message = "Enter a valid mobile Number")
 	private String mobile;
 
-	@NotNull
+	@NotNull(message = "Password Should not be null")
 	@Column(nullable = false)
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$*%^&+=])(?=\\S+$).{8,}$", message = "Password Should Contain atleast 8 characters with atleast one Capital, one small alphabet, one digit and one special character")
 	private String password;
 
 	@Transient
 	private String confirmPassword;
+	
 
 	@NotBlank
 	@NotNull
@@ -61,8 +63,14 @@ public class User {
 
 	@NotNull
 	private Boolean isActive;
-
+	
 	@OneToOne(mappedBy = "user",fetch=FetchType.LAZY)
 	private Cart cart;
+	
+	@OneToOne(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
+	private UserDetails userDetails;
+	
+	
+	
 
 }

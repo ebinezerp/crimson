@@ -32,6 +32,17 @@ public class UserService implements UserDetailsService {
 			return null;
 		}
 	}
+	
+	
+	public User update(User user) {
+		try {
+			System.err.println(user);
+			return userRepository.saveAndFlush(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public boolean deleteUser(User user) {
 		try {

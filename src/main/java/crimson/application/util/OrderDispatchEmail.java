@@ -1,3 +1,4 @@
+
 package crimson.application.util;
 
 import javax.mail.internet.MimeMessage;
@@ -26,7 +27,7 @@ public class OrderDispatchEmail implements Email {
 		try {
 
 			Order order = orderRepository.getOne(Long.valueOf(orderId));
-			Address address = order.getOrderReciever().getAddress();
+			Address address = order.getOrderAddress();
 
 			javaMailSender.send(new MimeMessagePreparator() {
 
@@ -38,7 +39,7 @@ public class OrderDispatchEmail implements Email {
 					messageHelper.setText("<div>" + "<p>Hii " + order.getUser().getUsername() + "</p>"
 							+ "<br><p>We thought you'd like to know that we've dispatched your item(s). Your order is on the way</p>"
 							+ "<br><div><p>Delivery Address</p><address>" + "<p>" + address.getStreet() + "</p>" + "<p>"
-							+ address.getApartment() + "</p>" + "<p>" + address.getCity() + "</p>" + "<p>"
+							+ address.getDoorNo() + "</p>" + "<p>" + address.getCity() + "</p>" + "<p>"
 							+ address.getCountry() + "</p>" + "<p>" + address.getCode() + "</p>" + "</address></div>"
 							+ "</div>", true);
 
