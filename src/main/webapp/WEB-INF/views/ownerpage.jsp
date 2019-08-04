@@ -36,6 +36,8 @@
 						id="bs-example-navbar-collapse-1">
 
 						<ul class="nav navbar-nav navbar-left">
+							<li class="menuitem ${categorymenu}"><a
+								href="${contextPath}/category">PRODUCT CATEGORY</a></li>
 							<li class="active"><a href="${contextPath}/owner/">Register
 									Admins</a></li>
 
@@ -86,6 +88,16 @@
 						<springform:errors path="mobile" class="error_msg"></springform:errors>
 						<span class="error_msg">${error_messages.mobile_error}</span>
 					</div>
+					<%-- <div class="col-md-6">
+
+						<label for="categories">Categories:</label>
+						<springform:select path="category" name="Items"
+							class="form-control" id="categorySelect"
+							items="${categories}" itemLabel="categoryName" itemValue="categoryId"
+							selected=''>
+							<springform:options  />
+						</springform:select>
+					</div> --%>
 					<springform:input path="role" type="hidden" value="ROLE_ADMIN" />
 					<springform:input path="isActive" type="hidden" value="true" />
 					<springform:input path="password" type="hidden" value="Dummy@123#" />
@@ -99,7 +111,6 @@
 		<%@include file="footer.jsp"%>
 
 	</div>
-
 
 
 </body>

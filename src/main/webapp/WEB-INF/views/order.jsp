@@ -20,19 +20,18 @@
 			<div class="col-md-7 col-md-offset-2">
 				<div class="bill_body">
 					<div class="order_reciever_address">
-						<p>${order.orderReciever.firstname}&nbsp
-							${order.orderReciever.lastname}</p>
-						<p>${order.orderReciever.companyName}</p>
-						<p>${order.orderReciever.email}</p>
-						<P>${order.orderReciever.mobile}</P>
+						<p>${order.user.username }</p>
+						<p>${order.user.userDetails.companyName}</p>
+						<p>${order.user.email}</p>
+						<P>${order.user.mobile}</P>
 						<h4>
 							<b>Delivery Address</b>
 						</h4>
-						<p>${order.orderReciever.address.apartment}</p>
-						<p>${order.orderReciever.address.street}</p>
-						<p>${order.orderReciever.address.city}</p>
-						<p>${order.orderReciever.address.country}</p>
-						<p>${order.orderReciever.address.code}</p>
+						<p>${order.orderAddress.doorNo}</p>
+						<p>${order.orderAddress.street}</p>
+						<p>${order.orderAddress.city}</p>
+						<p>${order.orderAddress.country}</p>
+						<p>${order.orderAddress.code}</p>
 					</div>
 					<br> <br>
 					<div class="cart_details">
@@ -89,6 +88,9 @@
 									class="btn btn-warning">Deliver</a>
 							</c:if>
 						</security:authorize>
+					</div>
+					<div align="center" class='mt-50'>
+						<a class='shp-btn' href="${contextPath}/user/bill/${order.orderId}">Bill Preview</a>
 					</div>
 				</div>
 			</div>

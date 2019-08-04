@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import crimson.application.model.User;
+import crimson.application.service.CategoryService;
 import crimson.application.service.UserService;
 import crimson.application.util.Email;
 import crimson.application.util.RandomPasswordGenerator;
@@ -30,6 +31,10 @@ public class OwnerController {
 
 	@Autowired
 	private UserService userService;
+	
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
