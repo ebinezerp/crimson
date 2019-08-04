@@ -28,5 +28,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<String> invalidCredentails(InvalidCredentialsException ex) {
 		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 	}
+	
+	@ExceptionHandler(OrderSaveException.class)
+	public ResponseEntity<String> orderSaveException(OrderSaveException ex){
+		return new ResponseEntity<String>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }

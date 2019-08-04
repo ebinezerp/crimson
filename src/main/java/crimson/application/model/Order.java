@@ -36,12 +36,11 @@ public class Order {
 	private Boolean dispatchStatus;
 
 	private Boolean deliveryStatus;
-	
-	
+
 	private Date orderedDate;
-	
+
 	private Date dispatchedDate;
-	
+
 	private Date deliveryDate;
 
 	@ManyToOne
@@ -49,15 +48,15 @@ public class Order {
 	@JsonIgnore
 	private User user;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = { CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.MERGE })
 	@ToString.Exclude
 	private List<OrderItem> orderItems;
-	
+
 	@Column(nullable = false)
 	private boolean paymentStatus;
-	
-	@OneToOne(mappedBy="order", cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private Address orderAddress;
 
+	@OneToOne(mappedBy = "order", cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE })
+	private Address orderAddress;
 
 }

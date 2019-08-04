@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,5 +50,6 @@ public class UserDetails {
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH ,CascadeType.MERGE})
 	@ToString.Exclude
+	@JsonIgnore
 	private User user;
 }

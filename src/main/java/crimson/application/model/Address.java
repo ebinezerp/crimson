@@ -33,10 +33,12 @@ public class Address {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@ToString.Exclude
+	@JsonIgnore
 	private Order order;
 
 	@OneToOne(mappedBy="address")
 	@ToString.Exclude
+	@JsonIgnore
 	private UserDetails userDetails;
 
 }
