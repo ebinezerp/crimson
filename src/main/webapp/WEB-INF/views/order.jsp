@@ -43,12 +43,14 @@
 								<th>Total Price</th>
 							</tr>
 							<c:forEach items="${order.orderItems}" var="orderItem">
-								<tr>
-									<td>${orderItem.product.productName}</td>
-									<td>${orderItem.unitPrice}</td>
-									<td>${orderItem.quantity}</td>
-									<td>${orderItem.totalPrice}</td>
-								<tr>
+								<c:if test="${reg_user.adminDetails.category.categoryId== orderItem.product.category.categoryId}">
+									<tr>
+										<td>${orderItem.product.productName}</td>
+										<td>${orderItem.unitPrice}</td>
+										<td>${orderItem.quantity}</td>
+										<td>${orderItem.totalPrice}</td>
+									<tr>
+								</c:if>
 							</c:forEach>
 						</table>
 						<p>
@@ -90,7 +92,8 @@
 						</security:authorize>
 					</div>
 					<div align="center" class='mt-50'>
-						<a class='shp-btn' href="${contextPath}/user/bill/${order.orderId}">Bill Preview</a>
+						<a class='shp-btn'
+							href="${contextPath}/user/bill/${order.orderId}">Bill Preview</a>
 					</div>
 				</div>
 			</div>

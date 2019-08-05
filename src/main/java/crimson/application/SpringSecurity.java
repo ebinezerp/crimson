@@ -36,22 +36,18 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.usersByUsernameQuery("select email,password,is_Active from user where email=?")
 				.authoritiesByUsernameQuery("select email,role from user where email=?");
 	}
-	
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
 		http.csrf().disable().authorizeRequests().antMatchers("/user/**").hasRole("USER").antMatchers("/admin/**")
-				.hasRole("ADMIN").antMatchers("/owner/**").hasRole("OWNER").antMatchers("/profile**")
-				.hasAnyRole("ADMIN", "USER").antMatchers("/orders/**").hasAnyRole("ADMIN", "USER")
-				.and().formLogin().loginPage("/?login").usernameParameter("email")
-				.passwordParameter("password").loginProcessingUrl("/processlogin").defaultSuccessUrl("/", true)
-				.failureUrl("/?login=error").and().logout().logoutUrl("/logout").logoutSuccessUrl("/?login");
+				.hasAnyRole("ADMIN", "OWNER").antMatchers("/owner/**").hasRole("OWNER").antMatchers("/profile**")
+				.hasAnyRole("ADMIN", "USER").antMatchers("/orders/**").hasAnyRole("ADMIN", "OWNER", "USER")
+				.and().formLogin().loginPage("/?login").usernameParameter("email").passwordParameter("password")
+				.loginProcessingUrl("/processlogin").defaultSuccessUrl("/", true).failureUrl("/?login=error").and()
+				.logout().logoutUrl("/logout").logoutSuccessUrl("/?login");
 		System.out.println("Web Configureed");
 	}
-
-	
 
 	@Bean
 	public static PasswordEncoder encoder() {

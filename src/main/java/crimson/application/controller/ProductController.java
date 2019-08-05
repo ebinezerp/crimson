@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import crimson.application.exception.AddProductMethodNotExceptionHandler;
 import crimson.application.model.Product;
 import crimson.application.model.ProductSpecification;
+import crimson.application.model.User;
 import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
 import crimson.application.util.Validation;
@@ -46,26 +48,45 @@ public class ProductController {
 	private String imageLocation;
 
 	@GetMapping("/productform")
-	public String productForm(@RequestParam(value = "status", required = false) String status, Model model) {
+	public String productForm(@RequestParam(value = "status", required = false) String status, Model model,
+			HttpSession session) {
 		if (status != null) {
 			model.addAttribute("status", status);
 		}
-		model.addAttribute("product", new Product());
-		model.addAttribute("categories", categoryService.getCategories());
+		Product product = new Product();
+
+		User user = ((User) session.getAttribute("reg_user"));
+
+		if (user.getRole().equals("ROLE_OWNER")) {
+			model.addAttribute("categories", categoryService.getCategories());
+		} else {
+			product.setCategory(user.getAdminDetails().getCategory());
+		}
+
+		model.addAttribute("product", product);
+
 		model.addAttribute("addproductform", "active");
 		return "productform";
 	}
 
 	@PostMapping("/addproduct")
 	public String addproduct(@Valid @ModelAttribute("product") Product product, Errors errors, Model model,
-			HttpServletRequest request) {
-		model.addAttribute("categories", categoryService.getCategories());
+			HttpServletRequest request, HttpSession session) {
+
+		User user = ((User) session.getAttribute("reg_user"));
+
+		if (user.getRole().equals("ROLE_OWNER")) {
+			model.addAttribute("categories", categoryService.getCategories());
+		} else {
+			product.setCategory(user.getAdminDetails().getCategory());
+		}
 
 		System.out.println(product);
 		System.out.println(product.getProductDescriptions());
 
 		if (errors.hasErrors()) {
 			model.addAttribute("product", product);
+			System.out.println(errors);
 			return "productform";
 		}
 
@@ -80,28 +101,34 @@ public class ProductController {
 		}
 
 		if (!product.getProductImage().isEmpty()) {
-			
-			
+
 			product.getProductDescriptions().forEach((productDescription) -> {
 				productDescription.setProduct(product);
 			});
-			
-			product.getProductApplications().forEach((productApplication) -> {
-				productApplication.setProduct(product);
-			});
-			
-			product.getProductFeatures().forEach((productFeature) -> {
-				productFeature.setProduct(product);
-			});
-			
-			product.getProductSpecifications().forEach((productSpecification)->{
-				productSpecification.setProduct(product);
-			});
-			
-			product.getPackagings().forEach((packaging) -> {
-				packaging.setProduct(product);
-			});
-			
+			if (product.getProductApplications() != null) {
+				product.getProductApplications().forEach((productApplication) -> {
+					productApplication.setProduct(product);
+				});
+			}
+
+			if (product.getProductFeatures() != null) {
+				product.getProductFeatures().forEach((productFeature) -> {
+					productFeature.setProduct(product);
+				});
+			}
+
+			if (product.getProductSpecifications() != null) {
+				product.getProductSpecifications().forEach((productSpecification) -> {
+					productSpecification.setProduct(product);
+				});
+			}
+
+			if (product.getPackagings() != null) {
+				product.getPackagings().forEach((packaging) -> {
+					packaging.setProduct(product);
+				});
+			}
+
 			if (productService.save(product) == null) {
 				model.addAttribute("product_save_status", false);
 				return "productform";
@@ -140,7 +167,7 @@ public class ProductController {
 	@PostMapping("/updateproduct")
 	public String updateProduct(@Valid @ModelAttribute("product") Product product, Errors errors, Model model,
 			HttpServletRequest request) {
-		
+
 		if (errors.hasErrors()) {
 			return "editproduct";
 		}
@@ -149,28 +176,26 @@ public class ProductController {
 			model.addAttribute("error_messages", error_messages);
 			return "editproduct";
 		}
-		
-		
+
 		product.getProductDescriptions().forEach((productDescription) -> {
 			productDescription.setProduct(product);
 		});
-		
+
 		product.getProductApplications().forEach((productApplication) -> {
 			productApplication.setProduct(product);
 		});
-		
+
 		product.getProductFeatures().forEach((productFeature) -> {
 			productFeature.setProduct(product);
 		});
-		
-		product.getProductSpecifications().forEach((productSpecification)->{
+
+		product.getProductSpecifications().forEach((productSpecification) -> {
 			productSpecification.setProduct(product);
 		});
-		
+
 		product.getPackagings().forEach((packaging) -> {
 			packaging.setProduct(product);
 		});
-		
 
 		if (productService.update(product) == null) {
 			model.addAttribute("update_status", false);

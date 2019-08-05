@@ -148,12 +148,18 @@
 							</div>
 							
 							<div class="col-sm-6">
-								<label>Category *</label>
+							<label>Category *</label>
+							<security:authorize access="hasRole('ROLE_OWNER')">
 								<springform:select path="category">
 									<springform:options items="${categories}"
 										itemLabel="categoryName" itemValue="categoryId" />
 								</springform:select>
 								<springform:errors class="error_msg" path="category"></springform:errors>
+							</security:authorize>
+								
+							<security:authorize access="hasRole('ROLE_ADMIN')">
+							<springform:input path="category.categoryName" readonly="true"/>
+							</security:authorize>
 							</div>
 							<div class="col-sm-6">
 								<label>Stock(Tons) *</label>

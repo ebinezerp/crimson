@@ -31,8 +31,7 @@ public class OwnerController {
 
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -57,6 +56,7 @@ public class OwnerController {
 		}
 
 		model.addAttribute("user", new User());
+		model.addAttribute("categories", categoryService.getCategories());
 		return "ownerpage";
 	}
 
@@ -66,6 +66,7 @@ public class OwnerController {
 		String password = randomPasswordGenerator.generatePassword();
 		user.setPassword(passwordEncoder.encode(password));
 		if (errors.hasErrors()) {
+			model.addAttribute("categories", categoryService.getCategories());
 			return "ownerpage";
 		} else {
 			Map<String, String> error_Messages = validation.userExistenceValidation(user);
@@ -74,6 +75,9 @@ public class OwnerController {
 				return "ownerpage";
 			}
 		}
+		
+		user.getAdminDetails().setUser(user);
+		
 		if (userService.saveOrUpdate(user) == null) {
 			return "redirect:/owner?status=false";
 		}
@@ -83,12 +87,12 @@ public class OwnerController {
 	}
 
 	@GetMapping("/admins")
-	public String admins(@RequestParam(value = "id", required = false)String id ,Model model) {
-		
-		if(id!=null) {
+	public String admins(@RequestParam(value = "id", required = false) String id, Model model) {
+
+		if (id != null) {
 			model.addAttribute("id", id);
 		}
-		
+
 		model.addAttribute("admins", userService.getAllUserByRole("ROLE_ADMIN"));
 		return "adminlist";
 	}
@@ -113,7 +117,7 @@ public class OwnerController {
 		User user = userService.getUserById(userId);
 		if (user == null) {
 			return "redirect:/owner/admins?id=false";
-		}else {
+		} else {
 			model.addAttribute("user", user);
 			return "editadmin";
 		}

@@ -71,5 +71,15 @@ public class OrderService {
 			return null;
 		}
 	}
+	
+	
+	public List<Order> getOrdersByAdminCategory(Long categorId){
+		try {
+			return orderRepository.findByAdminCategoryId(categorId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

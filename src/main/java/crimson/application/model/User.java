@@ -70,6 +70,9 @@ public class User {
 	@OneToOne(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
 	private UserDetails userDetails;
 	
+	@OneToOne(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
+	private AdminDetails adminDetails;
+	
 	
 	
 

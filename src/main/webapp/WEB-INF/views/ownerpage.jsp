@@ -12,47 +12,7 @@
 	<div class="about-page">
 		<%@include file="header.jsp"%>
 
-		<!--search-->
-		<div class="container logo-bar">
-			<div class="col-md-8 logo-name text-center">
-				<a href="index.html"><img src="${img}/index/logo.png" alt=""
-					class="img-responsive" /></a>
-			</div>
-			<!--menu-->
-			<div class="container menu">
-				<nav class="navbar navbar-default">
-
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed"
-							data-toggle="collapse"
-							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-					</div>
-
-					<div class="collapse navbar-collapse"
-						id="bs-example-navbar-collapse-1">
-
-						<ul class="nav navbar-nav navbar-left">
-							<li class="menuitem ${categorymenu}"><a
-								href="${contextPath}/category">PRODUCT CATEGORY</a></li>
-							<li class="active"><a href="${contextPath}/owner/">Register
-									Admins</a></li>
-
-							<li><a href="${contextPath}/owner/admins">Admins List</a></li>
-
-						</ul>
-
-					</div>
-
-				</nav>
-			</div>
-
-			<div class="clearfix"></div>
-		</div>
-
+		<%@include file="searchmenu.jsp" %>
 
 		<div class="container">
 			<div class="col-md-4 col-md-offset-4">
@@ -88,16 +48,14 @@
 						<springform:errors path="mobile" class="error_msg"></springform:errors>
 						<span class="error_msg">${error_messages.mobile_error}</span>
 					</div>
-					<%-- <div class="col-md-6">
-
+					<div class="form-group">
 						<label for="categories">Categories:</label>
-						<springform:select path="category" name="Items"
-							class="form-control" id="categorySelect"
-							items="${categories}" itemLabel="categoryName" itemValue="categoryId"
-							selected=''>
-							<springform:options  />
+						<springform:select path="adminDetails.category" name="Items"
+							class="form-control" id="categorySelect" items="${categories}"
+							itemLabel="categoryName" itemValue="categoryId" selected=''>
+							<springform:options />
 						</springform:select>
-					</div> --%>
+					</div>
 					<springform:input path="role" type="hidden" value="ROLE_ADMIN" />
 					<springform:input path="isActive" type="hidden" value="true" />
 					<springform:input path="password" type="hidden" value="Dummy@123#" />

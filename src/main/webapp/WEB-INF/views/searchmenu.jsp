@@ -1,11 +1,11 @@
 <!--search-->
 <div class="container logo-bar">
-	<div class="col-md-5 logo-name text-center">
+	<div class="col-md-3 logo-name text-center">
 		<a href="index.html"><img src="${img}/index/logo.png" alt=""
 			class="img-responsive" /></a>
 	</div>
 	<!--menu-->
-	<div class="container menu">
+	<div class="container-fluid menu" style="display:flex;justify-content: flex-end;">
 		<security:authorize access="!isAnonymous()">
 			<nav class="navbar navbar-default">
 
@@ -25,13 +25,18 @@
 					<ul class="nav navbar-nav navbar-left">
 
 
-						<security:authorize access="hasRole('ROLE_ADMIN')">
+						<security:authorize
+							access="hasRole('ROLE_ADMIN')||hasRole('ROLE_OWNER')">
+							<security:authorize access="hasRole('ROLE_OWNER')">
+								<li class="menuitem ${productsmenu}"><a
+									href="${contextPath}/owner/">Add Admin</a></li>
+								<li class="menuitem ${categorymenu}"><a
+									href="${contextPath}/category">PRODUCT CATEGORY</a></li>
+								<li class="menuitem ${usercategorymenu}"><a
+									href="${contextPath}/usercategory">USER CATEGORY</a></li>
+							</security:authorize>
 							<li class="menuitem ${productsmenu}"><a
 								href="${contextPath}/products">PRODUCTS</a></li>
-							<li class="menuitem ${categorymenu}"><a
-								href="${contextPath}/category">PRODUCT CATEGORY</a></li>
-							<li class="menuitem ${usercategorymenu}"><a
-								href="${contextPath}/usercategory">USER CATEGORY</a></li>
 							<li class='menuitem ${addproductform}'><a
 								href="${contextPath}/admin/productform">ADD PRODUCT</a></li>
 							<li class='menuitem ${ordersmenu}'><a
@@ -70,18 +75,19 @@
 			</nav>
 		</security:authorize>
 	</div>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.menuitem').click(function() {
-				console.log(this);
-				console.log(this.siblings);
-			})
-		})
-	</script>
-
-
 	<div class="clearfix"></div>
 </div>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.menuitem').click(function() {
+			console.log(this);
+			console.log(this.siblings);
+		})
+	})
+</script>
+
+
+
