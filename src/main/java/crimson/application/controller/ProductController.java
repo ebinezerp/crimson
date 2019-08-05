@@ -101,10 +101,11 @@ public class ProductController {
 		}
 
 		if (!product.getProductImage().isEmpty()) {
-
-			product.getProductDescriptions().forEach((productDescription) -> {
-				productDescription.setProduct(product);
-			});
+			if (product.getProductDescriptions() != null) {
+				product.getProductDescriptions().forEach((productDescription) -> {
+					productDescription.setProduct(product);
+				});
+			}
 			if (product.getProductApplications() != null) {
 				product.getProductApplications().forEach((productApplication) -> {
 					productApplication.setProduct(product);

@@ -63,16 +63,26 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private Double price;
 
-	@NotBlank(message = "Shelf Life should not be blank")
-	@NotNull(message = "Shelf Life should not be null")
-	@Size(min = 4, message = "Shelf Life should be atleast 4 characters")
-	@Column(nullable = false)
+	/*
+	 * @NotBlank(message = "Shelf Life should not be blank")
+	 * 
+	 * @NotNull(message = "Shelf Life should not be null")
+	 * 
+	 * @Size(min = 4, message = "Shelf Life should be atleast 4 characters")
+	 * 
+	 * @Column(nullable = false)
+	 */
 	private String shelfLife;
 	
-	@NotBlank(message = "Storage should not be blank")
-	@NotNull(message = "Storage should not be null")
-	@Size(min = 4, message = "Storage should be atleast 4 characters")
-	@Column(nullable = false)
+	/*
+	 * @NotBlank(message = "Storage should not be blank")
+	 * 
+	 * @NotNull(message = "Storage should not be null")
+	 * 
+	 * @Size(min = 4, message = "Storage should be atleast 4 characters")
+	 * 
+	 * @Column(nullable = false)
+	 */
 	private String storage;
 	
 	@NotNull(message = "Stock count shold not be null")

@@ -149,6 +149,9 @@
 								var="productDescription">
 								<li>${ productDescription.description}</li>
 							</c:forEach>
+							<c:if test="${fn:length(product.productDescriptions)==0}">
+								<p>Not Provided</p>
+							</c:if>
 						</ul>
 					</div>
 					<div role="tabpanel" class="tab-pane fade in active" id="features">
@@ -157,6 +160,9 @@
 								var="productFeature">
 								<li>${ productFeature.feature}</li>
 							</c:forEach>
+							<c:if test="${fn:length(product.productFeatures)==0}">
+								<p>Not Provided</p>
+							</c:if>
 						</ul>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="applications">
@@ -165,6 +171,9 @@
 								var="productApplication">
 								<li>${ productApplication.application}</li>
 							</c:forEach>
+							<c:if test="${fn:length(product.productApplications)==0}">
+								<p>Not Provided</p>
+							</c:if>
 						</ul>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="specifications">
@@ -173,6 +182,9 @@
 								var="productSpecification">
 								<li>${ productSpecification.specification}</li>
 							</c:forEach>
+							<c:if test="${fn:length(product.productSpecifications)==0}">
+								<p>Not Provided</p>
+							</c:if>
 						</ul>
 					</div>
 					
@@ -182,6 +194,9 @@
 								var="productPackage">
 								<li>${ productPackage.packaging}</li>
 							</c:forEach>
+							<c:if test="${fn:length(product.packagings)==0}">
+								<p>Not Provided</p>
+							</c:if>
 						</ul>
 					</div>
 				</div>
