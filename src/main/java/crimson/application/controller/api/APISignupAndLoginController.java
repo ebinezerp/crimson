@@ -29,6 +29,7 @@ import crimson.application.model.LoginUser;
 import crimson.application.model.User;
 import crimson.application.model.UserCategory;
 import crimson.application.model.UserDetails;
+import crimson.application.service.CartService;
 import crimson.application.service.UserCategoryService;
 import crimson.application.service.UserDetailsService;
 import crimson.application.service.UserService;
@@ -63,6 +64,10 @@ public class APISignupAndLoginController {
 	@Autowired
 	@Qualifier("regemail")
 	private Email regEmailService;
+	
+	
+	@Autowired
+	private CartService cartService;
 
 	@Autowired
 	private Validation validation;
@@ -118,6 +123,62 @@ public class APISignupAndLoginController {
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
+	
+	@PostMapping("/update")
+	public ResponseEntity<User> userUpdate(@RequestBody @Valid User user, Errors errors, Model model,
+			HttpServletRequest request) {
+
+		if (errors.hasErrors()) {
+
+			System.out.println("Errors:" + errors);
+
+			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+		}
+
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+		Map<String, String> errorsMessages = validation.userUpdationValidation(user);
+
+		if (errorsMessages.size() > 0) {
+			throw new UserExistenceException(errorsMessages);
+		}
+
+		/*
+		 * List<UserDetails> userDetailsList =
+		 * userDetailsService.get(user.getUserDetails().getUserCategory());
+		 * userDetailsList.add(user.getUserDetails());
+		 * user.getUserDetails().getUserCategory().setUserDetails(userDetailsList);
+		 * 
+		 * System.out.println(user);
+		 */
+		
+		
+		System.out.println(user);
+
+		UserCategory userCategory = user.getUserDetails().getUserCategory();
+
+		user.getUserDetails().setUserCategory(null);
+
+		user.getUserDetails().setUser(user);
+		
+		user.setCart(cartService.getCart(user));
+		
+		UserDetails userDetails = user.getUserDetails();
+
+		if (userService.saveOrUpdate(user) == null) {
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		
+		System.out.println(userCategory);
+		userDetails.setUserCategory(userCategory);
+
+		userDetailsService.save(userDetails);
+
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<User> authenticate(@RequestBody LoginUser loginUser, HttpSession session) {
