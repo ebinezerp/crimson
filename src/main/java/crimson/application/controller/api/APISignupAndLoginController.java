@@ -1,5 +1,6 @@
 package crimson.application.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,6 +27,10 @@ import crimson.application.exception.UserExistenceException;
 import crimson.application.exception.UserNotFoundException;
 import crimson.application.model.LoginUser;
 import crimson.application.model.User;
+import crimson.application.model.UserCategory;
+import crimson.application.model.UserDetails;
+import crimson.application.service.UserCategoryService;
+import crimson.application.service.UserDetailsService;
 import crimson.application.service.UserService;
 import crimson.application.util.Email;
 import crimson.application.util.RandomPasswordGenerator;
@@ -42,6 +46,12 @@ public class APISignupAndLoginController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private UserCategoryService userCategoryService;
 
 	@Autowired
 	@Qualifier("forgetemail")
@@ -62,9 +72,9 @@ public class APISignupAndLoginController {
 			HttpServletRequest request) {
 
 		if (errors.hasErrors()) {
-			
-			System.out.println("Errors:"+ errors);
-			
+
+			System.out.println("Errors:" + errors);
+
 			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -76,9 +86,35 @@ public class APISignupAndLoginController {
 			throw new UserExistenceException(errorsMessages);
 		}
 
+		/*
+		 * List<UserDetails> userDetailsList =
+		 * userDetailsService.get(user.getUserDetails().getUserCategory());
+		 * userDetailsList.add(user.getUserDetails());
+		 * user.getUserDetails().getUserCategory().setUserDetails(userDetailsList);
+		 * 
+		 * System.out.println(user);
+		 */
+		
+		
+		System.out.println(user);
+
+		UserCategory userCategory = user.getUserDetails().getUserCategory();
+
+		user.getUserDetails().setUserCategory(null);
+
+		
+		user.getUserDetails().setUser(user);
+		
 		if (userService.saveOrUpdate(user) == null) {
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
+		UserDetails userDetails = user.getUserDetails();
+
+		System.out.println(userCategory);
+		userDetails.setUserCategory(userCategory);
+
+		userDetailsService.save(userDetails);
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
@@ -153,7 +189,6 @@ public class APISignupAndLoginController {
 
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-
 
 	@PostMapping("/resetpassword")
 	public ResponseEntity<Boolean> resetNewPassword(@RequestParam("email") String email,
