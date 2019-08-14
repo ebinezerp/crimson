@@ -5,7 +5,8 @@
 			class="img-responsive" /></a>
 	</div>
 	<!--menu-->
-	<div class="container-fluid menu" style="display:flex;justify-content: flex-end;">
+	<div class="container-fluid menu"
+		style="display: flex; justify-content: flex-end;">
 		<security:authorize access="!isAnonymous()">
 			<nav class="navbar navbar-default">
 
@@ -52,7 +53,12 @@
 							<li class='menuitem ${cartmenu}'><a
 								href="${contextPath}/user/cart">CART&nbsp&nbsp<span
 									id="cart_count"
-									style="background-color: #ef402b; color: white; padding: 4px;">${cart_count}</span></a></li>
+									style="background-color: #ef402b; color: white; padding: 4px;">
+									<c:if test="${cartCount==null}">0
+									</c:if> <c:if test="${cartCount!=null}">
+									  ${cartCount}
+									</c:if>
+								</span></a></li>
 						</security:authorize>
 
 

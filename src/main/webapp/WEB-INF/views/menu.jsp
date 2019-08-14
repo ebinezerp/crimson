@@ -46,12 +46,12 @@
 					<div class="dropdown">
 						<button class="btn menu-btn dropdown-toggle" type="button"
 							data-toggle="dropdown">
-							${reg_user.username} <span class="caret"></span>
+							${user.username} <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
 							<li><a href="${contextPath}/profile">Profile</a></li>
 							<security:authorize access="hasRole('ROLE_USER')">
-								<li><a href="${contextPath}/orders/${reg_user.userId}">Order
+								<li><a href="${contextPath}/orders/${user.userId}">Order
 										History</a></li>
 							</security:authorize>
 							<li><a href="${contextPath}/logout">Logout</a></li>

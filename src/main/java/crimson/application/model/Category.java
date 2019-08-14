@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.ToString;
-import lombok.ToString.Exclude;
 
 @Entity
 @Data
@@ -33,7 +32,7 @@ public class Category implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String categoryName;
 
-	@OneToMany(mappedBy="category",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="category",fetch=FetchType.LAZY)
 	@JsonIgnore
 	@ToString.Exclude
 	private List<Product> products;

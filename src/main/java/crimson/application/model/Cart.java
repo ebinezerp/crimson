@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
@@ -35,7 +36,7 @@ public class Cart {
 
 	private Integer quantity;
 
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="cart")
+	@OneToMany(mappedBy="cart")
 	private List<CartItem> cartItems;
 
 }

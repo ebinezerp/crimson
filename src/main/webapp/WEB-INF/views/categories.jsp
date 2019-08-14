@@ -21,9 +21,9 @@
 <body>
 
 	<div class="about-page">
-		<div class="border" style="padding: 10px">
-			<%@include file="menu.jsp"%>
-		</div>
+
+		<%@include file="header.jsp"%>
+
 		<%@include file="searchmenu.jsp"%>
 
 		<div class='container-fluid' style='margin-top: 55px;'>
@@ -35,8 +35,9 @@
 						<a href="${contextPath}/catproducts/${category.categoryId}"><img
 							src="${catimages}/${category.categoryId}.jpg" alt=""
 							class="img-responsive" /></a>
-						<div class="team-info" style="border:none;">
-							<a href="${contextPath}/catproducts/${category.categoryId}"><h4 class='text-center'>${category.categoryName}</h4></a>
+						<div class="team-info" style="border: none;">
+							<a href="${contextPath}/catproducts/${category.categoryId}"><h4
+									class='text-center'>${category.categoryName}</h4></a>
 							<!--  <a href="contact.html" class="shop-btn">Enquire Now <i class="flaticon-3-right-arrow"></i></a> -->
 						</div>
 					</div>

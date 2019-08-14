@@ -30,6 +30,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
+	
+	
 	@NotBlank(message = "Username should not be empty.")
 	@NotNull(message = "Username Should not be null")
 	@Column(unique = true, nullable = false)
@@ -67,10 +69,10 @@ public class User {
 	@OneToOne(mappedBy = "user",fetch=FetchType.LAZY)
 	private Cart cart;
 	
-	@OneToOne(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
+	@OneToOne(mappedBy="user", fetch = FetchType.LAZY ,cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
 	private UserDetails userDetails;
 	
-	@OneToOne(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
+	@OneToOne(mappedBy="user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
 	private AdminDetails adminDetails;
 	
 	

@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,28 +29,27 @@ import lombok.ToString.Exclude;
 @Data
 @Entity
 public class UserDetails {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
-	@NotNull(message="Company Name Should Not be null")
-	@NotBlank(message="Company Name should not be blank")
+
+	@NotNull(message = "Company Name Should Not be null")
+	@NotBlank(message = "Company Name should not be blank")
 	@Column(nullable = false, unique = true)
 	private String companyName;
-	
-	
+
 	private String GST;
-	
-	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH , CascadeType.MERGE})
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE })
+	@NotNull
 	private UserCategory userCategory;
-	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH ,CascadeType.MERGE})
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE })
+	@NotNull
 	private Address address;
-	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH ,CascadeType.MERGE})
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE })
 	@ToString.Exclude
 	@JsonIgnore
 	private User user;

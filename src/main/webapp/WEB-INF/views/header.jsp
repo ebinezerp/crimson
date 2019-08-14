@@ -4,6 +4,8 @@
 <!--header-->
 <header class="border">
 	<%@include file="menu.jsp"%>
-	<%@include file="signupmodal.jsp"%>
-	<%@include file="loginmodal.jsp"%>
+	<security:authorize access="!isAuthenticated()">
+		<%@include file="signupmodal.jsp"%>
+		<%@include file="loginmodal.jsp"%>
+	</security:authorize>
 </header>

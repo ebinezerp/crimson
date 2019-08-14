@@ -40,6 +40,14 @@ public class CartService {
 			return null;
 		}
 	}
-	
+
+	public Long cartCount(User user) {
+		try {
+			return cartRepository.cartCount(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0L;
+		}
+	}
 
 }

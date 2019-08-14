@@ -1,7 +1,6 @@
 package crimson.application.controller;
 
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,6 @@ import crimson.application.model.Cart;
 import crimson.application.model.Product;
 import crimson.application.model.User;
 import crimson.application.model.UserDetails;
-import crimson.application.repository.CartRepository;
-import crimson.application.repository.ProductRepository;
-import crimson.application.repository.UserRepository;
 import crimson.application.service.CartService;
 import crimson.application.service.CategoryService;
 import crimson.application.service.ProductService;
@@ -61,39 +57,48 @@ public class HomeController {
 	public String indexPage(Model model, @RequestParam(name = "login", required = false) String login,
 			HttpServletRequest request, Principal principal, HttpSession session) {
 
-		model.addAttribute("user", new User());
-
-		model.addAttribute("categories", categoryService.getCategories());
-
-		System.out.println(principal);
 		if (principal != null) {
-			System.out.println(principal);
-			User user = null;
-			user = userService.getUserByEmail(principal.getName());
-			if (user != null) {
-				session.setAttribute("reg_user", user);
-				if (user.getRole().equalsIgnoreCase("ROLE_OWNER")) {
-					return "redirect:/owner";
-				} else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
-					return "redirect:/products";
-				}
-				Cart cart = cartService.getCart(user);
-				if (cart == null) {
-					session.setAttribute("cart_count", 0);
-				} else {
-					session.setAttribute("cart_count", cart.getQuantity());
-				}
-
-				if (user.getUserDetails() == null) {
-					return "redirect:/profile/" + user.getUserId() + "?redirect=true";
-				}
-
-				return "redirect:/categories";
-			} else {
-				System.out.println("logout");
-				return "redirect:/logout";
+			model.addAttribute("categories", categoryService.getCategories());
+			User user = userService.getUserByEmail(principal.getName());
+			session.setAttribute("user", user);
+			if (user.getRole().equals("ROLE_OWNER")) {
+				return "redirect:/owner";
 			}
+
+			if (user.getRole().equals("ROLE_ADMIN")) {
+				return "redirect:/products";
+			}
+
+			Long cartCount = cartService.cartCount(user);
+			session.setAttribute("cartCount", cartCount);
+
+			if (user.getUserDetails() == null) {
+				return "redirect:/profile/" + user.getUserId() + "?redirect=true";
+			}
+
+		} else {
+			model.addAttribute("user", new User());
 		}
+
+		/*
+		 * model.addAttribute("categories", categoryService.getCategories());
+		 * 
+		 * System.out.println(principal); if (principal != null) {
+		 * System.out.println(principal); User user = null; user =
+		 * userService.getUserByEmail(principal.getName()); if (user != null) {
+		 * session.setAttribute("reg_user", user); if
+		 * (user.getRole().equalsIgnoreCase("ROLE_OWNER")) { return "redirect:/owner"; }
+		 * else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) { return
+		 * "redirect:/products"; } Cart cart = cartService.getCart(user); if (cart ==
+		 * null) { session.setAttribute("cart_count", 0); } else {
+		 * session.setAttribute("cart_count", cart.getQuantity()); }
+		 * 
+		 * if (user.getUserDetails() == null) { return "redirect:/profile/" +
+		 * user.getUserId() + "?redirect=true"; }
+		 * 
+		 * return "redirect:/categories"; } else { System.out.println("logout"); return
+		 * "redirect:/logout"; } }
+		 */
 
 		return "index";
 	}
@@ -102,7 +107,6 @@ public class HomeController {
 	public String getCategories(Model model) {
 		model.addAttribute("categories", categoryService.getCategories());
 		model.addAttribute("categorymenu", "active");
-		model.addAttribute("user", new User());
 		return "categories";
 	}
 
@@ -112,7 +116,6 @@ public class HomeController {
 			@RequestParam(name = "cartExists", required = false) String cartStatus, Model model, Principal principal,
 			HttpSession session) {
 
-		model.addAttribute("user", new User());
 		model.addAttribute("products", productService.getActiveProducts());
 		model.addAttribute("productsmenu", "active");
 		model.addAttribute("cartStatus", cartStatus);
@@ -141,7 +144,6 @@ public class HomeController {
 			@RequestParam(name = "cartExists", required = false) String cartStatus, @PathVariable("id") Long categoryId,
 			Model model, Principal principal, HttpSession session) {
 
-		model.addAttribute("user", new User());
 		model.addAttribute("products", productService.getProducts(categoryService.getCategory(categoryId)));
 		model.addAttribute("productsmenu", "active");
 		model.addAttribute("cartStatus", cartStatus);
@@ -166,7 +168,6 @@ public class HomeController {
 
 	@GetMapping("/prod_details/{id}")
 	public String productDetails(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("user", new User());
 		model.addAttribute("productsmenu", "active");
 		Product product = productService.getProduct(id);
 		if (product == null) {
@@ -180,14 +181,12 @@ public class HomeController {
 
 	@GetMapping("/aboutus")
 	public String aboutUs(Model model) {
-		model.addAttribute("user", new User());
 		model.addAttribute("aboutusmenu", "active");
 		return "index";
 	}
 
 	@GetMapping("/profile")
 	public String profile(Model model, HttpSession session) {
-		model.addAttribute("user", session.getAttribute("reg_user"));
 		model.addAttribute("userCategories", userCategoryService.getUserCategories());
 		return "profile";
 	}
